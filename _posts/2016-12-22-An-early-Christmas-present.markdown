@@ -4,8 +4,6 @@ date:   2016-12-22
 categories: nsx powernsx macOS linux
 ---
 
-# An Early Christmas Present
-
 I'm breaking a long standing tradition of not blogging, because for once I feel like I truly have something interesting to talk about! :)
 
 Earlier in the year my friend and fellow minion, Anthony Burke, pulled me into a meeting with Alan Renouf and William Lam to discuss what was at the time a hush hush project by Microsoft, to bring PowerShell to *nix systems, and (as if that wasn't enough!), that the PowerCLI team were busy making hay and were planning to bring PowerCLI support out in conjunction with the PowerShell Core release - just in time for US VMworld 2016.
