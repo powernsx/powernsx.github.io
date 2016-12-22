@@ -1,6 +1,7 @@
 ---
 permalink: /connect/
 ---
+
 # Connecting to NSX Manager and vCenter
 
 ## Connect-NsxServer
