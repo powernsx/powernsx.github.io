@@ -1,37 +1,98 @@
-## Welcome to GitHub Pages
+---
+layout: default
+---
 
-You can use the [editor on GitHub](https://github.com/powernsx/powernsx.github.io/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
+### PowerNSX
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+*A Powershell module for NSX for vSphere*
 
-### Markdown
+[PowerNSX](https://github.com/vmware/powernsx) is a PowerShell module that abstracts the VMware NSX API to a set of easily used PowerShell functions.
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+This module is not supported by VMware, and comes with no warranties express or implied. Please test and validate its functionality before using this product in a production environment.
 
-```markdown
-Syntax highlighted code block
+It aims to focus on exposing New, Update, Remove and Get operations for all key NSX functions as well as adding additional functionality to extend the capabilities of NSX management beyond the native UI or API.
 
-# Header 1
-## Header 2
-### Header 3
+[PowerNSX](https://github.com/vmware/powernsx) works closely with VMware PowerCLI, and PowerCLI users will feel quickly at home using PowerNSX.  Together these tools provide a comprehensive command line environment for managing your VMware NSX for vSphere environments.
 
-- Bulleted
-- List
+[PowerNSX](https://github.com/vmware/powernsx) is still a work in progress, and it is unlikely that it will ever expose 100% of the NSX API.  Feature requests are welcome via the [issues](https://github.com/vmware/powernsx/issues) tracker on the projects GitHub page.
 
-1. Numbered
-2. List
+[PowerNSX](https://github.com/vmware/powernsx) now has experimental PowerShell Core support available in the master (development) branch.
+Note that not all PowerNSX functions have been tested, and there are known issues (Remember, PowerShell Core and PowerCLI Core are both pre-release products as well.).  See [PowerNSX Core](/powernsxcore/) for details.
 
-**Bold** and _Italic_ and `Code` text
+# How to use PowerNSX
 
-[Link](url) and ![Image](src)
+Below are links on how to use and operate PowerNSX. This commands are posted so operators can become familiar with PowerNSX.
+
+* [Installing PowerNSX](/install/)
+* [Connecting to NSX and vCenter](connect/)
+* [Logical Switching](/ls/)
+* [Logical Routing](/dlr/)
+* [Distributed Firewall](/dfw/)
+* [Security Groups, Tags, and Services](/secops/)
+* [NSX Edge](/esg/)
+* [NSX LB](/lb/)
+* [NSX Manager and Controller operations](/manager/)
+* [Routing - Static and Dynamic](/routing/)
+* [Getting help](/help/)
+* [Tools made with PowerNSX](/tools/)
+* [Contributing to PowerNSX](/contrib/)
+* [PowerNSX on PowerShell Core](/powernsxcore/)
+
+See [Example - 3 Tier Application](/example/) for a full stack deployment
+
+# Installing PowerNSX
+
+The quickest way of installing PowerNSX is as simple as running code snippet below in a PowerCLI Window. This will execute the PowerNSX installation script which will guide you through the installation of the latest stable release of PowerNSX.
+
+```
+$Branch="v2";$url="https://raw.githubusercontent.com/vmware/powernsx/$Branch/PowerNSXInstaller.ps1"; try { $wc = new-object Net.WebClient;$scr = try { $wc.DownloadString($url)} catch { if ( $_.exception.innerexception -match "(407)") { $wc.proxy.credentials = Get-Credential -Message "Proxy Authentication Required"; $wc.DownloadString($url) } else { throw $_ }}; $scr | iex } catch { throw $_ }
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+[PowerNSX](https://github.com/vmware/powernsx) now has experimental PowerShell Core support available in the master (development) branch.
+Note that not all PowerNSX functions have been tested, and there are known issues (Remember, PowerShell Core and PowerCLI Core are both pre-release products as well.).  See the [PowerNSX Core](/powernsxcore/) section for details.
 
-### Jekyll Themes
+More install options for PowerNSX can be found here under [Installing PowerNSX](/install/)
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/powernsx/powernsx.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+# Is PowerNSX supported?
 
-### Support or Contact
+This module is opensource, and as such is _not supported_ by VMware, and comes with no warranties express or implied. Please test and validate its functionality before using in a production environment.
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+Whist every endeavour is made to test functionality it is recommended that tools and scripts created with PowerNSX be validated and tested before using in production.
+
+# Contribution guidelines #
+
+Contribution and feature requests are more than welcome. Please use the following methods:
+
+  * For bugs and [issues](https://github.com/vmware/powernsx/issues), please use the [issues](https://github.com/vmware/powernsx/issues) register with details of the problem.
+  * For Feature Requests, please use the [issues](https://github.com/vmware/powernsx/issues) register with details of what's required.
+  * For code contribution (bug fixes, or feature request), please request fork PowerNSX, create a feature branch, then submit a pull request.
+
+For more details see [Contributing to PowerNSX](/contrib/)
+
+# Who do I talk to? #
+
+PowerNSX is a community based projected headed by some VMware staff. If you want to contribute please have a look at the [issues](https://github.com/vmware/powernsx/issues) page to see what is planned, requires triage, and to get started.
+
+PowerNSX is an OpenSource project, and as such is not supported by VMware.  Please feel free reach out to the team via the [Issues](https://github.com/vmware/powernsx/issues) page.
+
+{% include icon-github.html username="nmbradford" %} is the founder of PowerNSX.
+
+# License #
+
+PowerNSX is licensed under GPL v2
+
+Copyright © 2015 VMware, Inc. All Rights Reserved.
+
+This program is free software: you can redistribute it and/or modify it under
+the terms of the GNU General Public License version 2, as published by the Free Software Foundation.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTIBILITY or FITNESS
+FOR A PARTICULAR PURPOSE. See the GNU General Public License version 2 for more details.
+
+You should have received a copy of the General Public License version 2 along with this program.
+If not, see https://www.gnu.org/licenses/gpl-2.0.html.
+
+The full text of the General Public License 2.0 is provided in the COPYING file.
+Some files may be comprised of various open source software components, each of which
+has its own license that is located in the source code of the respective component.”
