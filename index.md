@@ -1,6 +1,8 @@
-# PowerNSX
+# [PowerNSX](https://github.com/vmware/powernsx)
 
 *A Powershell module for NSX for vSphere*
+
+**[Get the latest news from the team at the PowerNSX blog](https://powernsx.github.io/blog/)**
 
 [PowerNSX](https://github.com/vmware/powernsx) is a PowerShell module that abstracts the VMware NSX API to a set of easily used PowerShell functions.
 
