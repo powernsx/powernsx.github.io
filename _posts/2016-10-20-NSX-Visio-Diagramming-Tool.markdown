@@ -1,8 +1,8 @@
 ---
 title:  "NSX Visio Diagramming Tool"
 date:   2016-10-20
-categories: nsx powernsx visio operations
 ---
+
 At VMworld US and Europe this year, Nick Bradford and I presented on PowerNSX. PowerNSX provides a PowerShell module featuring a substantial number of cmdlets that cover the NSX API. Working in concert with PowerCLI it becomes possible to interact via a command line or programmatically with the NSX for vSphere API.
 
 One section Nick provided a bit of an ad-lib to the session with regards to PowerNSX. He showed off the Visio Diagramming tool. When asked if this was something “needed” - all hands were up and people were out of their seats. Claps and Cheers went up! Well - now here it is - ready for anyone to use.

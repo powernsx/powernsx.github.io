@@ -1,8 +1,8 @@
 ---
 title:  "Copy NSX Edge"
 date:   2016-11-03
-categories: nsx powernsx edge operations
 ---
+
 There are a lot of times where people have asked it would be great to have an ability to clone an edge. Take all the configuration and duplicate it easily. Well now you can. The Copy-NsxEdge function takes an already deployed Edge and allow it to be reproduced.  When thinking about the command on the surface it does seem quite simple. Take an edge, pass it along the pipeline, and copy it. In reality there is a lot to consider, especially when you want to avoid conflicts.
 
 This large cmdlet checks in at over 1000 lines of code. Don't let that put you off though. The cmdlet can be easily used with ```get-nsxedge edge01 | copy-nsxedge```. So what does it support out of the box? Let us have a look-see.

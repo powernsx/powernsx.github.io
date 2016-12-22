@@ -1,8 +1,8 @@
 ---
 title:  "Searching DFW rules for logging status"
 date:   2016-09-08
-categories: nsx powernsx syslog operations
 ---
+
 A colleague reached out to the PowerNSX team recently. The request was on behalf of a customer who had inconsistent logging status for their DFW rules. This can be done with PowerNSX.
 
 The first example will retrieve all sections, retrieve all DFW rules within the sections and search the property logged. If it is not equal to true it will return the matches.

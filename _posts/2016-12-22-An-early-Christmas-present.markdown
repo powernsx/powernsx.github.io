@@ -1,7 +1,6 @@
 ---
 title:  "An early Christmas present"
 date:   2016-12-22
-categories: nsx powernsx macOS linux
 ---
 
 I'm breaking a long standing tradition of not blogging, because for once I feel like I truly have something interesting to talk about! :)

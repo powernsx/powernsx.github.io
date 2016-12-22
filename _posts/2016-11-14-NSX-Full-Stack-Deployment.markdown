@@ -1,8 +1,8 @@
 ---
 title:  "NSX Full Stack Deployment"
 date:   2016-11-14
-categories: nsx powernsx deployment operations
 ---
+
 In our line of work we are often deploying NSX environments in the lab. One of our labs allows us to deploy a multi-cluster vSphere environment and configure it with storage, clusters, vCenter elements, and DVS with PowerCLI very quickly. This allows our team to quickly deploy a topology and validate a customer environment, squash a bug, or configure a new integration.
 
 ## Automate all the things
