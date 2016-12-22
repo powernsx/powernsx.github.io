@@ -1,5 +1,4 @@
 ---
-layout: page
 permalink: /connect/
 ---
 # Connecting to NSX Manager and vCenter
