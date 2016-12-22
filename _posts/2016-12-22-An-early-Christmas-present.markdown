@@ -14,7 +14,7 @@ At the time, I was flat out trying to get everything together for the 2.0 releas
 
 I did take a quick look at PoSH Core at the time, and liked what I saw, but the lack of support for dealing easily with unsigned certificates brought me unstuck very early on in attempts to get PowerNSX going on Core and I waited patiently (more than some ;) ) for things to improve a little and for enough free time to present itself to work on porting PowerNSX.
 
-So VMworld happened, with Anthony and myself presenting a very successful session on PowerNSX and PyNSXv at Vegas, and then a month's leave, Barcelona, vForum, another trip to HQ... but finally,I found a few weeks of reasonably consecutive time in December to get down to brass tacks...
+So VMworld happened, with Anthony and myself presenting a very successful session on PowerNSX and PyNSXv at Vegas, and then a month's leave, Barcelona, vForum, another trip to HQ... but finally, I found a few weeks of reasonably consecutive time in December to get down to brass tacks...
 
 # PowerNSX support for PowerShell Core
 
