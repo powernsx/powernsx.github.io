@@ -1,1 +1,5 @@
+title: PowerNSX
+description: PowerNSX provides a series of PowerShell cmdlets to administer and automate NSX for vSphere.
 theme: jekyll-theme-cayman
+twitter_username: powernsxv
+github_username:  vmware/powernsx
