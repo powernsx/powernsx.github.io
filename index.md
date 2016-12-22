@@ -1,8 +1,4 @@
----
-layout: default
----
-
-### PowerNSX
+# PowerNSX
 
 *A Powershell module for NSX for vSphere*
 
