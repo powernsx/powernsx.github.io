@@ -49,12 +49,6 @@ Note that not all PowerNSX functions have been tested, and there are known issue
 
 More install options for PowerNSX can be found here under [Installing PowerNSX](/install/)
 
-# Is PowerNSX supported?
-
-This module is opensource, and as such is _not supported_ by VMware, and comes with no warranties express or implied. Please test and validate its functionality before using in a production environment.
-
-Whist every endeavour is made to test functionality it is recommended that tools and scripts created with PowerNSX be validated and tested before using in production.
-
 # Contribution guidelines #
 
 Contribution and feature requests are more than welcome. Please use the following methods:
@@ -71,6 +65,17 @@ PowerNSX is a community based projected headed by some VMware staff. If you want
 
 PowerNSX is an OpenSource project, and as such is not supported by VMware.  Please feel free reach out to the team via the [Issues](https://github.com/vmware/powernsx/issues) page.
 
+Find out more information about the author and the team [here](/about/)
+
+# Blog Entries
+
+Want to know what is new with PowerNSX? Check out the blog entries [here](/blog/). They are in chronological order showing off new things done with PowerNSX. Also, check out a friend of PowerNSX, Anthony Burke's blog [here](http://networkinferno.net/tag/powernsx)
+
+# Is PowerNSX supported?
+
+This module is opensource, and as such is _not supported_ by VMware, and comes with no warranties express or implied. Please test and validate its functionality before using in a production environment.
+
+Whist every endeavour is made to test functionality it is recommended that tools and scripts created with PowerNSX be validated and tested before using in production.
 
 # License #
 

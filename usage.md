@@ -1,5 +1,4 @@
---
-layout: page
+---
 permalink: /usage/
 ---
 # Using PowerNSX

@@ -1,5 +1,4 @@
 ---
-layout: page
 permalink: /secops/
 ---
 ## Security Groups, Security Tags, and Services

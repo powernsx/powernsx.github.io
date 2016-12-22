@@ -1,5 +1,4 @@
---
-layout: page
+---
 permalink: /ops/
 ---
 ## NSX Manager and Controller operations
