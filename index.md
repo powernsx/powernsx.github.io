@@ -71,7 +71,6 @@ PowerNSX is a community based projected headed by some VMware staff. If you want
 
 PowerNSX is an OpenSource project, and as such is not supported by VMware.  Please feel free reach out to the team via the [Issues](https://github.com/vmware/powernsx/issues) page.
 
-{% include icon-github.html username="nmbradford" %} is the founder of PowerNSX.
 
 # License #
 
