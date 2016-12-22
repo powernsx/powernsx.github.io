@@ -1,5 +1,4 @@
 ---
-layout: post
 title:  "Searching DFW rules for logging status"
 date:   2016-09-08
 categories: nsx powernsx syslog operations

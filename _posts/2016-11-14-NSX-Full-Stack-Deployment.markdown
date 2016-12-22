@@ -1,5 +1,4 @@
 ---
-layout: post
 title:  "NSX Full Stack Deployment"
 date:   2016-11-14
 categories: nsx powernsx deployment operations

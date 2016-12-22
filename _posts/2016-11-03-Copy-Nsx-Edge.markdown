@@ -1,5 +1,4 @@
 ---
-layout: post
 title:  "Copy NSX Edge"
 date:   2016-11-03
 categories: nsx powernsx edge operations

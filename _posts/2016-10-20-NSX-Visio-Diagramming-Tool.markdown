@@ -1,5 +1,4 @@
 ---
-layout: post
 title:  "NSX Visio Diagramming Tool"
 date:   2016-10-20
 categories: nsx powernsx visio operations
