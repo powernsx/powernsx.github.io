@@ -1,5 +1,5 @@
 ---
-title: Blog
+permalink: /blog/
 ---
 
 <ul>
