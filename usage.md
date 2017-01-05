@@ -13,7 +13,7 @@ If PowerCLI is not installed, the PowerNSX module will not load.
 For usage details of common functional areas, refer to the following pages.  For TLDR, see below.
 
 * [Installing PowerNSX](/install/)
-* [Connecting to NSX and vCenter](connect/)
+* [Connecting to NSX and vCenter](/connect/)
 * [Logical Switching](/ls/)
 * [Logical Routing](/dlr/)
 * [Distributed Firewall](/dfw/)
