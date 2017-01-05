@@ -173,14 +173,39 @@ datastoreInfo           : datastoreInfo
 controllerClusterStatus : controllerClusterStatus
 ```
 
+## Host Prep
 
-## Host preparation
+To perform host preparation of the hosts in a vSphere cluster, use the `Install-NsxCluster` cmdlet.  This cmdlet will install the vibs on the clusters hosts only.
 
-To Do. Coming soon!
+```
+GetCluster NewNSXCluster | Install-NsxCluster
+```
+## VXLAN Configuration
 
-## VNI scope
+Configuring the hosts for VXLAN is a two step process.  Firstly, the VDS that will host the VTEPs and backing portgroups for NSX must be prepared for use with NSX.
 
-To Do. Coming soon!
+Use the `GetVdSwitch` cmdlet to configure the VDS as follows.
+
+```
+$vds = Get-VdSwitch dSwitch0
+New-NsxVdsContext -VirtualDistributedSwitch $vds -Teaming LOADBALANCE_SRCID -Mtu 1600
+```
+
+And then configure the required cluster.  The following will configure the vSphere cluster Cluster01 to use $vds as the VDS for VTEP/Logical switch backing, with the 2 VTEPs per host being configured on VLAN 10
+
+```
+Get-Cluster Cluster01 | New-NsxClusterVxlanConfig -VirtualDistributedSwitch $vds -ipPool $ipPool -VlanId 10 -VtepCount 2
+```
+
+## Transport Zone Creation
+
+Finally, creating a Transport Zone is as easy as
+```
+$cluster1 = Get-Cluster Cluster01
+$cluster2 = Get-Cluster Cluster02
+
+New-NsxTransportZone -Name "TZ1" -Cluster $cluster1, $cluster2 -ControlPlaneMode UNICAST_MODE
+```
 
 ## Need help?
 
