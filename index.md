@@ -17,28 +17,7 @@ It aims to focus on exposing New, Update, Remove and Get operations for all key 
 [PowerNSX](https://github.com/vmware/powernsx) now has experimental PowerShell Core support available in the master (development) branch.
 Note that not all PowerNSX functions have been tested, and there are known issues (Remember, PowerShell Core and PowerCLI Core are both pre-release products as well.).  See [PowerNSX Core](/powernsxcore/) for details.
 
-# How to use PowerNSX
-
-Below are links on how to use and operate PowerNSX. This commands are posted so operators can become familiar with PowerNSX.
-
-* [Installing PowerNSX](/install/)
-* [Connecting to NSX and vCenter](connect/)
-* [Logical Switching](/ls/)
-* [Logical Routing](/dlr/)
-* [Distributed Firewall](/dfw/)
-* [Security Groups, Tags, and Services](/secops/)
-* [NSX Edge](/esg/)
-* [NSX LB](/lb/)
-* [NSX Manager and Controller operations](/manager/)
-* [Routing - Static and Dynamic](/routing/)
-* [Getting help](/help/)
-* [Tools made with PowerNSX](/tools/)
-* [Contributing to PowerNSX](/contrib/)
-* [PowerNSX on PowerShell Core](/powernsxcore/)
-
-See [Example - 3 Tier Application](/example/) for a full stack deployment
-
-# Installing PowerNSX
+## Installing PowerNSX
 
 The quickest way of installing PowerNSX is as simple as running code snippet below in a PowerCLI Window. This will execute the PowerNSX installation script which will guide you through the installation of the latest stable release of PowerNSX.
 
@@ -51,7 +30,11 @@ Note that not all PowerNSX functions have been tested, and there are known issue
 
 More install options for PowerNSX can be found here under [Installing PowerNSX](/install/)
 
-# Contribution guidelines #
+## Using PowerNSX
+
+For TLDR, basic and detailed PowerNSX usage, see the [Usage](/usage/) page.
+
+## Contribution guidelines #
 
 Contribution and feature requests are more than welcome. Please use the following methods:
 
@@ -61,7 +44,7 @@ Contribution and feature requests are more than welcome. Please use the followin
 
 For more details see [Contributing to PowerNSX](/contrib/)
 
-# Who do I talk to? #
+## Who do I talk to?
 
 PowerNSX is a community based projected headed by some VMware staff. If you want to contribute please have a look at the [issues](https://github.com/vmware/powernsx/issues) page to see what is planned, requires triage, and to get started.
 
@@ -69,17 +52,17 @@ PowerNSX is an OpenSource project, and as such is not supported by VMware.  Plea
 
 Find out more information about the author and the team [here](/about/)
 
-# Blog Entries
+## Blog
 
-Want to know what is new with PowerNSX? Check out the blog entries [here](/blog/). They are in chronological order showing off new things done with PowerNSX. Also, check out a friend of PowerNSX, Anthony Burke's blog [here](http://networkinferno.net/tag/powernsx)
+Want to know what is new with PowerNSX? The team occasionally blogs [here](https://powernsx.github.io/blog/). Also, team member Anthony Burkes blog, where he posts a lot of useful usage information cant be found [here](http://networkinferno.net/tag/powernsx).
 
-# Is PowerNSX supported?
+## Is PowerNSX supported?
 
 This module is opensource, and as such is _not supported_ by VMware, and comes with no warranties express or implied. Please test and validate its functionality before using in a production environment.
 
 Whist every endeavour is made to test functionality it is recommended that tools and scripts created with PowerNSX be validated and tested before using in production.
 
-# License #
+## License
 
 PowerNSX is licensed under GPL v2
 
