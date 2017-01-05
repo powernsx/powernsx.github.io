@@ -53,9 +53,9 @@ REMARKS
 
 ```
 
-Powershell provides a pretty awesome help menu. All commands include an explanation about the object being operated on, what the command does, and the syntax required to run it.
+Powershell provides a pretty awesome help system. All commands include an explanation about the object being operated on, what the command does, and the syntax required to run it.
 
-In the remarks there are three toggles. Examples, Detailed, and Full.
+In addition, you can add one of several switches to Get-Help to output moredetailed information.  Examples, Detailed, and Full.
 
 Lets use the -examples on our command:
 
@@ -81,7 +81,7 @@ SYNOPSIS
 
 ```
 
-Here we can see our examples. These examples outline how the command can be used. Each command has one or more examples to show a number of ways to use the command including the optional parameters.
+Here we can see our examples. These examples outline how the command can be used. Most PowerNSX commands have one or more worked examples to show you how to use the command including the optional parameters.
 
 
 Lets use the -detailed toggle on our command:
@@ -151,7 +151,7 @@ REMARKS
 
 ```
 
-In this output we see the parameters are detailed into what input they take included any supplementary information the author of the cmdlet has included.
+In this output we see the parameters are detailed into what input they take including any supplementary information the author of the cmdlet has included.
 
 
 Below is the full output. The full output provides the most detail.

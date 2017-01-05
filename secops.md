@@ -1,7 +1,7 @@
 ---
 permalink: /secops/
 ---
-## Security Groups, Security Tags, and Services
+# Security Groups, Security Tags, and Services
 
 Security Groups and Security Tags provide a powerful asset to the Distributed Firewall.
 
@@ -10,8 +10,6 @@ Security Groups and Security Tags provide a powerful asset to the Distributed Fi
 It is easy and quick to create a Security Tag.
 
 ```
-!#Powershell
-
 PowerCLI C:\> New-NsxSecurityTag PowerNSX-Tag
 
 
@@ -34,8 +32,6 @@ How about listing all created Security Groups, selecting the desired properties 
 
 
 ```
-!#Powershell
-
 PowerCLI C:\> Get-NsxSecurityGroup | select name, objectid | ft -auto
 
 name                        objectId
@@ -72,17 +68,15 @@ SG-Consumer-ActiveDirectory securitygroup-497
 
 ```
 
-A nice simple output of the current Security Groups created and the object IDs. Anything property in the Get-NsxSecurityGroup | Get-member can be used with select.
+A nice simple output of the current Security Groups created and the object IDs. Any property of a security group can be filtered on. (Use `Get-NsxSecurityGroup | Get-member` to determine available properties.)
 
-### Creating a new Security Group
+## Creating a new Security Group
 
-Creating a new Security Group is simple with PowerNSX. Either blank groups or groups with included or excluded members can be done. The object passed to -IncludeMember or -ExcludeMember can be the vCenter objects references in the UI.
+Creating a new Security Group is simple with PowerNSX. Either empty groups or groups with included or excluded members can be done. The object passed to -IncludeMember or -ExcludeMember can be the vCenter objects references in the UI.
 
-Lets use the tag we just created.
+Lets use an NSX security tag as the include criteria.
 
 ```
-!#Powershell
-
 PowerCLI C:\> $Tag = Get-NsxSecurityTag PowerNSX-Tag
 
 PowerCLI C:\> New-NsxSecurityGroup PowerNSX-SG -Description 'SG for PowerNSX-Tag VMs' -IncludeMember $tag
@@ -109,8 +103,6 @@ member             : member
 Now to apply the Security Tag to a given VM. The first is to find the Virtual Machine Web-02.
 
 ```
-!#Powershell
-
 PowerCLI C:\> Get-VM | ? {$_.name -eq ("Web-01")} | New-NsxSecurityTagAssignment -ApplyTag $tag
 PowerCLI C:\> Get-VM | ? {$_.name -eq ("Web-01")} | Get-NsxSecurityTagAssignment
 
@@ -120,27 +112,11 @@ securityTag                                                          web-01
 
 ```
 
-### Service and Service Groups
+## Services
 
-Whilst NSX includes lots of services out of the box due to naming or security reasons an administrator may not want to use the existing services.
-
-A quick purge of all services can be done to start fresh.
+Creating a service requires very basic information.
 
 ```
-!#Powershell
-
-Get-NsxService | Remove-NsxService -force -confirm:$false
-
-```
-**Achtung!**
-
-The above command will remove all services and those included in the default permit rule. Be mindful!
-
-Starting fresh an administrator can create the desired services. Creating a service requires very basic information.
-
-```
-!#powershell
-
 PowerCLI C:\> New-NsxService -name 'tcp-666' -protocol tcp -port 666
 
 
@@ -161,50 +137,11 @@ inheritanceAllowed : false
 element            : element
 ```
 
-Lets look at all the services that are created. The below command will search all custom created Services using the RegEx matches "tcp-". The select field will output just the name property.
-
-```
-!#Powershell
-
-PowerCLI C:\> get-nsxservice | ? {$_.name -match ("tcp-")} | select name | ft
-
-name
-----
-tcp-666
-tcp-22
-tcp-3389
-tcp-636
-tcp-1433
-tcp-80
-tcp-443
-tcp-389
-tcp-88
-tcp-3268
-tcp-3269
-tcp-25
-tcp-465
-tcp-53
-tcp-514
-tcp-1514
-tcp-7000
-tcp-9042
-tcp-9160
-tcp-59778
-tcp-16520-16580
-tcp-9000
-tcp-9543
-
-```
-
-Quick ways to pool the environment are welcomed.
-
-### Service Groups
+## Service Groups
 
 Service Groups are a container that holds other Services or Service Groups
 
 ```
-!#powershell
-
 PowerCLI C:\> New-NsxServiceGroup SVG-PowerNSX
 
 
@@ -225,23 +162,20 @@ inheritanceAllowed : false
 
 ```
 
-Now that the Service Group has been made it is time to add some members to it. This example uses two services - tcp-80 and tcp-443.
+Now that the Service Group has been made it is time to add some members to it. This example uses two services - tcp-80 and tcp-443 that have already been created.
 
 ```
-!#Powershell
-
 $web = get-nsxservice tcp-80
 $webs = get-nsxservice tcp-443
-Get-NsxServiceGroup SVG-PowerNSX | Add-NsxServiceGroupMember $web,$WebSg
+Get-NsxServiceGroup SVG-PowerNSX | Add-NsxServiceGroupMember $web, $WebSg
 
 ```
 
-But what about Services included inside a Service Group? We have you covered. The first step is to poll the Service Group SVG-Web-Management and then Get-NsxServiceGroupMembers.
+## Getting Service Group Members
+
+What about retreiving services included in a specific Service Group?  The PoSH pipeline has you covered. Just get the Service Group with `Get-NsxServiceGroup` and pipe it to `Get-NsxServiceGroupMembers`.
 
 ```
-!#Powershell
-
-
   PS C:\> Get-NsxServiceGroup SVG-PowerNSX | Get-NsxServiceGroupMembers
 
 
