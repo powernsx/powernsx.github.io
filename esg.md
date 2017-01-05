@@ -131,6 +131,7 @@ enableProxyArp      : false
 enableSendRedirects : true
 edgeId              : edge-21
 ```
+
 ## Routing with Edge
 
 For routing configuration of the Edge, see the [Routing](/routing/) section.
