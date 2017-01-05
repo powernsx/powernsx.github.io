@@ -150,6 +150,7 @@ macLearningEnabled    : false
 ### Discovering the Backing PortGroup of a given Logical Switch
 
 Each Logical Switch is backed by a port-group on one or more Distributed Switches, and the port group is the entity that a VM is actually attached to.  To retrieve the port group(s) backing a Logical Switch, you can use the Get-NsxBackingPortGroup cmdlet.
+
 ```
 PowerCLI C:\> Get-NsxTransportZone TZ1 | get-nsxlogicalswitch PowerNSX | Get-NsxBackingPortGroup
 
