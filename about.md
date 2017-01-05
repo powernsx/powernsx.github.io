@@ -2,7 +2,6 @@
 permalink: /about/
 ---
 
-Nick Bradford is the primary author and lead developer of PowerNSX.
+# About PowerNSX
 
-
-
+[Nick Bradford](https://github.com/nmbradford) is the primary author and lead developer of PowerNSX.
