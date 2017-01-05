@@ -180,6 +180,7 @@ To perform host preparation of the hosts in a vSphere cluster, use the `Install-
 ```
 GetCluster NewNSXCluster | Install-NsxCluster
 ```
+
 ## VXLAN Configuration
 
 Configuring the hosts for VXLAN is a two step process.  Firstly, the VDS that will host the VTEPs and backing portgroups for NSX must be prepared for use with NSX.
