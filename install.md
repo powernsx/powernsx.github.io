@@ -2,39 +2,26 @@
 permalink: /install/
 ---
 
-## Installing PowerNSX
+# Installing PowerNSX
 
-### Requirements
+Installing PowerNSX is as simple as running a oneliner in a PowerShell Window.  This will execute the PowerNSX installation script which will guide you through the installation of the latest stable release of PowerNSX.
 
-PowerNSX requires PowerShell v3 or above, and PowerCLI (Recommend v6 and above).
+PowerNSX is supported on multiple PowerShell platforms, select your the appropriate link from the table below for instructions.
 
-There are two approaches to installing PowerNSX. The first and preferred is the automated install. The other is the manual install.
+_Note: PowerShell Core support is still experimental._
 
-### Automated Install
+| Platform          | Minimum PowerShell Version                    | Operating Systems                             |
+|-------------------|-----------------------------------------------|:---------------------------------------------:|
+| PowerShell Full   | PowerShell 3                                  | [Windows](/windowsinstall/)                      |
+| PowerShell Core   | PowerShell 6.0 alpha 14                       | [Linux](/linuxinstall/), [OSX](/osxinstall/), [Docker](/docker/)              |
 
-Installing PowerNSX is as simple as running the below onliner in a PowerCLI Window. This will execute the PowerNSX installation script which will guide you through the installation of the latest stable release of PowerNSX.
+# Updating PowerNSX
 
-```
-$Branch="v2";$url="https://raw.githubusercontent.com/vmware/powernsx/$Branch/PowerNSXInstaller.ps1"; try { $wc = new-object Net.WebClient;$scr = try { $wc.DownloadString($url)} catch { if ( $_.exception.innerexception -match "(407)") { $wc.proxy.credentials = Get-Credential -Message "Proxy Authentication Required"; $wc.DownloadString($url) } else { throw $_ }}; $scr | iex } catch { throw $_ }
-```
-
-The development version of PowerNSX can be installed using the `Update-PowerNsx` cmdlet of v2 or via the following oneliner. NOTE: Live development occurs against this branch and should not be relied upon to be fully functional at all times. You have been warned!
-
-```
-Update-PowerNsx master
-```
-
-or
+If PowerNSX v2 is already installed, it can be updated to the master branch using the Update-PowerNSX cmdlet on either PowerShell Full, or PowerShell Core.
 
 ```
-$Branch="master";$url="https://raw.githubusercontent.com/vmware/powernsx/$Branch/PowerNSXInstaller.ps1"; try { $wc = new-object Net.WebClient;$scr = try { $wc.DownloadString($url)} catch { if ( $_.exception.innerexception -match "(407)") { $wc.proxy.credentials = Get-Credential -Message "Proxy Authentication Required"; $wc.DownloadString($url) } else { throw $_ }}; $scr | iex } catch { throw $_ }
+Update-PowerNSX -branch master
 ```
-Alternatively it is possible for a use the `Update-PowerNsx` command to select a branch to update to.
+_Note:  The master branch is the active development branch of PowerNSX and is not guaranteed to be stable.  You have been warned._
 
-```
-Update-PowerNSX -branch v2
-```
-
-You now have PowerNSX installed and ready to use. Validate the module being installed with `Get-Command -module PowerNSX`.
-
-
+See the [Usage](/usage/) page for further usage instructions.
