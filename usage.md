@@ -1,41 +1,74 @@
 ---
 permalink: /usage/
 ---
+
 # Using PowerNSX
 
-The recommended method of using PowerNSX is from within a PowerCLI session in conjunction with a PowerCLI connection established to the vCenter server that is registered to NSX.
+PowerNSX is designed to integrate with and behave like PowerCLI as much as possible.  As such, you may feel more comfortable using PowerNSX in a PowerCLI 'window', however this is not required and you are free to load the PowerNSX module in any PowerShell host, _providing_ PowerCLI is installed in the normal way.
+
+If PowerCLI is not installed, the PowerNSX module will not load.
+
+## Detailed usage
+
+For usage details of common functional areas, refer to the following pages.  For TLDR, see below.
+
+* [Installing PowerNSX](/install/)
+* [Connecting to NSX and vCenter](connect/)
+* [Logical Switching](/ls/)
+* [Logical Routing](/dlr/)
+* [Distributed Firewall](/dfw/)
+* [Security Groups, Tags, and Services](/secops/)
+* [NSX Edge](/esg/)
+* [NSX LB](/lb/)
+* [NSX Manager and Controller operations](/manager/)
+* [Routing - Static and Dynamic](/routing/)
+* [Getting help](/help/)
+* [Tools made with PowerNSX](/tools/)
+* [Contributing to PowerNSX](/contrib/)
+* [PowerNSX on PowerShell Core](/powernsxcore/)
+
+See [Example - 3 Tier Application](/example/) for a full stack deployment
+
+## TLDR
+
+Getting started with PowerNSX is pretty simple for seasoned PowerCLI and PowerShell users.  The following tips will hopefully speed you on your way.
+
+### Installing PowerNSX
+
+For detailed installation instructions see the [Install](/install) page
+
+### Exploring PowerNSX
 
 To explore PowerNSX commands, start with the following which lists all functions exposed by PowerNSX.  These behave for the most part like native cmdlets and are pipeline aware:
 
 ```
 Get-Command -Module PowerNSX
 ```
-**Note**: if you manually downloaded the module, you may need to manually import the module as follows:
+**Note**: if you manually downloaded the module and did not place it in a path included in $env:PSModulePath, you will need to manually import the module as follows:
 
 
 ```
-Import-Module </Path/To/PowerNSX.psd1> 
+Import-Module </Path/To/PowerNSX.psd1>
 ```
 
-Using the automated installation will configure PowerShell to be able to automatically find and load PowerNSX without requiring a manual module import.
+### Connecting to NSX Manager and vCenter
 
 To connect to NSX Manager in order to execute PowerNSX commands do the following:
 
 ```
 Connect-NsxServer <nsx manager hostname or ip>
 ```
-
-
 **Note**:  Connect-NsxServer will prompt you to automatically connect to the registered vCenter or will use an existing PowerCLI connection to the registered vCenter if it exists.  PowerNSX requires a PowerCLI connection to vCenter to be fully functional.
 
+### Getting Help
+
 All PowerNSX functions have basic documentation explaining the function and use and most have usage examples.
+
 ```
-Get-Help <PowerNSX function> 
+Get-Help <PowerNSX function>
 ```
 
 To include examples in the output, use -examples, or -detailed switches when calling Get-Help.
-
-## Basic PowerNSX commands
 
 ### Retrieving Logical Switches.
 
@@ -69,7 +102,7 @@ macLearningEnabled    : false
 
 ```
 
-The output details a lot of information about the individual logical switch. 
+The output details a lot of information about the individual logical switch.
 
 To filter the properties of a Logical Switch output to a subset and view it in a table, we can use Select-Object cmdlet.
 
@@ -126,7 +159,7 @@ vxw-dvs-64-virtualwire-227-... 0        Static
 
 ```
 
-The output is a PowerCLI VdPortGroup object. 
+The output is a PowerCLI VdPortGroup object.
 
 ```
 PowerCLI C:\> Get-NsxTransportZone TZ1 | Get-NsxLogicalSwitch PowerNSX | Get-NsxBackingPortGroup | Format-Table -AutoSize
@@ -138,3 +171,5 @@ vxw-dvs-44-virtualwire-516-sid-5000-PowerNSX 8        Static
 ```
 
 Here we can see the port-group name vxw-dvs-44-virtualwire-516-sid-5000-PowerNSX which is the Logical Switch we created earlier.
+
+For more information, see the detailed usage section above.
