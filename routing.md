@@ -2,19 +2,15 @@
 permalink: /routing/
 ---
 
-Here is a snippet of the introduction to routing with PowerNSX.
+# Edge Routing
 
-### Basic OSPF configuration on NSX Edge
+Here is a basic introduction to routing with PowerNSX.  Both Edge and DLR routing is very similar and so just Edge routing config is covered here.  You will find that the associated cmdlets for Edge and DLR work almost identically, although some differences do occur; in particular the DLR Forwarding vs Protocol address must be defined in dynamic routing configuration and the DLR has some limitations in supporting mulitple protocols at the same time.
 
-Lets explore OSPF configuration. Dynamic routing along with static routing can be configured on the NSX Edge. The following example will achieve the following:
+## Basic OSPF Configuration
 
-* Get the NSX Edge PowerNSX
-* Get the routing configuration and set a new routing configuration
-* OSPF will be enabled and a routerID defined
-* Area 51 will be removed because it shouldn't be there
-* A new OSPF area will be created (area 1)
-* It will be assigned to the vNIC with the index of 1 (Internal previously created)
+Lets explore OSPF configuration:
 
+### Enabling OSPF
 ```
 PowerCLI C:\>  Get-NsxEdge PowerNSX | Get-NsxEdgerouting | set-NsxEdgeRouting -EnableOspf -RouterId 192.168.100.251 -confirm:$false
 
@@ -24,8 +20,20 @@ routingGlobalConfig : routingGlobalConfig
 staticRouting       : staticRouting
 ospf                : ospf
 edgeId              : edge-21
+```
+So, what did we do there?
 
+1. Get the NSX Edge 'PowerNSX'
+2. Get its routing configuration
+3. Set a new routing configuration enabling OSPFand defining a routerID
 
+_Note: If you were using Set-NsxLogicalRouterRouting to configure a DLR instead, the -ForwardingAddress and -ProtocolAddress parameters must also be configured._
+
+### Configuring OSPF Areas
+
+Lets remove the dopey Area 51 and create Area 1 and bind it to vNic 1.
+
+```
 PowerCLI C:\> Get-NsxEdge PowerNSX | Get-NsxEdgerouting | Get-NsxEdgeOspfArea -AreaId 51 | Remove-NsxEdgeOspfArea -confirm:$false
 
 PowerCLI C:\>     Get-NsxEdge PowerNSX | Get-NsxEdgerouting | New-NsxEdgeOspfArea -AreaId 1 -Type normal -confirm:$false
@@ -45,8 +53,23 @@ mtuIgnore     : false
 edgeId        : edge-21
 ```
 
-Happy days! OSPF is configured. This will require a neighbor southbound like a DLR or another ESG running OSPF to peer with it.
+Happy days! OSPF is configured. This will require a neighbor like a physical L3 switch / router,  DLR, or another ESG running OSPF to peer with.
 
+## Basic BGP Configuration
+
+ToDo
+
+## Route Redistribution
+
+ToDo
+
+## Prefix Definition
+
+ToDo
+
+## Static Routing
+
+ToDo
 
 ## Need help?
 
