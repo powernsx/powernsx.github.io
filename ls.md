@@ -2,9 +2,9 @@
 permalink: /ls/
 ---
 
-## Working with Logical Switches
+# Working with Logical Switches
 
-### Retrieving Logical Switches.
+## Retrieving Logical Switches.
 
 Logical Switches are bound to a Transport Zone. The following command runs the `Get-NsxTransportZone` for transport zone TZ1 and passes the Transport Zone object to `Get-NsxLogicalSwitch` which will return the logical switch named TSTransit in TZ1
 
@@ -46,7 +46,7 @@ name                                               vdnScopeId                   
 TSTransit                                          vdnscope-1                                        5000
 ```
 
-### Creating a Logical Switch
+## Creating a Logical Switch
 
 Using the above method it is quite easy to create a Logical Switch in the transport zone TZ1 using the `New-NsxLogicalSwitch` command. It only requires the Transport Zone passed on the pipeline, and the Logical Switch name as an input.
 
@@ -77,7 +77,7 @@ ctrlLsUuid            : e3c5d18c-7354-4068-8c93-32dda84b7cbb
 macLearningEnabled    : false
 ```
 
-### Discovering the Backing PortGroup of a given Logical Switch
+## Discovering the Backing PortGroup of a given Logical Switch
 
 Each Logical Switch is backed by a port-group on one or more Distributed Switches, and the port group is the entity that a VM is actually attached to.  To retrieve the port group(s) backing a Logical Switch, you can use the `Get-NsxBackingPortGroup` cmdlet.
 

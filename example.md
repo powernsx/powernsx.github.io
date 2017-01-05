@@ -18,7 +18,7 @@ The application topology includes the following:
 - Distributed Firewall
 - Security Groups
 
-### Requirements
+## Requirements
 
 The following is required before this script will function:
 
@@ -29,7 +29,7 @@ The following is required before this script will function:
 
 This assumes that vCenter and NSX are installed, registered and setup. This also assumes that NSX for vSphere has been configured, NSX Controllers deployed, and relevent clusters used have been prepared.
 
-### Topology
+## Topology
 
 The entire application topology include all other functions looks like this:
 ![Screenshot 2016-01-21 13.56.33.png](https://bitbucket.org/repo/ppbXEb/images/466928483-Screenshot%202016-01-21%2013.56.33.png)
@@ -39,7 +39,7 @@ The only element existing is a network or port-group noted external. This exampl
 The vAPP OVA used in this script is [located here](http://goo.gl/oBAFgq)
 
 
-### Breaking down the script
+## Breaking down the script
 
 This section takes the key building blocks of the script and breaks them down. It does not cover every line of code.
 
@@ -230,7 +230,7 @@ Case in point is  ``` $ovfConfiguration.common.Web01_IP.Value = $Web01Ip ``` whi
 
 Each mandatory OVF property must be addresses and any others should be addresses to ensure the deployed application functions correctly.
 
-### Deplying and starting the vAPP
+### Deploying and starting the vAPP
 
 Deploying the vApp will deploy 5 virtual machines and configure their host files with DNS entries for the IP addresses set in the OVF configuration properties.
 
@@ -308,6 +308,6 @@ Now we navigate to the web VIP and lets what we see.
 
 Congratulations. A working application topology that takes only minutes to deploy.
 
-# Need help?
+## Need help?
 
 For more examples please use get-help command preceding any PowerNSX function. Also use -detailed, -examples, or -full.

@@ -2,11 +2,11 @@
 permalink: /lb/
 ---
 
-## NSX Edge Load Balancer
+# NSX Edge Load Balancer
 
-Turning any NSX Edge into a Load Balancer is a straight forward process. 
+Turning any NSX Edge into a Load Balancer is a straight forward process.
 
-### Enabling Load Balancing
+## Enabling Load Balancing
 
 The following command will retrieve the NSX Edge named PowerNSX, Get and subsequently enable the load balancer. This will also turn on logging. Logging will use the existing NSX Edges defined Syslog settings.
 
@@ -26,7 +26,7 @@ edgeId                 : edge-21
 
 With the Load Balancer service now running on the Edge PowerNSX it is time now to create all the other desired elements such as Pools, Service Monitors, Application Profiles, and Virtual Servers.
 
-### Creating Pools and appending Members
+## Creating Pools and appending Members
 
 Defining Pool members is very much like NSX Edge interfaces. They are defined seperately and then referenced in pool creation. Below defines three members for a Web Pool then creates a round-robined Pool with a http monitor applied.
 
@@ -49,9 +49,9 @@ edgeId      : edge-21
 
 ```
 
-The result is a Security Group with 3 Pool Members, a configured algorithm, and a monitor.
+The result is a Pool with 3 Members, a configured algorithm, and a monitor.
 
-### Defining an Application Profile
+## Defining an Application Profile
 
 Creating an Application Profile determines what traffic type is interesting for the Load Balancer to listen to on the Virtual Server.
 
@@ -70,7 +70,7 @@ edgeId               : edge-21
 
 If NAT is being used and the original IP is required in header then then `-insertXForwardedFor` can be used.
 
-### Creating Virtual Servers
+## Creating Virtual Servers
 
 Creating a Virtual Server requires a pre-defined Application Profile and an optional Pool. It is recommended a pool be attached at creation.
 
@@ -92,7 +92,7 @@ edgeId                 : edge-21
 
 The above code has created a Virtual Server listening on 192.168.100.40 (vNic_0 Uplink). The assigned Application profile enables listening on HTTP for traffic. The defined port is on the Virtual Server.
 
-### Creating a custom Monitor for applications
+## Creating a custom Monitor for applications
 
 Monitors can be created to support generic and specific application requirements. Here is a custom monitor created for vRealize Automation 7.1
 

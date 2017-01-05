@@ -2,11 +2,11 @@
 permalink: /dfw/
 ---
 
-## Distributed Firewall operations
+# Distributed Firewall operations
 
-Here are some quick tips in managing the Distributed Firewall. 
+Here are some quick tips in managing the Distributed Firewall.
 
-### Managing the Distributed Firewall.
+## Managing the Distributed Firewall.
 
 The Distributed Firewall is section based and the CRUD operations around Distributed Firewall hinge on operating with sections. First step is to retrieve a defined section.
 
@@ -62,7 +62,7 @@ The Powershell pipeline takes the object passed to it from `Get-NsxFirewallSecti
 
 
 
-### Creating new sections and rules
+## Creating new sections and rules
 
 Time to create some new rules. Lets create a new section to keep them in.
 

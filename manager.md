@@ -174,14 +174,14 @@ controllerClusterStatus : controllerClusterStatus
 ```
 
 
-### Host preparation
+## Host preparation
 
 To Do. Coming soon!
 
-### VNI scope
+## VNI scope
 
 To Do. Coming soon!
 
-# Need help?
+## Need help?
 
 For more examples please use `get-help` command preceding any PowerNSX function. Also use -detailed, -examples, or -full.
