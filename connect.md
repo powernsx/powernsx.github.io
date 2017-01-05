@@ -44,6 +44,6 @@ PowerCLI C:\>
 
 Note that credentials can be passed on the command line as either clear text, or as PSCredential objects.  If no credentials are specified, PowerNSX will prompt for them.
 
-# Need help?
+## Need help?
 
 For more examples please use `get-help` command preceding any PowerNSX function. Also use -detailed, -examples, or -full.
