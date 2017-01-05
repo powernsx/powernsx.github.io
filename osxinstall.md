@@ -10,4 +10,4 @@ It is a common source of failure to overlook this, so ensure you take note of th
 
 Failure to address this will cause failures in both PowerCLI and PowerNSX.
 
-Then follow the PowerNSX Linux installation instructions at [[Linux]]
+Then follow the PowerNSX Linux installation instructions at [Linux](/linuxinstall/)
