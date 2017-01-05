@@ -31,20 +31,22 @@ _Note: The master branch is not guaranteed to be stable.  v2 is the current reco
 It is possible to install PowerNSX manually.  The following pre-requisites must be met before the module will load successfully.
 
 ### v2 (latest stable version)
-| Component | Minimum Version | Recommended Version |
-|-----------|-----------------|---------------------|
-| PowerShell| PowerShell 3    | Powershell 4 (Win7-8.1, Server 2012/R2), PowerShell 5 (Win10, Server2016) |
-| DotNet    | Dotnet 4.5      | DotNet 4.5          |
-| PowerCLI  | 5.5  | 6.5 R1            |
-| PowerNSX  | [v2](https://github.com/vmware/powernsx/archive/v2.zip) | [v2](https://github.com/vmware/powernsx/archive/v2.zip) |
+
+| Component | Minimum Version                                                  | Recommended Version                                                       |
+|-----------|------------------------------------------------------------------|---------------------------------------------------------------------------|
+| PowerShell| PowerShell 3                                                     | Powershell 4 (Win7-8.1, Server 2012/R2), PowerShell 5 (Win10, Server2016) |
+| DotNet    | Dotnet 4.5                                                       | DotNet 4.5                                                                |
+| PowerCLI  | 5.5                                                              | 6.5 <R1>                                                                  |
+| PowerNSX  | [v2](https://github.com/vmware/powernsx/archive/v2.zip)          | [v2](https://github.com/vmware/powernsx/archive/v2.zip)                   |
 
 ### Master (Active development branch.  Possibly unstable, but most recent updates.)
-| Component | Minimum Version | Recommended Version |
-|-----------|-----------------|---------------------|
-| PowerShell| PowerShell 3    | Powershell 4 (Win7-8.1, Server 2012/R2), PowerShell 5 (Win10, Server2016) |
-| DotNet    | Dotnet 4.5      | DotNet 4.5          |
-| PowerCLI  | 6.0R3  | 6.5 R1            |
-| PowerNSX  | [master](https://github.com/vmware/powernsx/archive/master.zip) | [master](https://github.com/vmware/powernsx/archive/master.zip) |
+
+| Component  | Minimum Version                                                 | Recommended Version                                                       |
+|------------|-----------------------------------------------------------------|---------------------------------------------------------------------------|
+| PowerShell | PowerShell 3                                                    | Powershell 4 (Win7-8.1, Server 2012/R2), PowerShell 5 (Win10, Server2016) |
+| DotNet     | Dotnet 4.5                                                      | DotNet 4.5                                                                |
+| PowerCLI   | 6.0R3                                                           | 6.5 R1                                                                    |
+| PowerNSX   | [master](https://github.com/vmware/powernsx/archive/master.zip) | [master](https://github.com/vmware/powernsx/archive/master.zip)           |
 
 Install the listed pre-requisites, then download the chosen PowerNSX zip file and extract PowerNSX.psm1 and PowerNSX.psd1 to your PowerShell Modules directory.  Recommended locations are:
 
