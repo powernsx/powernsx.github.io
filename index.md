@@ -46,7 +46,7 @@ For more details see [Contributing to PowerNSX](/contrib/)
 
 ## Who do I talk to?
 
-PowerNSX is a community based projected headed by some VMware staff. If you want to contribute please have a look at the [issues](https://github.com/vmware/powernsx/issues) page to see what is planned, requires triage, and to get started.
+PowerNSX is a community based project headed by some VMware staff. If you want to contribute please have a look at the [issues](https://github.com/vmware/powernsx/issues) page to see what is planned, requires triage, and to get started.
 
 PowerNSX is an OpenSource project, and as such is not supported by VMware.  Please feel free reach out to the team via the [Issues](https://github.com/vmware/powernsx/issues) page.
 
