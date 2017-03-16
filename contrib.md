@@ -35,7 +35,7 @@ In order to execute tests, the NSX environment should be configured as follows:
 * NSX Manager Deployed.
 * A single Transport Zone consisting of at least one cluster of at least one ESXi host.
 * A functional NSX control plane (at least one controller deployed and functional.)
-* Pester (The PowerShell testing tool) Installed.  (Included by default on Win10/PoSH 5) - https://github.com/pester/Pester or via PowerShellGet (https://www.powershellgallery.com/)
+* Pester (The PowerShell testing tool) Installed.  (Included by default on Win10/PoSH 5) - [https://github.com/pester/Pester](https://github.com/pester/Pester) or via PowerShellGet [https://www.powershellgallery.com/](https://www.powershellgallery.com/)
 
 ### Execution
 
