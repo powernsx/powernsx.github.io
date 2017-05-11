@@ -5,7 +5,7 @@ date:   2017-05-07
 
 Hello fellow users of PowerNSX. It's Anthony from the PowerNSX team and here are some of the recent updates in PowerNSX.
 
-The list below does not nclude all of the changes. Some of the bigger ones are called out below.
+The list below does not include all of the changes. Some of the bigger ones are called out below.
 
 * SSO User Accounts [#175](https://github.com/vmware/powernsx/pull/175)
     * Leverage SSO user accounts with PowerNSX
