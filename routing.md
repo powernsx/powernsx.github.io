@@ -69,7 +69,19 @@ ToDo
 
 ## Static Routing
 
-ToDo
+There are times where static routing is needed. Static routing can be easily configured for a given Edge or DLR. Below are two examples - one for a Logical Router and the other for an Edge Gateway.
+
+Logical Router:
+
+```
+Get-NsxLogicalRouter LogicalRouter01 | Get-NsxLogicalRouterRouting | New-NsxLogicalRouterStaticRoute -Network 1.1.1.0/24 -NextHop 10.0.0.200
+```
+
+NSX Edge:
+
+```
+Get-NsxEdge Edge01 | Get-NsxEdgeRouting | New-NsxEdgeStaticRoute -Network 1.1.1.0/24 -NextHop 10.0.0.200
+```
 
 ## Need help?
 
