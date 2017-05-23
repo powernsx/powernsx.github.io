@@ -13,15 +13,15 @@ _Note: PowerShell Core support is still experimental._
 | Platform          | Minimum PowerShell Version                    | Operating Systems                             |
 |-------------------|-----------------------------------------------|:---------------------------------------------:|
 | PowerShell Full   | PowerShell 3                                  | [Windows](/windowsinstall/)                      |
-| PowerShell Core   | PowerShell 6.0 alpha 14                       | [Linux](/linuxinstall/), [OSX](/osxinstall/), [Docker](/docker/)              |
+| PowerShell Core   | PowerShell 6.0 alpha 18                       | [Linux](/linuxinstall/), [OSX](/osxinstall/), [Docker](/docker/)              |
 
 # Updating PowerNSX
 
-If PowerNSX v2 is already installed, it can be updated to the master branch using the Update-PowerNSX cmdlet on either PowerShell Full, or PowerShell Core.
+If PowerNSX is already installed, it can be updated to the master branch using the Update-PowerNSX cmdlet on either PowerShell Full, or PowerShell Core.
 
 ```
 Update-PowerNSX -branch master
 ```
-_Note:  The master branch is the active development branch of PowerNSX and is not guaranteed to be stable.  You have been warned._
+_Note:  The master branch is the active development branch of PowerNSX and is not guaranteed to be stable.  You have been warned.
 
 See the [Usage](/usage/) page for further usage instructions.
