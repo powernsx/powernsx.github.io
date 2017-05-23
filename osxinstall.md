@@ -4,7 +4,7 @@ permalink: /osxinstall/
 
 # OSX Installation
 
-The PowerNSX team recommend PowerShell core 6.0.0-alpha18 for use with PowerNSX on macOS. There is a Powershell bug in 6.0.0-beta1 that breaks functionality for macOS. It can be downloaded [here](https://github.com/PowerShell/PowerShell/releases/tag/v6.0.0-alpha.18)
+The PowerNSX team recommend PowerShell core 6.0.0-alpha18 for use with PowerNSX on macOS and Linux. There is a Powershell bug in 6.0.0-beta1 that breaks functionality for macOS and Linux. It can be downloaded [here](https://github.com/PowerShell/PowerShell/releases/tag/v6.0.0-alpha.18)
 
 Installation of PowerNSX on OSX is basically the same as for Linux, except for the additional requirement of openssl support in curl that PowerShell and PowerCLI require.
 
