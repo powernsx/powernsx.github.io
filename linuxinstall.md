@@ -16,7 +16,7 @@ The PowerNSX team recommend PowerShell core 6.0.0-alpha18 for use with PowerNSX 
 
 | Component | Minimum Version | Recommended Version |
 |-----------|-----------------|---------------------|
-| PowerShell| PowerShell 6.0 alpha 18    | [PowerShell 6.0 alpha 18 (latest)](https://github.com/PowerShell/PowerShell/releases/tag/v6.0.0-alpha.14) |
+| PowerShell| PowerShell 6.0 alpha 18    | [PowerShell 6.0 alpha 18 (latest)](https://github.com/PowerShell/PowerShell/releases/tag/v6.0.0-alpha.18) |
 | PowerCLI Core |  [1.0](https://labs.vmware.com/flings/powercli-core)           | [1.0](https://labs.vmware.com/flings/powercli-core) |
 | PowerNSX  | [master](https://github.com/vmware/powernsx/archive/master.zip) | [master](https://github.com/vmware/powernsx/archive/master.zip) |
 
