@@ -51,7 +51,7 @@ Start-Test
 Example (Core version of PowerShell on Linux / OSX), Current working directory is the root folder of the powernsx repository :
 
 ```
-Import-Module tests/TestCore.Psd1
+Import-Module tests/TestCore.psd1
 Start-Test
 ```
 
