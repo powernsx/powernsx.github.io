@@ -36,14 +36,13 @@ $wpm1 = New-NsxLoadBalancerMemberSpec -name Web01 -IpAddress 10.0.1.11 -Port 80
 $wpm2 = New-NsxLoadBalancerMemberSpec -name Web02 -IpAddress 10.0.1.12 -Port 80
 $wpm3 = New-NsxLoadBalancerMemberSpec -name Web03 -IpAddress 10.0.1.13 -Port 80
 
-Get-NsxEdge PowerNSX | Get-NsxLoadBalancer | New-NsxLoadBalancerPool -Name WebPool -Description "Pool for Web Servers" -Monitor $Monitor -Algorithm round-robin -MemberSpec $wpm1,$wpm2,$wpm3
+Get-NsxEdge PowerNSX | Get-NsxLoadBalancer | New-NsxLoadBalancerPool -Name WebPool -Description "Pool for Web Servers" -Algorithm round-robin -MemberSpec $wpm1,$wpm2,$wpm3
 
 poolId      : pool-1
 name        : WebPool
 description : Pool for Web Servers
 algorithm   : round-robin
 transparent : false
-monitorId   : monitor-2
 member      : {Web01, Web02, Web03}
 edgeId      : edge-21
 
