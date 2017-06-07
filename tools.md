@@ -12,7 +12,7 @@ PowerNSX has been released for almost a year. It has been a fantastic ride thus 
 Author: Nick Bradford
 Summary: This tool provides administrators the ability to document their logical NSX and VSD topologies and automatically import them into Visio. Tool is two parts: Bundle Capture, and Bundle Diagrammer.
 
-More Detail: [Diagram NSX Blog](https://powernsx.github.io/nsx/powernsx/visio/operations/2016/10/20/NSX-Visio-Diagramming-Tool.html)
+More Detail: [Diagram NSX Blog](http://networkinferno.net/nsx-visio-diagramming-tool)
 Download Tool: [Diagram NSX](https://github.com/vmware/powernsx/tree/master/tools/DiagramNSX)
 
 
