@@ -13,7 +13,7 @@ PowerNSX is supported on multiple PowerShell platforms, select your the appropri
 | PowerShell Full   | PowerShell 3                                  | [Windows](/windowsinstall/)                      |
 | PowerShell Core   | PowerShell 6.0 alpha 18                       | [Linux](/linuxinstall/), [OSX](/osxinstall/), [Docker](/docker/) |
 
-MacOS/Linux users: The PowerNSX team recommend PowerShell core 6.0.0-alpha18 for use with PowerNSX on macOS and Linux. There is a Powershell bug in 6.0.0-beta1 that breaks functionality for macOS and Linux.          |
+MacOS/Linux users: The PowerNSX team recommend PowerShell core 6.0.0-alpha18 for use with PowerNSX on macOS and Linux. There is a Powershell bug in 6.0.0-beta1 that breaks functionality for macOS and Linux.
 
 # Updating PowerNSX
 
