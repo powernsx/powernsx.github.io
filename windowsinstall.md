@@ -40,7 +40,7 @@ $Branch="v3";$url="https://raw.githubusercontent.com/vmware/powernsx/$Branch/Pow
 $Branch="master";$url="https://raw.githubusercontent.com/vmware/powernsx/$Branch/PowerNSXInstaller.ps1"; try { $wc = new-object Net.WebClient;$scr = try { $wc.DownloadString($url)} catch { if ( $_.exception.innerexception -match "(407)") { $wc.proxy.credentials = Get-Credential -Message "Proxy Authentication Required"; $wc.DownloadString($url) } else { throw $_ }}; $scr | iex } catch { throw $_ }
 ```
 
-_Note: The master branch is not guaranteed to be stable.  v3 is the current recommended stable release.  The master branch no longer supports PowerCLI 5.5_
+_Note: The master branch is not guaranteed to be stable.  v3 is the current recommended stable release.  PowerCLI 5.5 is no longer supported_
 
 ## Manual Installation
 
@@ -66,7 +66,7 @@ It is possible to install PowerNSX manually.  The following pre-requisites must 
 | PowerCLI   | 6.0R3                                                           | Latest in Gallery                                                                    |
 | PowerNSX   |  | [master](https://github.com/vmware/powernsx/archive/master.zip)           |
 
-Install the listed pre-requisites, then download the chosen PowerNSX zip file and extract PowerNSX.psm1 and PowerNSX.psd1 to your PowerShell Modules directory.  Recommended locations are:
+Install the listed pre-requisites, then download the chosen PowerNSX zip file and extract PowerNSX.psm1 and PowerNSX.psd1 _from the module/platform/desktop folder_ to your PowerShell Modules directory.  Recommended locations are:
 
 | Purpose  | Path |
 |----------|------|

@@ -14,9 +14,7 @@ It aims to focus on exposing New, Update, Remove and Get operations for all key 
 
 [PowerNSX](https://github.com/vmware/powernsx) is still a work in progress, and it is unlikely that it will ever expose 100% of the NSX API.  Feature requests are welcome via the [issues](https://github.com/vmware/powernsx/issues) tracker on the projects GitHub page.
 
-[PowerNSX](https://github.com/vmware/powernsx) now supports PowerShell Core as of version 3.0.
-
- (Remember, PowerShell Core and PowerCLI Core are both pre-release products!).  See [PowerNSX Core](/powernsxcore/) for details.
+[PowerNSX](https://github.com/vmware/powernsx) now supports PowerShell Core as of version 3.0.  Remember, PowerShell Core and PowerCLI Core are both pre-release products!.  See [PowerNSX Core](/powernsxcore/) for details.
 
 ## Installing PowerNSX
 
@@ -28,7 +26,7 @@ Find-Module PowerNSX | Install-Module -scope CurrentUser
 
 Installation via PowerShell Gallery is only supported on Windows at this time.
 
-PowerShell Gallery is natively available on PowerShell 5 and above, and can be installed easily on earlier versions.  See https://www.powershellgallery.com/ for more details
+PowerShell Gallery is natively available on PowerShell 5 and above, and can be installed easily on earlier versions.  See [https://www.powershellgallery.com/](https://www.powershellgallery.com/) for more details
 
 Alternative methods for installation including installation on PowerShell Core (Linux, OSX) can be found under [Installing PowerNSX](/install/)
 

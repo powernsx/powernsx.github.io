@@ -49,7 +49,7 @@ $Branch="v3";$url="https://raw.githubusercontent.com/vmware/powernsx/$Branch/Pow
 
 It is possible to install PowerNSX manually.
 
-Install the above pre-requisites, then download the master branch PowerNSX zip file and extract PowerNSX.psm1 and PowerNSX.psd1 to your PowerShell Modules directory within a directory named PowerNSX.  Recommended locations are:
+Install the above pre-requisites, then download the master branch PowerNSX zip file and extract PowerNSX.psm1 and PowerNSX.psd1 _from the /module/platform/core/ directory_ to your PowerShell Modules directory within a directory named PowerNSX.  Recommended locations are:
 
 | Purpose  | Path |
 |----------|------|
