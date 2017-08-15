@@ -6,17 +6,25 @@ permalink: /linuxinstall/
 
 Linux installation can be performed using the PowerNSX installer script, but most pre-requisites must still be installed manually.  Using the installer script is the recommended method.
 
-_Note:  PowerNSX support for PowerShell Core is still experimental.  You have been warned!_
-
 ## Prerequisites
 
 Install the following pre-requisites manually.
 
+### Master Branch
+
 | Component | Minimum Version | Recommended Version |
 |-----------|-----------------|---------------------|
-| PowerShell| PowerShell 6.0 alpha 13    | [PowerShell 6.0 alpha 14 (latest)](https://github.com/PowerShell/PowerShell/releases/tag/v6.0.0-alpha.14) |
+| PowerShell| [PowerShell 6.0 alpha 18 ](https://github.com/PowerShell/PowerShell/releases/tag/v6.0.0-alpha.18)    | [PowerShell 6.0 alpha 18 ](https://github.com/PowerShell/PowerShell/releases/tag/v6.0.0-alpha.18) |
 | PowerCLI Core |  [1.0](https://labs.vmware.com/flings/powercli-core)           | [1.0](https://labs.vmware.com/flings/powercli-core) |
 | PowerNSX  | [master](https://github.com/vmware/powernsx/archive/master.zip) | [master](https://github.com/vmware/powernsx/archive/master.zip) |
+
+### Version 3.0 (Latest Stable)
+
+| Component | Minimum Version | Recommended Version |
+|-----------|-----------------|---------------------|
+| PowerShell| [PowerShell 6.0 alpha 18 ](https://github.com/PowerShell/PowerShell/releases/tag/v6.0.0-alpha.18)    | [PowerShell 6.0 alpha 18 ](https://github.com/PowerShell/PowerShell/releases/tag/v6.0.0-alpha.18) |
+| PowerCLI Core |  [1.0](https://labs.vmware.com/flings/powercli-core)           | [1.0](https://labs.vmware.com/flings/powercli-core) |
+| PowerNSX  | [v3](https://github.com/vmware/powernsx/archive/v3.zip) | [v3](https://github.com/vmware/powernsx/archive/v3.zip) |
 
 ## Running the Installer Script
 
@@ -24,11 +32,18 @@ The following PowerShell oneliner will download and execute the PowerNSX install
 
 _Note: Internet access is required._
 
+### Master Branch
 ```
-$pp = $ProgressPreference;$global:ProgressPreference = "silentlycontinue"; $Branch="master";$url="https://raw.githubusercontent.com/vmware/powernsx/$Branch/PowerNSXInstaller.ps1"; try { try { $response = Invoke-WebRequest -uri $url; $scr = $response.content } catch { if ( $_.exception.innerexception -match "(407)") { $credentials = Get-Credential -Message "Proxy Authentication Required"; $response = Invoke-WebRequest -uri $url -proxyCredential $credentials; $scr = $response.content } else { throw $_ }}; $scr | iex } catch { throw $_ };$global:ProgressPreference = $pp
+$Branch="master";$url="https://raw.githubusercontent.com/vmware/powernsx/$Branch/PowerNSXInstaller.ps1"; try { try { $response = Invoke-WebRequest -uri $url; $scr = $response.content } catch { if ( $_.exception.innerexception -match "(407)") { $credentials = Get-Credential -Message "Proxy Authentication Required"; $response = Invoke-WebRequest -uri $url -proxyCredential $credentials; $scr = $response.content } else { throw $_ }}; $scr | iex } catch { throw $_ }
 ```
 
 _Note: The master branch is not guaranteed to be stable and PowerNSX support for PowerShell Core is still experimental_
+
+### Version 3.0 (Latest Stable)
+
+```
+$Branch="v3";$url="https://raw.githubusercontent.com/vmware/powernsx/$Branch/PowerNSXInstaller.ps1"; try { try { $response = Invoke-WebRequest -uri $url; $scr = $response.content } catch { if ( $_.exception.innerexception -match "(407)") { $credentials = Get-Credential -Message "Proxy Authentication Required"; $response = Invoke-WebRequest -uri $url -proxyCredential $credentials; $scr = $response.content } else { throw $_ }}; $scr | iex } catch { throw $_ }
+```
 
 ## Manual Installation
 

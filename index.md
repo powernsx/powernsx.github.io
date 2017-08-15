@@ -14,21 +14,23 @@ It aims to focus on exposing New, Update, Remove and Get operations for all key 
 
 [PowerNSX](https://github.com/vmware/powernsx) is still a work in progress, and it is unlikely that it will ever expose 100% of the NSX API.  Feature requests are welcome via the [issues](https://github.com/vmware/powernsx/issues) tracker on the projects GitHub page.
 
-[PowerNSX](https://github.com/vmware/powernsx) now has experimental PowerShell Core support available in the master (development) branch.
-Note that not all PowerNSX functions have been tested, and there are known issues (Remember, PowerShell Core and PowerCLI Core are both pre-release products as well.).  See [PowerNSX Core](/powernsxcore/) for details.
+[PowerNSX](https://github.com/vmware/powernsx) now supports PowerShell Core as of version 3.0.
+
+ (Remember, PowerShell Core and PowerCLI Core are both pre-release products!).  See [PowerNSX Core](/powernsxcore/) for details.
 
 ## Installing PowerNSX
 
-The quickest way of installing PowerNSX is as simple as running the oneliner below in a PowerShell Window. This will execute the PowerNSX installation script which will guide you through the installation of the latest stable release of PowerNSX.
+With the release of PowerNSX version 3, PowerNSX is now available via the PowerShell Gallery.  Installation is as simple as the following:
 
 ```
-$Branch="v2";$url="https://raw.githubusercontent.com/vmware/powernsx/$Branch/PowerNSXInstaller.ps1"; try { $wc = new-object Net.WebClient;$scr = try { $wc.DownloadString($url)} catch { if ( $_.exception.innerexception -match "(407)") { $wc.proxy.credentials = Get-Credential -Message "Proxy Authentication Required"; $wc.DownloadString($url) } else { throw $_ }}; $scr | iex } catch { throw $_ }
+Find-Module PowerNSX | Install-Module -scope CurrentUser
 ```
 
-[PowerNSX](https://github.com/vmware/powernsx) now has experimental PowerShell Core support available in the master (development) branch.
-Note that not all PowerNSX functions have been tested, and there are known issues (Remember, PowerShell Core and PowerCLI Core are both pre-release products as well.).  See the [PowerNSX Core](/powernsxcore/) section for details.
+Installation via PowerShell Gallery is only supported on Windows at this time.
 
-More install options for PowerNSX including Linux and OSX installation can be found here under [Installing PowerNSX](/install/)
+PowerShell Gallery is natively available on PowerShell 5 and above, and can be installed easily on earlier versions.  See https://www.powershellgallery.com/ for more details
+
+Alternative methods for installation including installation on PowerShell Core (Linux, OSX) can be found under [Installing PowerNSX](/install/)
 
 ## Using PowerNSX
 
