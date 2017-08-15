@@ -10,11 +10,11 @@ Linux installation can be performed using the PowerNSX installer script, but mos
 
 Install the following pre-requisites manually.
 
-### Master Branch
+The PowerNSX team recommend PowerShell core 6.0.0-alpha18 for use with PowerNSX on macOS and Linux. There is a Powershell bug in 6.0.0-beta1 that breaks functionality for macOS and Linux. It can be downloaded [here](https://github.com/PowerShell/PowerShell/releases/tag/v6.0.0-alpha.18)
 
 | Component | Minimum Version | Recommended Version |
 |-----------|-----------------|---------------------|
-| PowerShell| [PowerShell 6.0 alpha 18 ](https://github.com/PowerShell/PowerShell/releases/tag/v6.0.0-alpha.18)    | [PowerShell 6.0 alpha 18 ](https://github.com/PowerShell/PowerShell/releases/tag/v6.0.0-alpha.18) |
+| PowerShell| [PowerShell 6.0 alpha 18](https://github.com/PowerShell/PowerShell/releases/tag/v6.0.0-alpha.18)    | [PowerShell 6.0 alpha 18](https://github.com/PowerShell/PowerShell/releases/tag/v6.0.0-alpha.18) |
 | PowerCLI Core |  [1.0](https://labs.vmware.com/flings/powercli-core)           | [1.0](https://labs.vmware.com/flings/powercli-core) |
 | PowerNSX  | [master](https://github.com/vmware/powernsx/archive/master.zip) | [master](https://github.com/vmware/powernsx/archive/master.zip) |
 

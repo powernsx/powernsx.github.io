@@ -11,16 +11,18 @@ PowerNSX is supported on multiple PowerShell platforms, select your the appropri
 | Platform          | Minimum PowerShell Version                    | Operating Systems                             |
 |-------------------|-----------------------------------------------|:---------------------------------------------:|
 | PowerShell Full   | PowerShell 3                                  | [Windows](/windowsinstall/)                      |
-| PowerShell Core   | PowerShell 6.0 alpha 18                       | [Linux](/linuxinstall/), [OSX](/osxinstall/), [Docker](/docker/)              |
+| PowerShell Core   | PowerShell 6.0 alpha 18                       | [Linux](/linuxinstall/), [OSX](/osxinstall/), [Docker](/docker/)
+
+MacOS/Linux users: The PowerNSX team recommend PowerShell core 6.0.0-alpha18 for use with PowerNSX on macOS and Linux. There is a Powershell bug in 6.0.0-beta1 that breaks functionality for macOS and Linux.          |
 
 # Updating PowerNSX
 
-If PowerNSX v2 is already installed, it can be updated to the master branch using the Update-PowerNSX cmdlet on either PowerShell Full, or PowerShell Core.
+If PowerNSX is already installed, it can be updated to the master branch using the Update-PowerNSX cmdlet on either PowerShell Full, or PowerShell Core.
 
 ```
 Update-PowerNSX -branch master
 ```
-_Note:  The master branch is the active development branch of PowerNSX and is not guaranteed to be stable.  You have been warned._
+_Note:  The master branch is the active development branch of PowerNSX and is not guaranteed to be stable.  You have been warned.
 
 Powershell Gallery based installations of PowerNSX cannot be updated using Update-PowerNSX.  Use the following instead:
 

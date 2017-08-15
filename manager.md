@@ -52,7 +52,7 @@ This deployment of controllers will use an Ip Pool. An IP Pool can be quickly cr
 
 
 ```
-New-NsxIPPool -name Controllers -gateway 192.168.100.1 -prefixlength 24 -StartAddress 192.168.100.201 -EndAddress 192.168.100.203 -DnsServer 192.168.100.10 -DnsSuffix 'corp.local'
+New-NsxIPPool -name Controllers -gateway 192.168.100.1 -Subnetprefixlength 24 -StartAddress 192.168.100.201 -EndAddress 192.168.100.203 -DnsServer1 192.168.100.10 -DnsSuffix 'corp.local'
 
 objectId           : ipaddresspool-1
 objectTypeName     : IpAddressPool
