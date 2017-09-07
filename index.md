@@ -21,10 +21,15 @@ It aims to focus on exposing New, Update, Remove and Get operations for all key 
 Below are the main areas of this site:
 
 [Installing PowerNSX](/install/)
+
 [Usage and Examples](/usage/)
+
 [PowerNSX Book by VMware Press](/book/)
+
 [PowerNSX Blog](/blog)
+
 [Want to Contribute?](/contrib/)
+
 [About](/about/)
 
 ## Installing PowerNSX
