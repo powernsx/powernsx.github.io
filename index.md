@@ -16,6 +16,17 @@ It aims to focus on exposing New, Update, Remove and Get operations for all key 
 
 [PowerNSX](https://github.com/vmware/powernsx) now supports PowerShell Core as of version 3.0.  Remember, PowerShell Core and PowerCLI Core are both pre-release products!.  See [PowerNSX Core](/powernsxcore/) for details.
 
+## Site Map
+
+Below are the main areas of this site:
+
+[Installing PowerNSX](/install/)
+[Usage and Examples](/usage/)
+[PowerNSX Book by VMware Press](/book/)
+[PowerNSX Blog](/blog)
+[Want to Contribute?](/contrib/)
+[About](/about/)
+
 ## Installing PowerNSX
 
 With the release of PowerNSX version 3, PowerNSX is now available via the PowerShell Gallery.  Installation is as simple as the following:
@@ -32,7 +43,11 @@ Alternative methods for installation including installation on PowerShell Core (
 
 ## Using PowerNSX
 
-For TLDR, basic and detailed PowerNSX usage, see the [Usage](/usage/) page.
+For day one, basic, and detailed PowerNSX usage, see the [Usage](/usage/) page.
+
+For per cmdlet documentation please look at the [help](/help) page on how to use PowerShell's `Get-Help` function.
+
+For a more comprehensive and detailed look at examples please check out the **free** PowerNSX book by VMware Press [here](/book/)
 
 ## Contribution guidelines #
 

@@ -10,6 +10,8 @@ If PowerCLI is not installed, the PowerNSX module will not load.
 
 ## Detailed usage
 
+The free PowerNSX book by VMware Press here provides in detail examples beyond those listed below. The book will serve as an additional reference in conjunction with the [help](/help/) provided by `Get-Help` within PowerNSX.
+
 For usage details of common functional areas, refer to the following pages.  For TLDR, see below.
 
 * [Installing PowerNSX](/install/)
