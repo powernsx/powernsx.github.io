@@ -193,9 +193,11 @@ body.layout-home {
             background-position: center center;
             background-size: contain;
             background-repeat: no-repeat;
+            
 
             &.bulb {
                 background-image: url('../assets/images/home/ic-bulb.svg');
+                
             }
 
             &.evolving {

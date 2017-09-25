@@ -1,17 +1,19 @@
 <main id="content-area" class="content-area" hash-listener #scrollable>
     <h1 id="introduction">PowerNSX</h1>
-    <p>Project Clarity is an open source design system that brings together UX guidelines, an HTML/CSS framework, and
-        Angular components. Clarity is for both designers and developers.
+    <p>PowerNSX is a PowerShell module that abstracts the VMware NSX API to a set of easily used PowerShell functions.
     </p>
-    <p>Clarity’s designs stem from continuous exploration and research. These designs are built into our HTML/CSS
-        components, which can be used any web UI, regardless of the underlying JavaScript framework. Clarity also offers
-        a set of well-designed and implemented
-        data-bound components built on top of Angular, one of the most popular JavaScript frameworks in the
-        industry.
+    <p>This module is not supported by VMware, and comes with no warranties express or implied. Please test and validate its functionality before using this product in a production environment.
+        
+    It aims to focus on exposing New, Update, Remove and Get operations for all key NSX functions as well as adding additional functionality to extend the capabilities of NSX management beyond the native UI or API.
+        
+    <p>PowerNSX works closely with VMware PowerCLI, and PowerCLI users will feel quickly at home using PowerNSX.  Together these tools provide a comprehensive command line environment for managing your VMware NSX for vSphere environments.
+    PowerNSX is still a work in progress, and it is unlikely that it will ever expose 100% of the NSX API.  Feature requests are welcome via the Issues tracker on the projects GitHub page.</p>
+    <p>    
+    PowerNSX now supports PowerShell Core as of version 3.0.  Remember, PowerShell Core and PowerCLI Core are both pre-release products!.
     </p>
     <h2 id="howToUse">Installing PowerNSX</h2>
-    <p>We offer three approaches for utilizing Clarity: UX, UX and UI, and Angular.</p>
-    <h3 id="designResources">Using Clarity Design Resources</h3>
+    <p>PowerNSX can be installed through a number of methods</p>
+    <h3 id="designResources">Getting Started with PowerNSX</h3>
     <p>Jumpstart your project with one of our
         <a href="https://www.sketchapp.com/" target="_blank">Sketch</a>-based design resources.
         Start by downloading the
@@ -22,15 +24,15 @@
     <div>
         <a href="assets/images/sketchTemplates/Clarity-Template-0.10.0.sketch" target="_blank" class="btn btn-primary">
             <clr-icon shape="download"></clr-icon>
-            UI Template (0.10.0)
+            Git Clone
         </a>
         <div class="craft-plugin">
-            <a href="assets/images/sketchCraftLibraries/Clarity.library-0.10.0.zip" class="btn btn-primary" target="_blank">
+            <a href="https://www.powershellgallery.com/packages/PowerNSX/3.0.1012" class="btn btn-primary" target="_blank">
                 <clr-icon shape="download"></clr-icon>
-                Craft Library (0.10.0)
+                PowerShell Gallery
             </a>
             <span class="craft-plugin-text">
-                requires <a href="https://www.invisionapp.com/craft" target="_blank">Craft Manager plugin</a>
+                requires <a href="https://www.invisionapp.com/craft" target="_blank">requires PowerShell Desktop for Windows</a>
             </span>
         </div>
     </div>
