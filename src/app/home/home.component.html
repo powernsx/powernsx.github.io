@@ -1,17 +1,17 @@
 <main class="content-area" style="overflow-y: hidden">
     <section class="home-hero">
         <div class="home-hero-content">
-            <h1>Clarity Design System</h1>
+            <h1>PowerNSX</h1>
             <p class="head">
-                UX guidelines, HTML/CSS framework, and Angular components
-                working together to craft exceptional experiences
+                PowerNSX is a PowerShell module that abstracts the VMware NSX API 
+                to a set of easily used PowerShell functions.
             </p>
             <div class="home-hero-btn">
-                <a routerLink="get-started" class="btn btn-primary">Get Started</a>
-                <a routerLink="documentation" class="btn btn-secondary btn-outline">Documentation</a>
+                <a routerLink="get-started" class="btn btn-primary">Install</a>
+                <a routerLink="get-started" class="btn btn-secondary btn-outline">PowerNSX Book</a>
             </div>
             <p class="subtext">
-                View the <a href="https://github.com/vmware/clarity" target="_blank">source</a> on GitHub
+                View the <a href="https://github.com/vmware/powernsx" target="_blank">source</a> on GitHub
             </p>
         </div>
         <div class="bg-img"></div>
@@ -19,17 +19,16 @@
 
     <section class="home-cards">
         <div class="home-cards-container clearfix">
-            <h1>Designed for designers and built for developers</h1>
+            <h1>Network automation - Power that is approachable</h1>
             <div class="home-card-wrapper row">
                 <div class="home-card home-card-sketch col-xs-3">
                     <div class="home-card-bug">
-                        <img src="assets/images/home/sketch.png" alt="Sketch logo">
+                        <img src="assets/images/home/powercli-wf.svg" alt="powercli logo">
                     </div>
-                    <h3 class="home-card-title">Sketch Template</h3>
+                    <h3 class="home-card-title">A familiar CLI</h3>
                     <p>
-                        Jumpstart your project using our
-                        <a sketchTemplateLink>Sketch template</a>
-                        with ready-to-use components.
+                        PowerNSX leverages PowerCLI to extend infrastructure automation across the entire
+                        stack. Be it scripting or application development - PowerNSX provides an extensive toolkit.
                     </p>
                 </div>
 
@@ -37,10 +36,10 @@
                     <div class="home-card-bug">
                         <img src="assets/images/home/ux.svg" alt="UX guidelines">
                     </div>
-                    <h3 class="home-card-title">UX guidelines</h3>
+                    <h3 class="home-card-title">Building blocks</h3>
                     <p>
-                        Reference UX guidelines that stem from ongoing research
-                        and exploration, making it easy to design cohesive experiences.
+                        By covering the majority of the NSX for vSphere API, PowerNSX provides Create,
+                        Restore, Update, and Delete cmdlets for common Day One and Day Two Operations.
                     </p>
                 </div>
 
@@ -48,10 +47,10 @@
                     <div class="home-card-bug">
                         <img src="assets/images/home/html.svg" alt="HTML/CSS">
                     </div>
-                    <h3 class="home-card-title">HTML/CSS</h3>
+                    <h3 class="home-card-title">Infrastructure Blueprints</h3>
                     <p>
-                        Start building with our HTML/CSS framework and rapidly
-                        go from prototype to production.
+                        Your infrastrcture is now code. Utilise PowerNSX with PowerCLI to deploy entire network and application stacks
+                        encompassing routing, switching, security, and additional network services.
                     </p>
                 </div>
 
@@ -70,44 +69,43 @@
     </section>
 
     <section class="home-process">
-        <h1>From prototype to product, faster and better</h1>
+        <h1>From development to production - your network is now code</h1>
 
         <div class="row">
             <div class="home-process-block col-xs-6">
                 <div class="home-process-block__title">
                     <div class="img bulb"></div>
                     <!-- <img src="assets/images/home/ic-bulb.svg" alt="Product-Based Approach"> -->
-                    <h3>Product-based</h3>
+                    <h3>Pipeline-based</h3>
                 </div>
                 <p>
-                    We work closely with product teams to understand and
-                    solve the vast array of challenges they face. These
-                    solutions are built into Clarity and contributed
-                    back to the community.
+                    Fundametal to Powershell is the pipeline. 
+                    Easily retrieve objects and pass them along the pipeline
+                    for simplified interaction.
                 </p>
             </div>
             <div class="home-process-block col-xs-6">
                 <div class="home-process-block__title">
                     <div class="img rapid"></div>
                     <!-- <img src="assets/images/home/ic_rapid.svg" alt="Rapid development"> -->
-                    <h3>Rapid development</h3>
+                    <h3>Open Source mandate</h3>
                 </div>
                 <p>
-                    Clarity’s shared foundation of design and development
-                    makes communication and collaboration between different
-                    areas of expertise easier than ever.
+                    PowerNSX is Open Source. See the source code. Use the module. Contribute back. 
+                    By being Open Source it helps to ensure rapid
+                    development and allows for contributions from the community.
                 </p>
             </div>
             <div class="home-process-block col-xs-6">
                 <div class="home-process-block__title">
                     <div class="img evolving"></div>
                     <!-- <img src="assets/images/home/ic_evolving.svg" alt="Evolving"> -->
-                    <h3>Evolving</h3>
+                    <h3>Multi-platform</h3>
                 </div>
                 <p>
-                    Design patterns and technology change quickly. Clarity
-                    is built to anticipate and adopt to changes quickly
-                    and easily.
+                    PowerNSX takes advantage of PowerShell Core. This allows PowerNSX
+                    to run on macOS, Linux, Windows, and within a Docker image. Run your code 
+                    from wherever you develop it.
                 </p>
             </div>
             <div class="home-process-block col-xs-6">
@@ -117,8 +115,8 @@
                     <h3>Reliable</h3>
                 </div>
                 <p>
-                    We have a dedicated team focused on shipping frequently,
-                    with a high bar of quality standard.
+                    Utilising Continous Integration and Deployment, the PowerNSX team is focused on shipping frequently,
+                    with a high bar of quality as standard. Automated tested via Pester help avoid regression.
                 </p>
             </div>
         </div>
@@ -127,15 +125,15 @@
     <section class="home-contact">
         <div class="row home-contact-container">
             <div class="home-contact-block col-xs-6">
-                <a href="//opensource.org/licenses/MIT" class="mit-link home-contact_link" target="_blank">
+                <a href="//www.gnu.org/licenses/gpl-2.0.html" class="mit-link home-contact_link" target="_blank">
                     <span class="img"></span>
-                    Clarity is licensed under the MIT License. <span class="xtra">Read more here.</span>
+                    PowerNSX is licensed under GPL 2.0. <span class="xtra">Read more here.</span>
                 </a>
             </div>
             <div class="home-contact-block col-xs-6">
-                <a href="//twitter.com/VMwareClarity" class="twr-link home-contact_link" target="_blank">
+                <a href="//twitter.com/PowerNSXv" class="twr-link home-contact_link" target="_blank">
                     <span class="img"></span>
-                    @VMwareClarity
+                    @PowerNSXv
                 </a>
             </div>
         </div>

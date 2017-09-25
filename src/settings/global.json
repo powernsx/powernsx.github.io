@@ -1,11 +1,11 @@
 {
-  "title": "Clarity Design System",
-  "alt_title": "Project Clarity",
-  "url": "//vmware.github.com/clarity",
+  "title": "VMware PowerNSX",
+  "alt_title": "PowerNSX",
+  "url": "//vmware.github.com/powernsx",
 
-  "email_link": "mailto:clarity@vmware.com",
+  "email_link": "mailto:powernsx@vmware.com",
   "socialcast_link": "https://vmware-com.socialcast.com/groups/133290-clarity",
-  "socialcast_request": "mailto:affonehj@vmware.com",
+  "socialcast_request": "mailto:powernsx@vmware.com",
 
   "latest_sketch_template": "0.10.0"
 }

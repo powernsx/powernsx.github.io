@@ -94,7 +94,7 @@ import {VerticalNavDemoModule} from "./demos/vertical-nav/vertical-nav.demo.modu
         DocumentationNavLinksComponent,
         ComponentStatusComponent,
         StatusDotComponent,
-        NewLayoutAlertComponent
+        NewLayoutAlertComponent,
     ]
 })
 export class DocumentationModule {

@@ -67,7 +67,7 @@ export class AppComponent implements OnInit {
         this.setTitle(filteredTitles.join(this.browserTitleSeparator));
     }
 
-    private defaultBrowserTitle = "Clarity Design System";
+    private defaultBrowserTitle = "PowerNSX: A PowerShell module supporting NSX for vSphere";
     private browserTitleSeparator = " - ";
 
     private collectRouteData(key: string) {
