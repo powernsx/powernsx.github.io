@@ -399,11 +399,61 @@
         <h3 id="dlrospfredist">Route Redistribution in OSPF</h3>
     
     <h2 id="dfw">Distributed Firewall</h2>
-        <h3 id="dfwsection">DFW Sections</h3>
-        <h3 id="dfwrule">DFW Rules</h3>
-        <h3 id="dfwappliedto">DFW Applied To</h3>
+    <p>Here are some quick tips for working with the Distributed Firewall</p>
+
+        <h3 id="dfwsection">Working with DFW Sections</h3>
+
+        <p>The Distributed Firewall is section based and the CRUD operations around Distributed Firewall hinge on operating with sections. First step is to retrieve a defined section.</p>
+        <clr-code-snippet [clrCode]="nsxDfwSectionGet"></clr-code-snippet>
+        
+        <p>The output of this command returns a firewall section named exactly 'Management - Web Services'. Creating a section is straight forward. It is a simple cmdlet demonstrated below. Let's create a new section to keep them in.</p>
+        
+        <clr-code-snippet [clrCode]="nsxDfwSectionCreate"></clr-code-snippet>
         
         
+        <h3 id="dfwrule">Working with DFW Rules</h3>
+
+        <p>Based on the output above in DFW Sections, you can see that it is a Layer 3 section and that it has some rules associated with it. To find out more about the rules associated to with it we can use the Get-NsxFirewallRule.</p>
+        
+        <clr-code-snippet [clrCode]="nsxDfwRuleGet"></clr-code-snippet>
+
+        <p>The Powershell pipeline takes the object passed to it from Get-NsxFirewallSection, in this case, 'Management - Web Services' and uses it in the Get-NsxFirewallRule command. There are two rules associated with this section - ruleId 1106 and 1107.</p>
+
+        <p>Creating a new rule is striaght forward. It requires a section to be passed along the pipeline to the New-NsxFirewallRule cmdlet.</p>
+        
+        <clr-code-snippet [clrCode]="nsxDfwRuleCreate"></clr-code-snippet>
+        
+        <p>Let us walk through the above example. Using the two stored variables for source and destination, `Get-NsxFirewallSection` first retrieves the defined firewall section. It then passes the section object along the pipeline to `New-NsxFirewallRule`. `New-NsxFirewallRule` receives the object from the pipeline, and proceeds to create a rule within it. As well as passing in variables defining Source and Destination, you can also see we are specifying the service, action, logging status, and DFW tag.</p>
+        
+        <h3 id="dfwappliedto">Using DFW Applied To</h3>
+        <p>We're still working to add content. Please refer to the PowerNSX book or the <a href="./get-started#gethelp">Get Help</a> cmdlet for further details.</p>
+
+        <h3 id="dfwexclusion">Creating DFW Exclusions</h3>
+        <p>It is possible to remove the Distributed Firewall filter using an Exclusion list. This example below shows the exemption of the VM Web-02</p>
+
+        <clr-code-snippet [clrCode]="nsxDfwExclusion"></clr-code-snippet>
+        
+        <p>This will add the defined Virtual Machine to the DFW exclusion list.</p>
+        
+
+    <h2 id="security">Security Objects</h2>
+        <p>Security Groups and Security Tags provide a powerful asset to the Distributed Firewall and Security Operations in NSX for vSphere</p>
+        <h3 id="sectagcreate">Working with Security Tags</h3>
+        <p>It is easy and quick to create a Security Tag. Below demonstrates this:</p>
+        <clr-code-snippet [clrCode]="nsxSecTagCreate"></clr-code-snippet>
+        
+        <p>By creating a security tag that is not a system default it is now possible to retrieve it. By default, PowerNSX will not retrieve the dozen system-generated security tags. This can be overridden with -IncludeSystem. Use Get-NsxSecurityTag to retrieve user configured Security Tags</p>
+
+        <clr-code-snippet [clrCode]="nsxSecTagGet"></clr-code-snippet>
+        
+
+
+        <h3 id="secgroup">Working with Security Groups</h3>
+        <h3 id="secpol">Security Policies</h3>
+        
+
+
+
     <h2 id="contributing">Contributing to PowerNSX</h2>
     <p>The PowerNSX team welcomes contributions from the community. Please click here for more detail on how to contribute to PowerNSX.
     </p>
@@ -466,9 +516,11 @@
             </ul>
             <label class="bump-down"><a class="nav-link" routerLink="." fragment="dfw">Distributed Firewall</a></label>
                 <ul class="nav-list"> 
-                        <li><a class="nav-link" routerLink="." fragment="dfwsection">DFW Sections</a></li>
-                        <li><a class="nav-link" routerLink="." fragment="dfwrule">DFW Rules</a></li>
-                        <li><a class="nav-link" routerLink="." fragment="dfwappliedto">DFW Applied To</a></li>                        
+                        <li><a class="nav-link" routerLink="." fragment="dfwsection">Working with DFW Sections</a></li>
+                        <li><a class="nav-link" routerLink="." fragment="dfwrule">Working with DFW Rules</a></li>
+                        <li><a class="nav-link" routerLink="." fragment="dfwappliedto">Using DFW Applied To</a></li>
+                        <li><a class="nav-link" routerLink="." fragment="dfwexclusion">Creating DFW Exclusions</a></li>                        
+                        
                 </ul>
             <label class="bump-down"><a class="nav-link" routerLink="." fragment="security">Security Objects</a></label>
                 <ul class="nav-list"> 
