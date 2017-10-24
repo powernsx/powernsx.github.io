@@ -1,5 +1,5 @@
 <main id="content-area" class="content-area" hash-listener #scrollable>
-    <h1 id="introduction">PowerNSX</h1>
+    <h1 id="installpowernsx">Getting Started with PowerNSX</h1>
     <p>PowerNSX is a PowerShell module that abstracts the VMware NSX API to a set of easily used PowerShell functions.
     </p>
     <p>This module is not supported by VMware, and comes with no warranties express or implied. Please test and validate its functionality before using this product in a production environment.
@@ -7,209 +7,489 @@
     It aims to focus on exposing New, Update, Remove and Get operations for all key NSX functions as well as adding additional functionality to extend the capabilities of NSX management beyond the native UI or API.
         
     <p>PowerNSX works closely with VMware PowerCLI, and PowerCLI users will feel quickly at home using PowerNSX.  Together these tools provide a comprehensive command line environment for managing your VMware NSX for vSphere environments.
-    PowerNSX is still a work in progress, and it is unlikely that it will ever expose 100% of the NSX API.  Feature requests are welcome via the Issues tracker on the projects GitHub page.</p>
+    PowerNSX is still a work in progress, and it is unlikely that it will ever expose 100% of the NSX API.  Feature requests are welcome via the <a href="https://github.com/vmware/powernsx/issues">Issues</a> tracker on the projects GitHub page.</p>
     <p>    
     PowerNSX now supports PowerShell Core as of version 3.0.  Remember, PowerShell Core and PowerCLI Core are both pre-release products!.
     </p>
-    <h2 id="howToUse">Installing PowerNSX</h2>
-    <p>PowerNSX can be installed through a number of methods</p>
-    <h3 id="designResources">Getting Started with PowerNSX</h3>
-    <p>Jumpstart your project with one of our
-        <a href="https://www.sketchapp.com/" target="_blank">Sketch</a>-based design resources.
-        Start by downloading the
-        <a href="https://github.com/chrismsimpson/Metropolis" target="_blank">
-            Metropolis font.
-        </a> Then download your resource of choice.
-    </p>
-    <div>
-        <a href="assets/images/sketchTemplates/Clarity-Template-0.10.0.sketch" target="_blank" class="btn btn-primary">
-            <clr-icon shape="download"></clr-icon>
-            Git Clone
-        </a>
-        <div class="craft-plugin">
-            <a href="https://www.powershellgallery.com/packages/PowerNSX/3.0.1012" class="btn btn-primary" target="_blank">
-                <clr-icon shape="download"></clr-icon>
-                PowerShell Gallery
-            </a>
-            <span class="craft-plugin-text">
-                requires <a href="https://www.invisionapp.com/craft" target="_blank">requires PowerShell Desktop for Windows</a>
-            </span>
-        </div>
-    </div>
+    <h2 id="masterInstall">Installing PowerNSX</h2>
+    <p>PowerNSX can be installed through a number of methods. Getting started with PowerNSX is quick and efficient thanks to distribution via PowerShell Gallery. For macOS and Linux users this can be via the Install script or performed manually.
 
-    <h3 id="seedProjectClarity">Starting With a Clarity Seed Project (Recommended)</h3>
-    <p>For a new project, the best approach is to clone the Clarity seed project and modify it to fit your needs. The
-        seed project is integrated with clarity-ui and clarity-angular, so you don’t need to install Clarity
-        separately.
-    </p>
-    <p></p>
-    <ol class="list">
-        <li>Clone the seed app:
-            <clr-code-snippet
-                    [clrCode]="'git clone https://github.com/vmware/clarity-seed.git'"
-                    [clrDisablePrism]="true"></clr-code-snippet>
-        </li>
-        <li>Install the dependencies:
-            <clr-code-snippet
-                    [clrCode]="'npm install'"
-                    [clrDisablePrism]="true"></clr-code-snippet>
-        </li>
-        <li>Run the seed app:
-            <clr-code-snippet
-                    [clrCode]="'npm start'"
-                    [clrDisablePrism]="true"></clr-code-snippet>
-        </li>
-    </ol>
-    <h3 id="seedProjectAngular">Using an Angular Seed Project</h3>
-    <p>You can build an Angular app, then install Clarity onto your project.</p>
-    <h4 id="step-1-build-an-angular-2-app">Step 1: Build an Angular App</h4>
-    <p></p>
-    <ol class="list">
-        <li>Look at the Angular documentation, starting with <a
-                href="https://angular.io/docs/ts/latest/quickstart.html">the 5 Min Quickstart</a>.
-        </li>
-        <li>
-            Save and modify the example structure and build, or use one of the Angular seeds:
-            <ul class="list">
-                <li><a href="https://github.com/angular/angular-cli">https://github.com/angular/angular-cli</a></li>
-                <li><a href="https://github.com/mgechev/angular2-seed">https://github.com/mgechev/angular2-seed</a></li>
-                <li><a href="https://github.com/angular/angular2-seed">https://github.com/angular/angular2-seed</a></li>
-                <li><a href="https://github.com/AngularClass/angular2-webpack-starter">https://github.com/AngularClass/angular2-webpack-starter</a>
-                </li>
-            </ul>
-        </li>
-    </ol>
-    <h4 id="installing">Step 2: Install Clarity</h4>
-    <p>Clarity is published as three separate packages on NPM:</p>
-    <p>
-        <a id="clarity_icons"></a>
-    </p>
-    <ul class="list">
-        <li><b>clarity-icons.</b> The library that provides the custom element icons.</li>
-        <li><b>clarity-ui.</b> Contains the static styles for building HTML components.</li>
-        <li><b>clarity-angular.</b> Contains the Angular components. This package depends on clarity-ui for styles.
-        </li>
-    </ul>
-    <h5 id="step-2a-install-clarity-icons">Step 2a: Install Clarity Icons</h5>
-    <p></p>
-    <ol class="list">
-        <li>Install the Clarity Icons library through npm:
-            <clr-code-snippet
-                    [clrCode]="'npm install clarity-icons --save'"
-                    [clrDisablePrism]="true"></clr-code-snippet>
-        </li>
-        <li>Install the polyfill for Custom Elements:
-            <clr-code-snippet
-                    [clrCode]="'npm install @webcomponents/custom-elements@1.0.0 --save'"
-                    [clrDisablePrism]="true"></clr-code-snippet>
-        </li>
-        <li>
-            Load the library in your app by including <code class="clr-code">clarity-icons.min.css</code> and <code class="clr-code">clarity-icons.min.js</code>.
-            Also, make sure to include <code class="clr-code">custom-elements.min.js</code>, the Custom Elements polyfill before <code class="clr-code">clarity-icons.min.js</code>:
-            <clr-code-snippet [clrCode]="iconsImportsExample"></clr-code-snippet>
-
-            <p>
-               Visit the <a routerLink="/icons">Clarity Icons</a> section for more installation information.
-            </p>
-        </li>
-    </ol>
-    <h5 id="step-2b-install-clarity-ui">Step 2b: Install Clarity UI</h5>
-    <p></p>
-    <ol class="list">
-        <li>Install Clarity UI package through npm:
-            <clr-code-snippet
-                    [clrCode]="'npm install clarity-ui --save'"
-                    [clrDisablePrism]="true"></clr-code-snippet>
-        </li>
-        <li>
-            Include clarity-ui.min.css in your HTML file:
-            <clr-code-snippet [clrCode]="uiHTMLImport"></clr-code-snippet>
-            If your site is built with <a href="https://github.com/angular/angular-cli">angular-cli</a> you can achieve
-            the above by adding the file to the styles array in <code class="clr-code">angular-cli.json</code>:
-            <clr-code-snippet [clrCode]="uiNodeImports" [clrDisablePrism]="true"></clr-code-snippet>
-        </li>
-        <li>Write your HTML with the Clarity CSS class names and markup.</li>
-    </ol>
-    <h5 id="step-2c-install-clarity-angular">Step 2c: Install Clarity Angular</h5>
-    <p></p>
-    <ol class="list">
-        <li>If you haven't already, complete steps 1 and 2 for installing Clarity UI in the preceding section.
-        </li>
-        <li>Install the clarity-angular package through npm:
-            <clr-code-snippet
-                    [clrCode]="'npm install clarity-angular --save'"
-                    [clrDisablePrism]="true"></clr-code-snippet>
-        </li>
-        <li>Import the ClarityModule into your Angular application's module. Your application's main module might look like this:
-            <clr-code-snippet [clrCode]="ngModuleExample" [clrLanguage]="'typescript'"></clr-code-snippet>
-        </li>
-    </ol>
-    <h4 id="step-3-run-your-app">Step 3: Run Your App</h4>
+    With the release of PowerNSX version 3, PowerNSX is now available via the PowerShell Gallery. Installation is as simple as the following:</p>
+            
     <clr-code-snippet
-            [clrCode]="'npm start'"
-            [clrDisablePrism]="true"></clr-code-snippet>
-    <h2 id="browserSupport">Device and Browser Support</h2>
-    <p class="bump-down"><img src="assets/images/get-started/device_support.png" alt="Device and Browser Support"
-                              class="hidden-sm-down img-fluid"></p>
-    <ul class="hidden-md-up">
-        <li>Internet Explorer 10 &amp; 11</li>
-        <li>MS Edge</li>
-        <li>Latest versions of Chrome, Safari, and Firefox</li>
-    </ul>
+    [clrCode]="'Find-Module PowerNSX | Install-Module -scope CurrentUser'"
+    [clrDisablePrism]="true">
+    </clr-code-snippet>
+
+    <p>Installation via PowerShell Gallery is only supported on Windows at this time. PowerShell Gallery is natively available on PowerShell 5 and above, and can be installed easily on earlier versions. See https://www.powershellgallery.com/ for more details
+
+    Alternative methods for installation including installation on PowerShell Core (Linux, macOS) can be found below.
+    </p>
+
+    <h3 id="psgal">Install via PowerShell Gallery - Windows</h3>
+    <p>Run the following in a PowerShell window to install PowerNSX for the current user. If PowerCLI is not installed, the required components are automatically downloaded and installed.
+    
+    PowerShell Gallery is the recommended method for Windows users. </p>
+    
     <p>
-        <em>* - Note that Clarity only supports the latest two versions of the listed browsers, with the exception of
-            Internet Explorer.</em>
+    Run the following in a PowerShell window to install PowerNSX for the current user. If PowerCLI is not installed, the required components are automatically downloaded and installed.
     </p>
-    <h2 id="contribute_guidelines">Contributing to Clarity</h2>
-    <p>The Clarity team welcomes contributions from the community. See our <a
-            href="https://github.com/vmware/clarity//blob/master/CONTRIBUTING.md" target="_blank">contribution
-        guidelines</a> on GitHub.
+
+    <clr-code-snippet
+    [clrCode]="'Find-Module PowerNSX | Install-Module -scope CurrentUser'"
+    [clrDisablePrism]="true">
+    </clr-code-snippet>
+    
+    To install for all users (requires PowerShell Run as Administrator):
+
+    <clr-code-snippet
+    [clrCode]="'Find-Module PowerNSX | Install-Module'"
+    [clrDisablePrism]="true">
+    </clr-code-snippet>
+
+    Note: The master branch is not guaranteed to be stable. v3 is the current recommended stable release. PowerCLI 5.5 is no longer supported
+
+
+    <h3 id="nsxinstallwindows">Auto Installer - Windows</h3>
+    <p>The Installer script remains functional and supported for installation of PowerNSX version 3.0
+            
+    The following PowerShell oneliners will download and execute the PowerNSX installer and install the appropriate version. Allthough PowerShell 3 is required for PowerNSX, the installer script will run on PowerShell 2 and above, and will guide you through the process of installing all PowerNSX pre-requisites (including updating PowerShell.)
+            
+    Note: Internet access is required.</p>
+    
+    <p>Installing the latest stable branch - v3:</p>
+
+    <clr-code-snippet [clrCode]="nsxAutoInstallWindowsMaster"></clr-code-snippet>
+    
+    Installing the master branch - active development branch:
+
+    <clr-code-snippet [clrCode]="nsxAutoInstallWindowsV3"></clr-code-snippet>   
+    
+    <h3 id="manualInstallwindows">Manual Install - Windows</h3>
+    <p>It is possible to install PowerNSX manually. The following pre-requisites must be met before the module will load successfully.</p>
+
+    Latest stable - v3
+    <table class="table">
+            <thead>
+                <tr>
+                    <th class="left">Component</th>
+                    <th>Minimum Version</th>
+                    <th>Recommended Version</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="left">PowerShell</td>
+                    <td>PowerShell 3</td>
+                    <td>Powershell 4 (Win7-8.1, Server 2012/R2), PowerShell 5 (Win10, Server2016)</td>
+                </tr>
+                <tr>
+                    <td class="left">DotNet</td>
+                    <td>DotNet 4.5</td>
+                    <td>DotNet 4.5</td>
+                </tr>
+                <tr>
+                    <td class="left">PowerCLI</td>
+                    <td>6.0R3</td>
+                    <td>Latest in Gallery</td>
+                </tr>
+                <tr>
+                    <td class="left">PowerNSX</td>
+                    <td>v3</td>
+                    <td>v3</td>
+                </tr>
+            </tbody>
+        </table>
+    
+        <p>Install the listed pre-requisites, then download the chosen PowerNSX zip file and extract PowerNSX.psm1 and PowerNSX.psd1 from the module/platform/desktop folder to your PowerShell Modules directory. Recommended locations are:</p>
+        <table class="table">
+                <thead>
+                    <tr>
+                        <th class="left">Purpose</th>
+                        <th>Path</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="left">All Users</td>
+                        <td>%ProgramFiles%\Common Files\Modules\PowerNSX</td>
+                    </tr>
+                    <tr>
+                        <td class="left">Current Users</td>
+                        <td>%UserProfile%\Documents\WindowsPowerShell\Modules</td>
+                    </tr>
+                </tbody>
+        </table>
+    
+        <p>If placed in a path included in $env:PSModulePath, then the module will automatically load, otherwise it will have to be manually imported using the Import-Module cmdlet. If manually loading, ensure the manifest (psd1) file is referenced, not the psm1.</p>
+    
+    <h3 id="nsxinstallmacoslinux">Auto Installer - macOS-Linux</h3>
+    <p>Install the following pre-requisites manually.
+            
+    The PowerNSX team recommend PowerShell core 6.0.0-alpha18 for use with PowerNSX on macOS and Linux. There is a Powershell bug in 6.0.0-beta1 that breaks functionality for macOS and Linux. It can be downloaded <a href="https://github.com/PowerShell/PowerShell/releases/tag/v6.0.0-alpha.18">here</a></p>
+
+    Installation of PowerNSX on macOS is basically the same as for Linux, except for the additional requirement of openssl support in curl that PowerShell and PowerCLI require. It is a common source of failure to overlook this, so ensure you take note of this when installing PowerShell as per the OSX instructions for doing so <a href="https://github.com/PowerShell/PowerShell/blob/master/docs/installation/linux.md#macos-1011">here</a>
+    
+    <p>Failure to address this will cause failures in both PowerCLI and PowerNSX.</p>
+
+    <p>Pre-requisites for Latest Stable and Master</p>
+    <table class="table">
+            <thead>
+                <tr>
+                    <th class="left">Component</th>
+                    <th>Minimum Version</th>
+                    <th>Recommended Version</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="left">PowerShell</td>
+                    <td><a href="https://github.com/PowerShell/PowerShell/releases/tag/v6.0.0-alpha.18">PowerShell Core alpha 18</a></td>
+                    <td><a href="https://github.com/PowerShell/PowerShell/releases/tag/v6.0.0-alpha.18">PowerShell Core alpha 18</a></td>
+                </tr>
+                <tr>
+                    <td class="left">PowerCLI Core</td>
+                    <td><a href="https://labs.vmware.com/flings/powercli-core">1.0</a></td>
+                    <td><a href="https://labs.vmware.com/flings/powercli-core">1.0</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+    <p>The following PowerShell oneliner will download and execute the PowerNSX installer. The installer will automatically download the latest version of PowerNSX and place it in the appropriate PowerShell module directory.
+            
+    Note: Internet access is required</p>
+
+    <p>Installing the latest stable branch - v3:</p>
+    
+    <clr-code-snippet [clrCode]="nsxAutoInstallMaclinMaster"></clr-code-snippet>
+        
+    Installing the master branch - active development branch:
+    
+    <clr-code-snippet [clrCode]="nsxAutoInstallMaclinV3"></clr-code-snippet> 
+
+    <h3 id="manualInstallmacoslinux">Manual Install macOS-Linux</h3>
+    <p>It is possible to install PowerNSX manually.</p>
+
+    <p>Pre-requisites for Latest Stable and Master</p>
+    <table class="table">
+            <thead>
+                <tr>
+                    <th class="left">Component</th>
+                    <th>Minimum Version</th>
+                    <th>Recommended Version</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="left">PowerShell</td>
+                    <td><a href="https://github.com/PowerShell/PowerShell/releases/tag/v6.0.0-alpha.18">PowerShell Core alpha 18</a></td>
+                    <td><a href="https://github.com/PowerShell/PowerShell/releases/tag/v6.0.0-alpha.18">PowerShell Core alpha 18</a></td>
+                </tr>
+                <tr>
+                    <td class="left">PowerCLI Core</td>
+                    <td><a href="https://labs.vmware.com/flings/powercli-core">1.0</a></td>
+                    <td><a href="https://labs.vmware.com/flings/powercli-core">1.0</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+            
+    <p>Install the above pre-requisites, then download the master branch PowerNSX zip file and extract PowerNSX.psm1 and PowerNSX.psd1 from the /module/platform/core/ directory to your PowerShell Modules directory within a directory named PowerNSX. Recommended locations are</p>
+    <table class="table">
+            <thead>
+                <tr>
+                    <th class="left">Purpose</th>
+                    <th>Path</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="left">All Users</td>
+                    <td>/usr/local/share/powershell/Modules</td>
+                </tr>
+                <tr>
+                    <td class="left">Current Users</td>
+                    <td>$($env:HOME)/.local/share/powershell/Modules</td>
+                </tr>
+            </tbody>
+    </table>
+
+    <p>If placed in a path included in $env:PSModulePath, then the module will automatically load, otherwise it will have to be manually imported using the Import-Module cmdlet. If manually loading, ensure the manifest (psd1) file is referenced, not the psm1.
     </p>
-    <h2 id="reportingBugs">Reporting an Issue</h2>
-    <p>Ongoing work and feature requests are tracked using <a href="https://github.com/vmware/clarity/issues"
-                                                              target="_blank">GitHub Issues</a>. Please feel free to
+    
+    
+        <h3 id="InstallDocker">Docker Image</h3>
+        <p>We are having a whale of a time. We're waiting for the vmware/PowerCliCore image maintainers to update the docker image</p>
+    
+
+   
+
+    
+        <h3 id="update">Updating PowerNSX</h3>
+        <p>If PowerNSX is already installed, it can be updated to the master branch using the Update-PowerNSX cmdlet on either PowerShell Desktop or PowerShell Core.</p>
+        <clr-code-snippet [clrCode]="'Update-PowerNSX -branch master'"></clr-code-snippet>
+                
+        <p>Note: The master branch is the active development branch of PowerNSX and is not guaranteed to be stable. You have been warned.
+        Powershell Gallery based installations of PowerNSX cannot be updated using Update-PowerNSX. Use the following instead:</p>
+
+        <clr-code-snippet [clrCode]="'Update-Module PowerNSX'"></clr-code-snippet>
+           
+   
+    <h2 id="help">Finding Help</h2>
+
+    <p>PowerShell features a powerful documentation and usage framwork for all cmdlets. The PowerNSX team seek to ensure documentation around each cmdlet is thorough and complete. Below outlines how to take advantage of this.</p>
+
+        <h3 id="gethelp">Using Get Help</h3>
+        <p>The cmdlet Get-Help can be used to determine how to use a given cmdlet. It provides details around the following:</p>
+            <ul>
+                <li>Name</li>
+                <li>Synopsis</li>
+                <li>Syntax</li>
+                <li>Description</li>
+                <li>Related Links</li>
+                <li>Remarks</li>
+            </ul>
+         <p>These fields provide basic overview of the cmdlet. The output of Get-Help New-NsxIpSet below demonstrates this.
+        </p>
+
+        <clr-code-snippet [clrCode]="nsxHelpIpset"></clr-code-snippet>
+
+
+        <h3 id="gethelpexamples">Get Help examples</h3>
+        <p>There is nothing quite like an example to solidify a concept. The example output for a cmdlet demonstrates how a cmdlet can be used in numerous ways. Using the -Examples property you can view the examples for the cmdlet.</p>
+
+        <clr-code-snippet [clrCode]="nsxHelpIpsetExamples"></clr-code-snippet>
+        
+
+        
+
+    <h2 id="UsageExample">Using PowerNSX</h2>
+    <p>The free PowerNSX <a href="https://www.vmware.com/content/dam/digitalmarketing/vmware/en/pdf/products/nsx/vmware-automating-vsphere-with-powernsx.pdf">digital book</a> by VMware Press provides in detail examples and information regarding PowerNSX. The book serves as an additional reference in conjunction with the output provided by <a href="/get-started#help">Get-Help</a> within PowerNSX.
+            
+    For usage details of common functional areas, refer to the following pages. For TL;DR, see below.</p>
+
+    <h2 id="connect">Connecting to NSX</h2>
+
+    <p>Administrators can take advantage of SSO or a direct connection to ensure the right level of access is granted when using the NSX Manager API. With a connection established to vCenter and NSX Manager an administrator can now perform operations with PowerNSX.</p>
+
+        <h3 id="connectsso">Connecting with SSO accounts</h3>
+        <p>Connecting with an SSO account requires explicit definition of the vCenter server. The account connecting to vCenter will be used to connect to the NSX API. This will create both a PowerCLI and PowerNSX session. SSO permissions applied to the account are enforced.</p>
+
+        <clr-code-snippet [clrCode]="nsxConnectSso"></clr-code-snippet>
+        
+
+        <h3 id="connectlocal">Connecting with local account</h3>
+        <p>Connecting directly with a local account to NSX Manager not recommended. Utilising SSO as demonstrated <a href="/get-started#connectsso">above</a> will ensure correct permissions. The local account for NSX Manager has full permissions with API usage.</p>
+
+        <clr-code-snippet [clrCode]="nsxConnectLocal"></clr-code-snippet>
+        
+        
+        <h3 id="disconnectnsx">Disconnecting from NSX</h3>
+        <p> Closing a session is achieved by disconnecting from the NSX Manager</p>
+
+        <clr-code-snippet [clrCode]="'Disconnect-NsxServer'"></clr-code-snippet>
+        
+        
+    
+
+    <h2 id="ls">Logical Switching</h2>
+    
+        <h3 id="getls">Retrieving Logical Switches</h3>
+        <p>Logical Switches are bound to a Transport Zone. The following command runs the Get-NsxTransportZone for transport zone TZ1 and passes the Transport Zone object to Get-NsxLogicalSwitch which will return the logical switch named TSTransit in TZ1</p>
+
+        <clr-code-snippet [clrCode]="nsxLsGet"></clr-code-snippet>
+
+        <p>The output details a lot of information about the individual logical switch.
+        To filter the properties of a Logical Switch output to a subset and view it in a table, we can use Select-Object cmdlet.</p>
+
+        <clr-code-snippet [clrCode]="nsxLsGetSelect"></clr-code-snippet>
+    
+        <h3 id="newls">Creating Logical Switches</h3>
+        <p>Using the above method it is quite easy to create a Logical Switch in the transport zone TZ1 using the New-NsxLogicalSwitch command. It only requires the Transport Zone passed on the pipeline, and the Logical Switch name as an input.</p>
+
+        <clr-code-snippet [clrCode]="nsxLsNew"></clr-code-snippet>
+
+        <h3 id="lspg">Retrieving a Logical Switch Backing PortGroup</h3>
+        <p>Each Logical Switch is backed by a port-group on one or more Distributed Switches, and the port group is the entity that a VM is actually attached to. To retrieve the port group(s) backing a Logical Switch, you can use the Get-NsxBackingPortGroup cmdlet.</p>
+
+        <clr-code-snippet [clrCode]="nsxLsPg"></clr-code-snippet>
+        
+        <p>Here we can see the port-group name vxw-dvs-44-virtualwire-516-sid-5000-PowerNSX which is the Logical Switch we created earlier.
+            
+        <b>Note:</b> In a multi VDS environment, a single logicalswitch will be backed by multiple portgroups. This command will correctly return a collection of VDPortGroup objects. If you wish to use them subsequently (say to attach a VM to them) you will need to filter the collection accordingly (say by cluster)</p>
+
+        <h3 id="attachvm">Attaching a VM</h3>
+
+        <p>Using PowerCLI to retrieve a VM (or number of VMs) it is possible to subsequently attach them to an NSX Logical Switch. This uses the Connect-NsxLogicalSwitch cmdlet when receiving VM's from the pipeline.</p>
+
+        <clr-code-snippet [clrCode]="nsxLsVmAttach"></clr-code-snippet>
+        
+        
+        <h3 id="detachvm">Detaching a VM</h3>
+
+        <p>In similar fashion to attaching a VM, you can also detach a VM using the Disconnect-NsxLogicalSwitch cmdlet when receiving VMs from the pipeline.</p>
+        <clr-code-snippet [clrCode]="nsxLsVmDetach"></clr-code-snippet>
+
+        <p>The VMs now have no port-group attached to the NIC. Use -DisconnectMultipleNics if a machine has more than one.</p>
+        <h3 id="removels">Removing Logical Swiches</h3>
+        <p>Removing a Logical Switch can be performed by passing the desired Logical Switches along the pipeline.</p>
+
+        <clr-code-snippet [clrCode]="nsxLsRemove"></clr-code-snippet>
+        
+
+    <h2 id="dlr">Logical Routing</h2>
+    <p>The NSX DLR allows for Layer 3 forwarding decisions to occur within the hypervisor. This provides east west routing as well as north bound routing with an NSX Edge Gateway.</p>
+        
+        <h3 id="dlrint">Defining LIF Specs</h3>   
+        <p>Defining Logical Interfaces (LIFs) on a DLR individually is basically the same process as it is for the NSX Edge. Each individual interface can be pre-configured using the New-NsxLogicalRouterInterfaceSpec cmdlet. This allows Logical Interfaces or LIFs to be defined ahead of creation of the DLS. At least one LIF is required on initial deployment of DLR control VM. The below example defines an uplink LIF and then deploys the DLR control VM to the defined Cluster.</p>
+
+        <clr-code-snippet [clrCode]="nsxDlrLif"></clr-code-snippet>
+
+        Note: All this cmdlet is doing is defining the correct XML for the subsequent New-NsxLogicalRouter cmdlet. The NSX API is not used when using the New-NsxLogicalRouterInterfaceSpec cmdlet. The variable has the details for the new LIF.
+
+        <h3 id="dlrcreate">Deploying a DLR</h3>
+        <p>An arbitrary number of pre-configured LIFs created with New-NsxLogicalRouterInterfaceSpec and stored as variables can then be used when creating a new DLR. If you have more than one interface to specify, do so as a comma separated list argument to the -Interface parameter of the New-NsxLogicalRouter cmdlet.</p>
+
+        <clr-code-snippet [clrCode]="nsxDlrDeploy"></clr-code-snippet>
+        
+
+        <h3 id="dlrlifappend">Appending another interface</h3>
+        <p>Here we are going to add a new interface to the DLR without using the spec. We will use the `New-NsxLogicalRouterInterface` cmdlet to add it to the recently created DLR.</p>
+
+        <clr-code-snippet [clrCode]="nsxDlrAppendLif"></clr-code-snippet>
+
+        <p>It is a straightforward method of adding new interfaces.</p>
+
+        <h3 id="dlrlifremove">Removing a DLR LIF</h3>
+        <p>There may come a time where a LIF is no longer needed. It can be removed with the use of the Remove-NsxLogicalRouterInterface cmdlet.</p>
+
+        <clr-code-snippet [clrCode]="nsxDlrRemoveLif"></clr-code-snippet>
+
+        The specific DLR and specified interface is passed along the pipeline to the remove cmdlet. An administrator can use -confirm:$false if the prompt needs to be skipped.
+
+        <h3 id="dlrremove">Removing a DLR</h3>
+
+        <p>The DLR passed along the pipeline from Get-NsxLogicalRouter will be removed.</p>
+
+        <clr-code-snippet [clrCode]="nsxDlrRemove"></clr-code-snippet>
+        
+        The DLR is now removed.
+
+        <h3 id="dlrbgp">BGP routing on a DLR</h3>
+        <clr-code-snippet [clrCode]="nsxDlrBgp"></clr-code-snippet>
+        
+        <h3 id="dlrbgpneighbor">BGP Neighbors a DLR</h3>
+        <clr-code-snippet [clrCode]="nsxDlrBgpNeighbor"></clr-code-snippet>
+        
+        <h3 id="dlrbgpredist">Route Redistribution in BGP</h3>
+        <clr-code-snippet [clrCode]="nsxDlrBgpRedist"></clr-code-snippet>
+
+        <h3 id="dlrbgpredistconn"> Redistribute connected in BGP</h3>
+        <clr-code-snippet [clrCode]="nsxDlrBgpRedistConn"></clr-code-snippet>
+        
+        
+        <h3 id="dlrospf">Enabling OSPF</h3>
+        <clr-code-snippet [clrCode]="nsxDlrOspf"></clr-code-snippet>
+        
+        <h3 id="dlrospfarea">OSPF Areas on DLR</h3>
+        
+        <clr-code-snippet [clrCode]="nsxDlrOspfArea"></clr-code-snippet>
+        
+        <h3 id="dlrospfinterface">OSPF particpation on DLR</h3>
+        <h3 id="dlrospfredist">Route Redistribution in OSPF</h3>
+    
+    <h2 id="dfw">Distributed Firewall</h2>
+        <h3 id="dfwsection">DFW Sections</h3>
+        <h3 id="dfwrule">DFW Rules</h3>
+        <h3 id="dfwappliedto">DFW Applied To</h3>
+        
+        
+    <h2 id="contributing">Contributing to PowerNSX</h2>
+    <p>The PowerNSX team welcomes contributions from the community. Please click here for more detail on how to contribute to PowerNSX.
+    </p>
+    <h2 id="issue">Reporting an Issue</h2>
+    <p>Ongoing work and feature requests are tracked using <a href="https://github.com/vmware/powernsx/issues" target="_blank">GitHub Issues</a>. Please feel free to
         file an issue.
-    </p>
-    <p>When submitting issues please provide a minimal app that demonstrates the issue by forking one of Clarity
-        Plunkr's:
-    <ul class="list-unstyled">
-        <li><a href="https://plnkr.co/edit/uNwwZe" target="_blank">Latest Clarity [v0.9.x] Template</a></li>
-        <li><a href="https://plnkr.co/edit/8TwwdL" target="_blank">Legacy Clarity [v0.8.15] Template</a></li>
-    </ul>
-
-    <h2 id="stackoverflow">StackOverflow</h2>
-    <p>
-        File issues on StackOverflow with the
-        <a target="_blank" href="https://stackoverflow.com/questions/tagged/vmware-clarity">vmware-clarity</a> tag
-        to get the community's attention faster. You can also view FAQs by
-        filtering on the <a target="_blank" href="https://stackoverflow.com/questions/tagged/vmware-clarity">vmware-clarity</a>
-        tag on StackOverflow.
-    </p>
-
-    <h2 id="attributions">Attributions</h2>
-    <p>See the <a href="https://github.com/vmware/clarity/blob/master/ATTRIBUTION.md" target="_blank">legal
-        attributions</a> for third party software included in Clarity.
     </p>
     <div style="visibility: hidden; height: 80vh;">This is a spacer to force sidenav highlighting on scroll</div>
 </main>
 <nav class="sidenav" [clr-nav-level]="2">
     <section class="sidenav-content">
         <section class="nav-group" [scrollspy]="scrollable">
-            <label><a class="nav-link active" routerLink="." fragment="introduction">Clarity Design System</a></label>
-            <label class="bump-down"><a class="nav-link" routerLink="." fragment="howToUse">How to Use
-                Clarity</a></label>
+            <label><a class="nav-link active" routerLink="." fragment="installpowernsx">Getting Started </a></label>
+            <label class="bump-down"><a class="nav-link" routerLink="." fragment="masterInstall">Installing PowerNSX</a></label>
             <ul class="nav-list">
-                <li><a class="nav-link" routerLink="." fragment="designResources">Using Clarity Design Resources</a></li>
-                <li><a class="nav-link" routerLink="." fragment="seedProjectClarity">Using a Clarity Seed</a></li>
-                <li><a class="nav-link" routerLink="." fragment="seedProjectAngular">Using an Angular Seed</a></li>
+                <li><a class="nav-link" routerLink="." fragment="psgal">Powershell Gallery Installer - Windows</a></li>
+                <li><a class="nav-link" routerLink="." fragment="nsxinstallwindows">Auto Installer - Windows</a></li>
+                <li><a class="nav-link" routerLink="." fragment="manualInstallwindows">Manual Install - Windows</a></li>                
+                <li><a class="nav-link" routerLink="." fragment="nsxinstallmacoslinux">Auto Installer - macOS-Linux</a></li>
+                <li><a class="nav-link" routerLink="." fragment="manualInstallmacoslinux">Manual Install - macOS-Linux</a></li>     
+                <li><a class="nav-link" routerLink="." fragment="InstallDocker">Using Docker</a></li>     
+                <li><a class="nav-link" routerLink="." fragment="update">Updating PowerNSX</a></li>   
             </ul>
-            <label class="bump-down"><a class="nav-link" routerLink="." fragment="browserSupport">Device &amp; Browser
-                Support</a></label>
-            <label class="bump-down"><a class="nav-link" routerLink="." fragment="contribute_guidelines">Contributing to
-                Clarity</a></label>
-            <label class="bump-down"><a class="nav-link" routerLink="." fragment="reportingBugs">Reporting an Issue</a></label>
-            <label class="bump-down"><a class="nav-link" routerLink="." fragment="stackoverflow">StackOverflow</a></label>
-            <label class="bump-down"><a class="nav-link" routerLink="." fragment="attributions">Attributions</a></label>
+            <label class="bump-down"><a class="nav-link" routerLink="." fragment="help">Finding Help</a></label>
+                <ul class="nav-list">
+                    <li><a class="nav-link" routerLink="." fragment="gethelp">Using Get-Help</a></li>
+                    <li><a class="nav-link" routerLink="." fragment="gethelpexamples">Finding cmdlet examples</a></li>
+                </ul>
+            <label class="bump-down"><a class="nav-link" routerLink="." fragment="UsageExample">Using PowerNSX</a></label>
+            <label class="bump-down"><a class="nav-link" routerLink="." fragment="connect">Connecting to NSX</a></label>
+            <ul class="nav-list">
+                    <li><a class="nav-link" routerLink="." fragment="connectsso">Connect with SSO accounts</a></li>
+                    <li><a class="nav-link" routerLink="." fragment="connectlocal">Connect with local account</a></li>
+                    <li><a class="nav-link" routerLink="." fragment="disconnectnsx">Disconnect from NSX</a></li>
+            </ul>
+            <label class="bump-down"><a class="nav-link" routerLink="." fragment="ls">Logical Switching</a></label>
+                <ul class="nav-list">
+                    <li><a class="nav-link" routerLink="." fragment="getls">Retrieving a Logical Switch</a></li>                        
+                    <li><a class="nav-link" routerLink="." fragment="newls">Creating a Logical Switch</a></li>
+                    <li><a class="nav-link" routerLink="." fragment="lspg">Determine backing Port Group</a></li>                        
+                    <li><a class="nav-link" routerLink="." fragment="attachvm">Attaching a VM</a></li>                        
+                    <li><a class="nav-link" routerLink="." fragment="removels">Removing a Logical Switch</a></li>
+            </ul>
+           
+            
+            <label class="bump-down"><a class="nav-link" routerLink="." fragment="dlr">Logical Routing</a></label>
+            <ul class="nav-list">
+                    <li><a class="nav-link" routerLink="." fragment="dlrint">Defining an interface spec</a></li>
+                    <li><a class="nav-link" routerLink="." fragment="dlrcreate">Creating a new DLR</a></li>
+                    <li><a class="nav-link" routerLink="." fragment="dlrlifappend">Appending another interface</a></li>
+                    <li><a class="nav-link" routerLink="." fragment="dlrlifremove">Removing an interface</a></li>
+                    <li><a class="nav-link" routerLink="." fragment="dlrdelete">Removing a DLR</a></li>
+                    <li><a class="nav-link" routerLink="." fragment="dlrbgp">BGP routing on a DLR</a></li>
+                    <li><a class="nav-link" routerLink="." fragment="dlrbgpneighbor">BGP Neighbors on DLR</a></li>
+                    <li><a class="nav-link" routerLink="." fragment="dlrbgpredist">Route Redistribution in BGP</a></li>
+                    <li><a class="nav-link" routerLink="." fragment="dlrospf">Enabling OSPF</a></li>
+                    <li><a class="nav-link" routerLink="." fragment="dlrospfarea">OSPF Areas on DLR</a></li>
+                    <li><a class="nav-link" routerLink="." fragment="dlrospfinterface">OSPF particpation on DLR</a></li>
+                    <li><a class="nav-link" routerLink="." fragment="dlrospfredist">Route Redistribution in OSPF</a></li>
+            </ul>
+            <label class="bump-down"><a class="nav-link" routerLink="." fragment="dfw">Distributed Firewall</a></label>
+                <ul class="nav-list"> 
+                        <li><a class="nav-link" routerLink="." fragment="dfwsection">DFW Sections</a></li>
+                        <li><a class="nav-link" routerLink="." fragment="dfwrule">DFW Rules</a></li>
+                        <li><a class="nav-link" routerLink="." fragment="dfwappliedto">DFW Applied To</a></li>                        
+                </ul>
+            <label class="bump-down"><a class="nav-link" routerLink="." fragment="security">Security Objects</a></label>
+                <ul class="nav-list"> 
+                        <li><a class="nav-link" routerLink="." fragment="secgroup">Security Groups</a></li>
+                        <li><a class="nav-link" routerLink="." fragment="sectag">Security Tags</a></li>
+                        <li><a class="nav-link" routerLink="." fragment="secpol">Security Policies</a></li>                        
+                </ul>
+            <label class="bump-down"><a class="nav-link" routerLink="." fragment="esg">NSX Edge Services Gateway</a></label>
+                <ul class="nav-list"> 
+                        <li><a class="nav-link" routerLink="." fragment="esgdeploy">Deploying an Edge </a></li>
+                        <li><a class="nav-link" routerLink="." fragment="esginterfaces">Configuring Edge Interfaces</a></li>
+                        <li><a class="nav-link" routerLink="." fragment="esgfirewall">Configure Edge Firewall</a></li>                        
+                </ul>
+            <label class="bump-down"><a class="nav-link" routerLink="." fragment="lb">NSX Edge Load Balancer</a></label>
+                <ul class="nav-list"> 
+                        <li><a class="nav-link" routerLink="." fragment="lbconfigure">Enabling Load Balancing</a></li>
+                        <li><a class="nav-link" routerLink="." fragment="lbcomponent">Load Balancer components</a></li>
+                        <li><a class="nav-link" routerLink="." fragment="lbrecipes">Load Balancer recipes</a></li>                        
+                </ul>
+            <label class="bump-down"><a class="nav-link" routerLink="." fragment="contributing">Contributing to PowerNSX</a></label>
+            <label class="bump-down"><a class="nav-link" routerLink="." fragment="issue">Reporting an Issue</a></label>
         </section>
     </section>
-</nav>
+    </nav>

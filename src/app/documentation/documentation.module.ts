@@ -87,7 +87,8 @@ import {VerticalNavDemoModule} from "./demos/vertical-nav/vertical-nav.demo.modu
         TypographyDemoModule,
         VerticalNavDemoModule,
         WizardDemoModule,
-        DocumentationRoutingModule
+        DocumentationRoutingModule,
+        
     ],
     declarations: [
         DocumentationComponent,

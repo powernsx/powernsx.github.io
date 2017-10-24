@@ -1,5 +1,5 @@
 fs = require("fs");
-RELEASE_TEMPLATES = require("./src/releases/release-template-stub.json");
+`RELEASE_TEMPLATES = require("./src/releases/release-template-stub.json");
 
 const NEWS_TEMPLATE_PATH = "./src/releases/final-template/news-template.html";
 const FINAL_COMPONENT_TEMPLATE_PATH = "./src/releases/final-template/auto-generated-news.component.html";

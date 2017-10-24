@@ -12,7 +12,7 @@ const route: Routes = [
         component: GetStartedComponent,
         data: {
             bodyClass: "layout-get-started",
-            browserTitle: "Get Started"
+            browserTitle: "Getting Started"
         }
     }
 ];
