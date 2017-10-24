@@ -379,7 +379,7 @@ TEST securitygroup-58b55a56-e0ee-42f6-8ee8-437902429047 true
 const NSX_SEC_GROUP_CREATE = `
 `;
 
-const NSX_SEC_TAG_GET = `
+const NSX_SEC_GROUP_GET = `
 PS /> Get-NsxSecurityGroup | select name, objectid | ft -auto
 
 name                        objectId
@@ -444,6 +444,24 @@ systemResource     : false
 vmCount            : 0
 `;
 
+const NSX_SEC_TAG_GET = `
+PS /> Get-NsxSecurityTag
+
+objectId           : securitytag-12
+objectTypeName     : SecurityTag
+vsmUuid            : 4201AC5A-6520-7054-AC84-355C8F41B87D
+nodeId             : 5dfd8b86-9dbe-4bae-93e7-f6f73105f403
+revision           : 0
+type               : type
+name               : ST-PowerNSX
+clientHandle       :
+extendedAttributes :
+isUniversal        : false
+universalRevision  : 0
+systemResource     : false
+vmCount            : 0
+`;
+
 const NSX_SEC_SERVICE_CREATE = `
 PS /> New-NsxService -name 'tcp-666' -protocol tcp -port 666
 
@@ -488,6 +506,7 @@ inheritanceAllowed : false
 const NSX_SEC_SERVICEGROUP_ADDMEMBER = `
 PS /> $Service1 = Get-NsxService tcp-80
 PS /> $Service2 = Get-NsxService tcp-443
+
 PS /> Get-NsxServiceGroup SVG-PowerNSX | Add-NsxServiceGroupMember $Service1, $Service2
 
 `;
@@ -521,7 +540,90 @@ PS /> Get-NsxServiceGroup SVG-PowerNSX | Get-NsxServiceGroupMember
   extendedAttributes :
   isUniversal        : false
   universalRevision  : 0
-  `;
+`;
+
+const NSX_DFW_SECTION_GET = `
+PS /> Get-NsxFirewallSection 'Management - Web Services'
+
+
+id               : 1092
+name             : Management - Web Services
+generationNumber : 1471504507962
+timestamp        : 1471504507962
+type             : LAYER3
+rule             : {Management WEB Consumer to Provider, Management WEB Provider to Consumer}
+`;
+
+const NSX_DFW_RULE_GET = `
+PS /> Get-NsxFirewallSection 'Management - Web Services' | Get-NsxFirewallRule
+
+
+id            : 1107
+disabled      : false
+logged        : false
+name          : Management WEB Consumer to Provider
+action        : allow
+appliedToList : appliedToList
+sectionId     : 1092
+sources       : sources
+destinations  : destinations
+services      : services
+direction     : inout
+packetType    : any
+
+id            : 1106
+disabled      : false
+logged        : false
+name          : Management WEB Provider to Consumer
+action        : allow
+appliedToList : appliedToList
+sectionId     : 1092
+sources       : sources
+destinations  : destinations
+services      : services
+direction     : inout
+packetType    : any
+`;
+
+const NSX_DFW_SECTION_CREATE = `
+PS /> New-NsxFirewallSection PowerNSX
+
+
+id               : 1093
+name             : PowerNSX
+generationNumber : 1471567128948
+timestamp        : 1471567128948
+type             : LAYER3
+`;
+
+const NSX_DFW_RULE_CREATE = `
+PS /> $SGsource = Get-NsxSecurityGroup SG-SMTP-Servers
+PS /> $SGdestination = Get-NsxSecurityGroup SG-NTP-Servers
+
+
+PS /> Get-NsxFirewallSection PowerNSX | New-NsxFirewalLRule -name PowerNSX-Test-Rule -source $SGSource -destination $SGdestination -service $tcp123 -action "allow" -EnableLogging -Tag SMTP-Server-DFWTag
+
+
+id            : 1027
+disabled      : false
+logged        : false
+name          : PowerNSX
+action        : allow
+appliedToList : appliedToList
+sectionId     : 1008
+direction     : inout
+packetType    : any
+`;
+
+const NSX_DFW_EXCLUSION = `
+PS /> Get-VM Web-02 | Add-NsxFirewallExclusionListMember
+
+PS /> Get-NsxFirewallExclusionListMember
+
+Name                 PowerState Num CPUs MemoryGB
+----                 ---------- -------- --------
+web-02               PoweredOff 1        4.000
+`;
 
 const NG_MODULE_EXAMPLE = `
 import { NgModule } from "@angular/core";
@@ -629,12 +731,18 @@ export class GetStartedComponent {
     public nsxXvcIpsetBoth = NSX_XVC_IPSET_BOTH;
     public nsxSecTagCreate = NSX_SEC_TAG_CREATE;
     public nsxSecTagGet = NSX_SEC_TAG_GET;
+    public nsxSecGroupGet = NSX_SEC_GROUP_GET;
     public nsxSecTagApplyVM = NSX_SEC_TAG_APPLY_VM;    
     public nsxSecGroupCreate = NSX_SEC_GROUP_CREATE;
     public nsxSecServiceCreate = NSX_SEC_SERVICE_CREATE;
     public nsxSecServiceGroupCreate = NSX_SEC_SERVICEGROUP_CREATE;
     public nsxSecServiceGroupMember = NSX_SEC_SERVICEGROUP_GETMEMBER;
     public nsxSecServiceGroupAddMember = NSX_SEC_SERVICEGROUP_ADDMEMBER;
+    public nsxDfwSectionGet = NSX_DFW_SECTION_GET;
+    public nsxDfwRuleGet = NSX_DFW_RULE_GET;
+    public nsxDfwRuleCreate = NSX_DFW_RULE_CREATE;
+    public nsxDfwSectionCreate = NSX_DFW_SECTION_CREATE;
+    public nsxDfwExclusion = NSX_DFW_EXCLUSION;
     
 
 }
