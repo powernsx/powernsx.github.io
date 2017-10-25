@@ -646,7 +646,7 @@ web-02               PoweredOff 1        4.000
 `;
 
 const NSX_LB_MONITOR = `
-$ManMon = Get-NsxEdge PowerNSX | Get-NsxLoadBalancer | New-NsxLoadBalancerMonitor -Name MN-vRA-Manager -TypeHttps -interval 10 -timeout 10 -MaxRetries 3 -Method "GET"  -Url '/VMPSProvision' -receive 'ProvisionService'
+PS /> $ManMon = Get-NsxEdge PowerNSX | Get-NsxLoadBalancer | New-NsxLoadBalancerMonitor -Name MN-vRA-Manager -TypeHttps -interval 10 -timeout 10 -MaxRetries 3 -Method "GET"  -Url '/VMPSProvision' -receive 'ProvisionService'
 
 
 monitorId  : monitor-4
@@ -662,7 +662,7 @@ edgeId     : edge-21
 `;
 
 const NSX_LB_VIRTUAL = `
-PowerCLI C:\> Get-NsxEdge PowerNSX | Get-NsxLoadBalancer | Add-NsxLoadBalancerVip -name Web-VIP -Description Web-VIP -ipaddress 192.168.100.140 -Protocol TCP -Port 80 -ApplicationProfile $AP -DefaultPool $WebPool -AccelerationEnabled
+PS /> Get-NsxEdge PowerNSX | Get-NsxLoadBalancer | Add-NsxLoadBalancerVip -name Web-VIP -Description Web-VIP -ipaddress 192.168.100.140 -Protocol TCP -Port 80 -ApplicationProfile $AP -DefaultPool $WebPool -AccelerationEnabled
 
 
 version                : 11
@@ -678,7 +678,7 @@ edgeId                 : edge-21
 `;
 
 const NSX_LB_APP = `
-Get-NsxEdge PowerNSX | Get-NsxLoadBalancer | New-NsxLoadBalancerApplicationProfile -Name AP-Web  -Type HTTP
+PS /> Get-NsxEdge PowerNSX | Get-NsxLoadBalancer | New-NsxLoadBalancerApplicationProfile -Name AP-Web  -Type HTTP
 
 
 applicationProfileId : applicationProfile-1
@@ -689,6 +689,151 @@ template             : HTTP
 serverSslEnabled     : false
 edgeId               : edge-21
 `;
+
+const NSX_LB_ENABLE = `
+PS /> Get-NsxEdge PowerNSX | Get-NsxLoadBalancer | Set-NsxLoadBalancer -Enabled -EnableLogging
+
+
+version                : 3
+enabled                : true
+enableServiceInsertion : false
+accelerationEnabled    : false
+monitor                : {default_tcp_monitor, default_http_monitor, default_https_monitor}
+logging                : logging
+edgeId                 : edge-21
+`;
+
+const NSX_LB_POOL = `
+PS /> $wpm1 = New-NsxLoadBalancerMemberSpec -name Web01 -IpAddress 10.0.1.11 -Port 80
+PS /> $wpm2 = New-NsxLoadBalancerMemberSpec -name Web02 -IpAddress 10.0.1.12 -Port 80
+PS /> $wpm3 = New-NsxLoadBalancerMemberSpec -name Web03 -IpAddress 10.0.1.13 -Port 80
+
+PS /> Get-NsxEdge PowerNSX | Get-NsxLoadBalancer | New-NsxLoadBalancerPool -Name WebPool -Description "Pool for Web Servers" -Monitor $Monitor -Algorithm round-robin -MemberSpec $wpm1,$wpm2,$wpm3
+
+poolId      : pool-1
+name        : WebPool
+description : Pool for Web Servers
+algorithm   : round-robin
+transparent : false
+monitorId   : monitor-2
+member      : {Web01, Web02, Web03}
+edgeId      : edge-21
+`;
+
+const NSX_DLR_STATIC = `
+PS /> Get-NsxLogicalRouter LogicalRouter01 | Get-NsxLogicalRouterRouting | New-NsxLogicalRouterStaticRoute -Network 1.1.1.0/24 -NextHop 10.0.0.200
+`;
+
+const NSX_ESG_STATIC = `
+PS /> Get-NsxEdge Edge01 | Get-NsxEdgeRouting | New-NsxEdgeStaticRoute -Network 1.1.1.0/24 -NextHop 10.0.0.200
+`;
+
+const NSX_ESG_INTERFACE = `
+PowerCLI C:\> $uplink = New-NsxEdgeInterfaceSpec -Name Uplink -Type Uplink -ConnectedTo $pg -PrimaryAddress 192.168.100.140 -SubnetPrefixLength 24 -Index 0
+
+PowerCLI C:\> $uplink
+
+name                : Uplink
+index               : 0
+type                : Uplink
+mtu                 : 1500
+enableProxyArp      : False
+enableSendRedirects : True
+isConnected         : True
+portgroupId         : dvportgroup-36
+addressGroups       : addressGroups
+
+PowerCLI C:\> $internal1 = New-NsxEdgeInterfaceSpec -Name Internal -Type Internal -ConnectedTo $pg2 -PrimaryAddress 172.16.1.1 -SubnetPrefixLength 24 -Index 0
+
+PowerCLI C:\> $internal1
+
+name                : Internal
+index               : 0
+type                : Internal
+mtu                 : 1500
+enableProxyArp      : False
+enableSendRedirects : True
+isConnected         : True
+portgroupId         : dvportgroup-23
+addressGroups       : addressGroups
+`;
+
+const NSX_ESG_DEPLOY = `
+PS /> New-NsxEdge -Name PowerNSX -Datastore $ds -cluster $cluster -Username admin -Password VMware1!VMware1! -FormFactor compact -AutoGenerateRules -FwEnabled -Interface $uplink,$internal1
+
+id                : edge-21
+version           : 1
+status            : deployed
+tenant            : default
+name              : PowerNSX
+fqdn              : PowerNSX
+enableAesni       : true
+enableFips        : false
+vseLogLevel       : info
+vnics             : vnics
+appliances        : appliances
+cliSettings       : cliSettings
+features          : features
+autoConfiguration : autoConfigurat
+type              : gatewayService
+isUniversal       : false
+hypervisorAssist  : false
+queryDaemon       : queryDaemon
+edgeSummary       : edgeSummary
+`;
+
+const NSX_ESG_INTERFACE_VALIDATE = `
+PowerCLI C:\> Get-NsxEdge powernsx | Get-NsxEdgeInterface | ? {$_.isConnected -eq ("true")}
+
+
+label               : vNic_0
+name                : Uplink
+addressGroups       : addressGroups
+mtu                 : 1500
+type                : internal
+isConnected         : true
+index               : 0
+portgroupId         : dvportgroup-36
+portgroupName       : Internal
+enableProxyArp      : false
+enableSendRedirects : true
+edgeId              : edge-21
+
+label               : vNic_1
+name                : Internal
+addressGroups       : addressGroups
+mtu                 : 1500
+type                : internal
+isConnected         : true
+index               : 1
+portgroupId         : dvportgroup-232
+portgroupName       : Test
+enableProxyArp      : false
+enableSendRedirects : true
+edgeId              : edge-21
+`;
+
+const NSX_ESG_BGP = `
+PS /> Get-NsxEdge Edge01 | Get-NsxEdgeRouting | Get-NsxEdgeBgp | Set-NsxEdgeBgp -enabled -localAs 100 -routerId 192.168.103.110 -GracefulRestart
+`;
+
+const NSX_ESG_BGP_NEIGHBOR = `
+PS /> Get-NsxEdge | Get-NsxEdgeRouting | New-NsxEdgeBgpNeighbour -IpAddress 1.2.3.4 -RemoteAS 22235 -Confirm:$false
+-Weight 90 -HoldDownTimer 240 -KeepAliveTimer 90 -confirm:$false
+`;
+
+const NSX_ESG_OSPF = `
+Get-NsxEdge Edge01 | Get-NsxEdgeRouting | Get-NsxEdgeOspf | Set-NsxEdgeOspf -enableOspf -RouterId 192.168.103.110
+`;
+
+const NSX_ESG_OSPF_AREA = `
+PS /> Get-NsxEdge Edge01 | Get-NsxEdgeRouting | New-NsxEdgeOspfArea -AreaId 50
+`;
+
+const NSX_ESG_OSPF_INTERFACE = `
+PS /> Get-NsxEdge Edge01 | Get-NsxEdgeRouting | New-NsxEdgeOspfInterface -AreaId 50 -Vnic 0
+`;
+
 
 const NG_MODULE_EXAMPLE = `
 import { NgModule } from "@angular/core";
@@ -797,7 +942,7 @@ export class GetStartedComponent {
     public nsxSecTagCreate = NSX_SEC_TAG_CREATE;
     public nsxSecTagGet = NSX_SEC_TAG_GET;
     public nsxSecGroupGet = NSX_SEC_GROUP_GET;
-    public nsxSecTagApplyVM = NSX_SEC_TAG_APPLY_VM;    
+    public nsxSecTagApplyVM = NSX_SEC_TAG_APPLY_VM;
     public nsxSecGroupCreate = NSX_SEC_GROUP_CREATE;
     public nsxSecServiceCreate = NSX_SEC_SERVICE_CREATE;
     public nsxSecServiceGroupCreate = NSX_SEC_SERVICEGROUP_CREATE;
@@ -808,6 +953,21 @@ export class GetStartedComponent {
     public nsxDfwRuleCreate = NSX_DFW_RULE_CREATE;
     public nsxDfwSectionCreate = NSX_DFW_SECTION_CREATE;
     public nsxDfwExclusion = NSX_DFW_EXCLUSION;
-    
+    public nsxLbApp = NSX_LB_APP;
+    public nsxLbEnable = NSX_LB_ENABLE;
+    public nsxLbMon = NSX_LB_MONITOR;
+    public nsxLbPool = NSX_LB_POOL;
+    public nsxLbVip = NSX_LB_VIRTUAL;
+    public nsxDlrStatic = NSX_DLR_STATIC;
+    public nsxEsgStatic = NSX_ESG_STATIC;
+    public nsxEsgInterface = NSX_ESG_INTERFACE;
+    public nsxEsgInterfaceValidate = NSX_ESG_INTERFACE_VALIDATE;
+    public nsxEsgDeploy = NSX_ESG_DEPLOY;
+    public nsxEsgBgp =  NSX_ESG_BGP;
+    public nsxEsgBgpNeighbor = NSX_ESG_BGP_NEIGHBOR;
+    public nsxEsgOspf = NSX_ESG_OSPF;
+    public nsxEsgOspfArea = NSX_ESG_OSPF_AREA;
+    public nsxEsgOspfInterface = NSX_ESG_OSPF_INTERFACE;
+
 
 }

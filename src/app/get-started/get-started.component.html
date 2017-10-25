@@ -373,7 +373,7 @@
 
         <clr-code-snippet [clrCode]="nsxDlrRemove"></clr-code-snippet>
         
-       <p>The DLR is now removed completely.</p>>
+       <p>The DLR is now removed completely.</p>
 
         <h3 id="dlrbgp">BGP routing on a DLR</h3>
         <p> Configuring BGP on a DLR is straight forward. It requires the following steps:</p>
@@ -414,13 +414,17 @@
         <p>The concept of OSPF areas indicate the span of routers particpating in this area of OSPF. Below defines an area and type.</p>
         <clr-code-snippet [clrCode]="nsxDlrOspfArea"></clr-code-snippet>
         
-        <h3 id="dlrospfinterface">OSPF particpation on DLR</h3>
-        <p></p>
+        <h3 id="dlrospfinterface">OSPF interfaces on DLR</h3>
+        <p>The cmdlets below add the uplink interface into OSPF</p>
         <clr-code-snippet [clrCode]="nsxDlrOspfInterface"></clr-code-snippet>
         
-        <h3 id="dlrospfredist">Route Redistribution in OSPF</h3>
-        <p></p>
-        <clr-code-snippet [clrCode]="nsxDlrOspfArea"></clr-code-snippet>
+        
+
+        <h3 id="dlrstatic">Static routing on a DLR</h3>
+        <p>There are times where static routing is needed. Static routing can be simply configured for a given Edge or DLR. </p>
+        <clr-code-snippet [clrCode]="nsxDlrStatic"></clr-code-snippet>
+        
+        
         
     <h2 id="dfw">Distributed Firewall</h2>
     <p>Here are some quick tips for working with the Distributed Firewall</p>
@@ -443,7 +447,7 @@
         >
 
         <h3 id="dfwrulecreate">Retrieving DFW Rules</h3>
-        <p>Creating a new rule is striaght forward. It requires a section to be passed along the pipeline to the New-NsxFirewallRule cmdlet.</p
+        <p>Creating a new rule is striaght forward. It requires a section to be passed along the pipeline to the New-NsxFirewallRule cmdlet.</p>
         <clr-code-snippet [clrCode]="nsxDfwRuleCreate"></clr-code-snippet>
         <p>Let us walk through the above example. Using the two stored variables for source and destination, `Get-NsxFirewallSection` first retrieves the defined firewall section. It then passes the section object along the pipeline to `New-NsxFirewallRule`. `New-NsxFirewallRule` receives the object from the pipeline, and proceeds to create a rule within it. As well as passing in variables defining Source and Destination, you can also see we are specifying the service, action, logging status, and DFW tag.</p>
         
@@ -470,7 +474,7 @@
         <p> Working with Security Tags involves simple CRUD operations. Below retrieves the Security Tags</p>
         <clr-code-snippet [clrCode]="nsxSecTagGet"></clr-code-snippet>
 
-        <h3 id="secgroupcreate">Applying Security Tags</h3>
+        <h3 id="sectagapply">Applying Security Tags</h3>
         <p>Once retrieved these tags can be used to apply to Virtual Machines or as members of Security Groups.</p>
         <clr-code-snippet [clrCode]="nsxSecTagApplyVM"></clr-code-snippet>
         
@@ -505,41 +509,153 @@
         <p>What about retreiving services included in a specific Service Group?  The PoSH pipeline has you covered. Just get the Service Group with Get-NsxServiceGroup and pipe it to Get-NsxServiceGroupMembers.</p>
         <clr-code-snippet [clrCode]="nsxSecServiceGroupMember"></clr-code-snippet>
         
-    <h2 id="security">Security Objects</h2>
+        <h2 id="esg">NSX Edge Services Gateway</h2>
+        <p>The NSX Edge is a Virtual Machine that provides Routing, Edge Firewalling, Load Balancing, SSL VPN, IPSEC VPN, Bridging, and DHCP functions.  The NSX Edge represents a huge part of the NSX API due to its swiss army knife capabilities.  Most of the common features are supported by PowerNSX.</p>
+
+                <h3 id="esginterface">Edge Interface creation</h3>
+                <p>To deploy a new Edge, we first have to build the Edge interface specification.
+                Lets create an uplink interface and store it in the $uplink variable.</p>
+                <clr-code-snippet [clrCode]="nsxEsgInterface"></clr-code-snippet>
+
+                <h3 id="esgdeploy">Deplying an Edge</h3>
+                <p>Now to create a new compact NSX edge. This will take some time as the OVA is deployed from NSX Manager to the defined cluster and datastore. The Edge is started and then configured by NSX. This example has also enabled the Edge Firewall and turned on AutoGenerateRules. Upon successful completion the newly created edge object is returned.</p>
+                <clr-code-snippet [clrCode]="nsxEsgDeploy"></clr-code-snippet>
+
+                <h3 id="esginterfacevalidation">Validating Edge Interfaces</h3>
+                <p>By default the NSX edge has 10 interfaces. When not used they are idle. When issuing a Get-NsxEdgeInterface command it will return all connected and disconnected interfaces.
+                        
+                It is possible to pipe the results and use Where-Object (?) to filter the output. The property isConnected is key here. ? {{'{'}}_.isConnected -eq ("true"){{'}'}} performs filtering on the property isConnected. It will return all Edge interfaces with the value of true in the isConnected property.
+                        
+                Using Where-Object (?) is a core PowerShell function.</p>
+                <clr-code-snippet [clrCode]="nsxEsgInterfaceValidate"></clr-code-snippet>
+                
+
+                <h3 id="esgbgp">Enabling Edge BGP</h3>
+                <p>Enabling BGP on an ESG requires less steps than a DLR. First step is enabling BGP. </p>
+                <clr-code-snippet [clrCode]="nsxEsgBgp"></clr-code-snippet>
+
+                <h3 id="esgbgpneighbor">Configuring BGP neighbors</h3>
+                <p>Once BGP is enabled you then must configure neighbors to peer with. </p>
+                <clr-code-snippet [clrCode]="nsxEsgBgpNeighbor"></clr-code-snippet>
+
+                <h3 id="esgospf">Enabling OSPF on an Edge</h3>
+                <p>Enabling OSPF on an NSX Edge is demonstrated below. </p>
+                <clr-code-snippet [clrCode]="nsxEsgOspf"></clr-code-snippet>
+
+                <h3 id="esgospfarea">Configuring Edge OSPF Areas</h3>
+                <p>Creation of OSPF Areas is required.</p>
+                <clr-code-snippet [clrCode]="nsxEsgOspfArea"></clr-code-snippet>
+
+                <h3 id="esgospfinterface">Configuring Edge OSPF interfaces</h3>
+                <p>Once OSPF is enabled and desired areas are created then configure Edge Interfaces into OSPF areas.</p>
+                <clr-code-snippet [clrCode]="nsxEsgOspfInterface"></clr-code-snippet>
+        
+                <h3 id="esgstatic">Static routing on a ESG</h3>
+                <p>There are times where static routing is needed. Static routing can be simply configured for a given Edge or DLR. </p>
+                <clr-code-snippet [clrCode]="nsxEsgStatic"></clr-code-snippet>
+
+                <h3 id="esgfirewall">Firewall on ESG</h3>
+                <p>Coming Soon! </p>
+
+    
+    <h2 id="lb">NSX Edge Load Balancer</h2>
     <p>Any NSX Edge can be provide Load Balancing functionality. Discover how to automate and create this below with PowerNSX</p>
     
         <h3 id="lbconfigure">Enabling NSX Edge Load Balancing</h3>
         <p>The following command will retrieve the NSX Edge named PowerNSX, Get and subsequently enable the load balancer. This will also turn on logging. Logging will use the existing NSX Edges defined Syslog settings.</p>
-
+        <clr-code-snippet [clrCode]="nsxLbEnable"></clr-code-snippet>        
         <p>With the Load Balancer service now running on the Edge PowerNSX it is time now to create all the other desired elements such as Pools, Service Monitors, Application Profiles, and Virtual Servers.</p>
         
         <h3 id="lbpool">oad Balancer Pools and Members</h3>
         <p>Defining Pool members is very much like NSX Edge interfaces. They are defined seperately and then referenced in pool creation. Below defines three members for a Web Pool then creates a round-robined Pool with a http monitor applied.</p>
-       
+        <clr-code-snippet [clrCode]="nsxLbPool"></clr-code-snippet>        
         <p>The result is a Pool with 3 Members, a configured algorithm, and a monitor.</p>
        
         <h3 id="lbapp">Load Balancer App Profiles</h3>
         <p>Creating an Application Profile determines what traffic type is interesting for the Load Balancer to listen to on the Virtual Server.</p>
-        
+        <clr-code-snippet [clrCode]="nsxLbApp"></clr-code-snippet>        
         <p>If NAT is being used and the original IP is required in header then then -insertXForwardedFor can be used.</p>
+        
         <h3 id="lbvip">Load Balancer Virtual Servers</h3>
         <p>Creating a Virtual Server requires a pre-defined Application Profile and an optional Pool. It is recommended a pool be attached at creation.</p>
-
+        <clr-code-snippet [clrCode]="nsxLbVip"></clr-code-snippet>        
+        
         <p>The above code has created a Virtual Server listening on 192.168.100.40 (vNic_0 Uplink). The assigned Application profile enables listening on HTTP for traffic. The defined port is on the Virtual Server.</p>
 
         <h3 id="lbmon">Load Balancer Monitors</h3>
         <p>Monitors can be created to support generic and specific application requirements. Here is a custom monitor created for vRealize Automation 7.1</p>
-
+        <clr-code-snippet [clrCode]="nsxLbMon"></clr-code-snippet>        
         <p>This monitor performs a specifc URL check against /VMPSProvision on the vRealize Automation Manager service.</p>
         <h3 id="lbrecipes">Load Balancer recipes</h3>
         <p>Check back for LB reciples created with PowerNSX for common applications</p>
         
 
+    
 
 
     <h2 id="contributing">Contributing to PowerNSX</h2>
-    <p>The PowerNSX team welcomes contributions from the community. Please click here for more detail on how to contribute to PowerNSX.
-    </p>
+    <p>Contribution and feature requests are more than welcome, please use the following methods:</p>
+        <ul>
+            <li>For bugs and issues, please use the <a href="https://github.com/vmware/powernsx/issues">Issues</a> register with details of the problem.</li>
+            <li>For Feature Requests, please use the <a href="https://github.com/vmware/powernsx/issues">Issues</a>  register with details of what's required.</li>
+            <li>To contribute code, create a fork, make your changes in a feature branch and submit a pull request.</li>
+        </ul>     
+        <h3 id="contest">Testing PowerNSX</h3>
+        <p>
+            As of now, PowerNSX has a (still incomplete) formal test suite.  In order to develop additional features, contribution of corresponding tests is requested.
+            
+            Tests are organised under functional section in the tests/ directory.  Pester is the test framework used.  Any contribution of tests for existing functionality is greatly appreciated!
+            
+            If you make modifications to PowerNSX, ensure the current test set completes successfully, as well as including tests for your new functionality or fixes before submitting a pull request.
+            
+            In the near future, these tests will be the foundation of CI tests that are automatically executed before a PR can be merged.
+        </p>
+
+        <h3 id="conprereq">Pre-Requisites</h3>
+        <p>
+            All tests require a 'sacrifical' NSX environment.  Internally we use labs running nested vSphere/NSX environments, but any functional NSX environment will be suitable.
+            
+            *Do not execute tests agains a production or important NSX environment.  Duh!*
+            
+            Existing tests do not indescriminantly delete/modify existing configuration, but care should be taken, and isolated and disposable NSX environments are recommended for this purpose!
+            
+            In order to execute tests, the NSX environment should be configured as follows:
+        </p>
+        <ul>
+            <li>NSX Manager Deployed</li>
+            <li>A single Transport Zone consisting of at least one cluster of at least one ESXi host.</li>
+            <li>A functional NSX control plane (at least one controller deployed and functional)</li>
+            <li>Pester (The PowerShell testing tool) Installed.  (Included by default on Win10/PoSH 5)</li>
+        </ul>
+        <p>These are the required modules for the tests</p>
+        <ul>
+                <li><a href="https://github.com/pester/Pester">Pester</a></li>
+                <li><a href="https://www.powershellgallery.com/"></a>PowerShellGet</li>
+        </ul>
+
+        <p>The Test Module is the same for both Core and Full versions of PowerNSX, but the manifest is dfferent to deal with different module prerequisites.  The TestCore.Psd1 manifest references Test.Psm1 module.
+                
+                You must import the Test manifest (psd1), not the module itself (psm1)</p>
+        <h3 id="conexec">Executing Tests</h3>
+        <p>Assuming you have git cloned the powernsx repository, cd into the repository, launch powershell, import the test module and initiate the tests using the Start-Test function.  Running Start-Test without any arguments will execute most PowerNSX tests (in future some tests will be excluded from default runs for a variety of reasons).
+                
+        Example (Desktop/Full version of PowerShell on Windows), Current working directory is the root folder of the powernsx repository :</p>
+
+        <h3 id="conindtest">Executing Individual Tests</h3>
+        <p>Tests are broken up according to functional area.  If you are working on NAT functionality for instance, its possible to just run NAT related tests.  The name of the functional area is defined within the 'Describing' block within the test file.  You can pass this string as the only argument to the Start-Test function to execute those tests in isolation.
+                
+        Example:</p>
+
+        <p>The first time tests are executed, default connection details are prompted for and optionally saved to disk.  These can be overridden by deleting the Test.cxn file in the tests directory if it becomes necessary to reconfigure them.  Currently these credentials are stored in CLEAR TEXT.  See Known Issues for details.</p>
+        
+        <h3 id="known">Known Issues</h3>
+        <p>Due to module dependancy and module autoloading functionality in PowerShell, tests should be executed from a new PowerShell session, and preferably without existing PowerNSX or PowerCLI modules loaded for consistent results.  Tests will automatically load the PowerNSX module within the current repository for testing (not the module from the default Module path!) so easy testing of development changes to the module can be performed.
+                
+        You must launch tests using the Start-Test function, and *must not* use Invoke-Pester or individual test execution to perform tests.  This action is blocked intentionally, again due to module loading prerequisites.
+                
+        Due to a limitation in ConvertFrom-SecureString on PowerShell Core, credentials specified for testing will be persisted to disk in an insecure manner.  This will be resolved as soon as the underlying issue in ConvertFrom-SecureString is.</p>
+        
+
     <h2 id="issue">Reporting an Issue</h2>
     <p>Ongoing work and feature requests are tracked using <a href="https://github.com/vmware/powernsx/issues" target="_blank">GitHub Issues</a>. Please feel free to
         file an issue.
@@ -619,10 +735,17 @@
                         <li><a class="nav-link" routerLink="." fragment="servicegroupmemberget">Retrieving Service Group members</a></li>      
                 </ul>
             <label class="bump-down"><a class="nav-link" routerLink="." fragment="esg">NSX Edge Services Gateway</a></label>
-                <ul class="nav-list"> 
+                <ul class="nav-list">
+                        <li><a class="nav-link" routerLink="." fragment="esginterface">Edge Interface creation</a></li> 
                         <li><a class="nav-link" routerLink="." fragment="esgdeploy">Deploying an Edge </a></li>
-                        <li><a class="nav-link" routerLink="." fragment="esginterfaces">Configuring Edge Interfaces</a></li>
-                        <li><a class="nav-link" routerLink="." fragment="esgfirewall">Configure Edge Firewall</a></li>                        
+                        <li><a class="nav-link" routerLink="." fragment="esginterfacevalidation">Validating Edge Interfaces</a></li>
+                        <li><a class="nav-link" routerLink="." fragment="esgbgp">Enabling BGP on Edge</a></li>
+                        <li><a class="nav-link" routerLink="." fragment="esgbgpneighbor">Configuring BGP neighbors</a></li>
+                        <li><a class="nav-link" routerLink="." fragment="esgospf">Enabling OSPF on Edge</a></li>
+                        <li><a class="nav-link" routerLink="." fragment="esgospfarea">Configuring OSPF Areas</a></li>
+                        <li><a class="nav-link" routerLink="." fragment="esgospfinterface">Configuring OSPF Interfaces</a></li>
+                        <li><a class="nav-link" routerLink="." fragment="esgstatic">Static routing on an ESG</a></li>                                                 
+                        <li><a class="nav-link" routerLink="." fragment="esgfirewall">Configure Edge Firewall</a></li>
                 </ul>
             <label class="bump-down"><a class="nav-link" routerLink="." fragment="lb">NSX Edge Load Balancer</a></label>
                 <ul class="nav-list"> 
@@ -634,6 +757,13 @@
                         <li><a class="nav-link" routerLink="." fragment="lbrecipes">Load Balancer recipes</a></li>                        
                 </ul>
             <label class="bump-down"><a class="nav-link" routerLink="." fragment="contributing">Contributing to PowerNSX</a></label>
+            <ul class="nav-list"> 
+                    <li><a class="nav-link" routerLink="." fragment="contest">Contributing to PowerNSX</a></li>
+                    <li><a class="nav-link" routerLink="." fragment="conprereq">Pre-Requisites</a></li>
+                    <li><a class="nav-link" routerLink="." fragment="conexec">Executing Tests</a></li>
+                    <li><a class="nav-link" routerLink="." fragment="conindtest">Executing Individual Tests</a></li>
+                    <li><a class="nav-link" routerLink="." fragment="known">Known Issues</a></li>
+            </ul>
             <label class="bump-down"><a class="nav-link" routerLink="." fragment="issue">Reporting an Issue</a></label>
         </section>
     </section>
