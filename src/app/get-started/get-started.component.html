@@ -641,10 +641,17 @@
                 
         Example (Desktop/Full version of PowerShell on Windows), Current working directory is the root folder of the powernsx repository :</p>
 
+        <clr-code-snipper [clrCode]="nsxContributeTestCore"></clr-code-snipper>
+
         <h3 id="conindtest">Executing Individual Tests</h3>
         <p>Tests are broken up according to functional area.  If you are working on NAT functionality for instance, its possible to just run NAT related tests.  The name of the functional area is defined within the 'Describing' block within the test file.  You can pass this string as the only argument to the Start-Test function to execute those tests in isolation.
                 
         Example:</p>
+
+        <clr-code-snippet
+        [clrCode]="'Start-Test "Edge NAT"'"
+        [clrDisablePrism]="true">
+        </clr-code-snippet>        
 
         <p>The first time tests are executed, default connection details are prompted for and optionally saved to disk.  These can be overridden by deleting the Test.cxn file in the tests directory if it becomes necessary to reconfigure them.  Currently these credentials are stored in CLEAR TEXT.  See Known Issues for details.</p>
         

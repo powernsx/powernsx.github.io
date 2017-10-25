@@ -834,6 +834,15 @@ const NSX_ESG_OSPF_INTERFACE = `
 PS /> Get-NsxEdge Edge01 | Get-NsxEdgeRouting | New-NsxEdgeOspfInterface -AreaId 50 -Vnic 0
 `;
 
+const NSX_CONTRIBUTE_TEST = `
+Import-Module tests/Test.Psd1
+Start-Test
+`
+
+const NSX_CONTRIBUTE_TEST_CORE = `
+Import-Module tests/TestCore.Psd1
+Start-Test
+`
 
 const NG_MODULE_EXAMPLE = `
 import { NgModule } from "@angular/core";
@@ -968,6 +977,8 @@ export class GetStartedComponent {
     public nsxEsgOspf = NSX_ESG_OSPF;
     public nsxEsgOspfArea = NSX_ESG_OSPF_AREA;
     public nsxEsgOspfInterface = NSX_ESG_OSPF_INTERFACE;
-
+    public nsxContributeTest = NSX_CONTRIBUTE_TEST;
+    public nsxContributeTestCore = NSX_CONTRIBUTE_TEST_CORE;
+    
 
 }
