@@ -373,31 +373,55 @@
 
         <clr-code-snippet [clrCode]="nsxDlrRemove"></clr-code-snippet>
         
-        The DLR is now removed.
+       <p>The DLR is now removed completely.</p>>
 
         <h3 id="dlrbgp">BGP routing on a DLR</h3>
+        <p> Configuring BGP on a DLR is straight forward. It requires the following steps:</p>
+        <ul>
+            <li>Enabling the BGP Routing process</li>
+            <li>Defining BGP Peers</li>
+            <li>Configuring redistribution as required</li>
+        </ul>
+        <p>Below enables the BGP process for the DLR</p>
         <clr-code-snippet [clrCode]="nsxDlrBgp"></clr-code-snippet>
         
         <h3 id="dlrbgpneighbor">BGP Neighbors a DLR</h3>
+        <p> The definition of a BGP is required. The BGP peer is between the control planes of the respective components.</p>
         <clr-code-snippet [clrCode]="nsxDlrBgpNeighbor"></clr-code-snippet>
-        
+        <p>If the upstream peer is configured then peering will commence.</p>
+
         <h3 id="dlrbgpredist">Route Redistribution in BGP</h3>
+        <p> Route redisitrbution needs to be enabled globally for the DLR. This will enable any redistribution rules configured</p>
         <clr-code-snippet [clrCode]="nsxDlrBgpRedist"></clr-code-snippet>
 
         <h3 id="dlrbgpredistconn"> Redistribute connected in BGP</h3>
+        <p>A DLR Logical Inteface (LIF) is a directly connected interface. Redistributing these LIFs will ensure network advertisement to upstream BGP peers.</p>
         <clr-code-snippet [clrCode]="nsxDlrBgpRedistConn"></clr-code-snippet>
         
         
         <h3 id="dlrospf">Enabling OSPF</h3>
+        <p>OSPF is an alterntive to BGP. Configuring OSPF is similar to BGP and straight forward. It requires the following steps:</p>
+        <ul>
+            <li>Enabling the OSPF Routing process</li>
+            <li>Configure OSPF Areas</li>
+            <li>Add an interface to an OSPF area.</li>
+            <li>Redistribute into OSPF</li>
+        </ul>
+        <p>Once OSPF is enabled it is enabled for the entire DLR.</p>
         <clr-code-snippet [clrCode]="nsxDlrOspf"></clr-code-snippet>
         
         <h3 id="dlrospfarea">OSPF Areas on DLR</h3>
-        
+        <p>The concept of OSPF areas indicate the span of routers particpating in this area of OSPF. Below defines an area and type.</p>
         <clr-code-snippet [clrCode]="nsxDlrOspfArea"></clr-code-snippet>
         
         <h3 id="dlrospfinterface">OSPF particpation on DLR</h3>
+        <p></p>
+        <clr-code-snippet [clrCode]="nsxDlrOspfInterface"></clr-code-snippet>
+        
         <h3 id="dlrospfredist">Route Redistribution in OSPF</h3>
-    
+        <p></p>
+        <clr-code-snippet [clrCode]="nsxDlrOspfArea"></clr-code-snippet>
+        
     <h2 id="dfw">Distributed Firewall</h2>
     <p>Here are some quick tips for working with the Distributed Firewall</p>
 
