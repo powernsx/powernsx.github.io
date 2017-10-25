@@ -411,18 +411,16 @@
         <clr-code-snippet [clrCode]="nsxDfwSectionCreate"></clr-code-snippet>
         
         
-        <h3 id="dfwrule">Working with DFW Rules</h3>
+        <h3 id="dfwruleget">Retrieving DFW Rules</h3>
 
         <p>Based on the output above in DFW Sections, you can see that it is a Layer 3 section and that it has some rules associated with it. To find out more about the rules associated to with it we can use the Get-NsxFirewallRule.</p>
-        
         <clr-code-snippet [clrCode]="nsxDfwRuleGet"></clr-code-snippet>
-
         <p>The Powershell pipeline takes the object passed to it from Get-NsxFirewallSection, in this case, 'Management - Web Services' and uses it in the Get-NsxFirewallRule command. There are two rules associated with this section - ruleId 1106 and 1107.</p>
+        >
 
-        <p>Creating a new rule is striaght forward. It requires a section to be passed along the pipeline to the New-NsxFirewallRule cmdlet.</p>
-        
+        <h3 id="dfwrulecreate">Retrieving DFW Rules</h3>
+        <p>Creating a new rule is striaght forward. It requires a section to be passed along the pipeline to the New-NsxFirewallRule cmdlet.</p
         <clr-code-snippet [clrCode]="nsxDfwRuleCreate"></clr-code-snippet>
-        
         <p>Let us walk through the above example. Using the two stored variables for source and destination, `Get-NsxFirewallSection` first retrieves the defined firewall section. It then passes the section object along the pipeline to `New-NsxFirewallRule`. `New-NsxFirewallRule` receives the object from the pipeline, and proceeds to create a rule within it. As well as passing in variables defining Source and Destination, you can also see we are specifying the service, action, logging status, and DFW tag.</p>
         
         <h3 id="dfwappliedto">Using DFW Applied To</h3>
@@ -437,19 +435,80 @@
         
 
     <h2 id="security">Security Objects</h2>
-        <p>Security Groups and Security Tags provide a powerful asset to the Distributed Firewall and Security Operations in NSX for vSphere</p>
-        <h3 id="sectagcreate">Working with Security Tags</h3>
+    <p>Security Groups and Security Tags provide a powerful asset to the Distributed Firewall and Security Operations in NSX for vSphere</p>
+
+        <h3 id="sectagcreate">Creating Security Tags</h3>
         <p>It is easy and quick to create a Security Tag. Below demonstrates this:</p>
         <clr-code-snippet [clrCode]="nsxSecTagCreate"></clr-code-snippet>
-        
         <p>By creating a security tag that is not a system default it is now possible to retrieve it. By default, PowerNSX will not retrieve the dozen system-generated security tags. This can be overridden with -IncludeSystem. Use Get-NsxSecurityTag to retrieve user configured Security Tags</p>
-
-        <clr-code-snippet [clrCode]="nsxSecTagGet"></clr-code-snippet>
         
+        <h3 id="sectagget">Retrieving Security Tags</h3>
+        <p> Working with Security Tags involves simple CRUD operations. Below retrieves the Security Tags</p>
+        <clr-code-snippet [clrCode]="nsxSecTagGet"></clr-code-snippet>
 
+        <h3 id="secgroupcreate">Applying Security Tags</h3>
+        <p>Once retrieved these tags can be used to apply to Virtual Machines or as members of Security Groups.</p>
+        <clr-code-snippet [clrCode]="nsxSecTagApplyVM"></clr-code-snippet>
+        
+        <h3 id="secgroupcreate">Creating Security Groups</h3>
+        <p>Creating a new Security Group is simple with PowerNSX. Either empty groups or groups with included or excluded members can be done. The object passed to -IncludeMember or -ExcludeMember can be the vCenter objects references in the UI.
+        Lets use an NSX security tag as the include criteria.</p>
+        <clr-code-snippet [clrCode]="nsxSecGroupCreate"></clr-code-snippet>
+        <p>Now to apply the Security Tag to a given VM. The first is to find the Virtual Machine Web-02.</p>
+        <clr-code-snippet [clrCode]="nsxSecTagApplyVM"></clr-code-snippet>
+        <p>Now that the Virtual Machines are tagged with a specific Security Tag they become a member of the associated Security Group.</p>
 
-        <h3 id="secgroup">Working with Security Groups</h3>
+        <h3 id="secgroupget">Retrieving Security Groups</h3>
+        <p>Let's list all created Security Groups by selecting the desired properties to list and formatting it to a nice table.</p>
+        <clr-code-snippet [clrCode]="nsxSecGroupGet"></clr-code-snippet>
+
         <h3 id="secpol">Security Policies</h3>
+        <p>Examples coming soon. Please use Get-Help in the mean time. </p>   
+        
+        <h3 id="servicecreate">Creating Services</h3>
+        <p>Creating a service requires very basic information about protocol and ports.</p>
+        <clr-code-snippet [clrCode]="nsxSecServiceCreate"></clr-code-snippet> 
+
+        <h3 id="servicegroupcreate">Creating Service Groups</h3>
+        <p>Service Groups are a container that holds other Services or Service Groups</p>
+        <clr-code-snippet [clrCode]="nsxSecServiceGroupCreate"></clr-code-snippet> 
+             
+        <h3 id="servicegroupmemberadd">Adding Service Group members</h3>
+        <p>Now that the Service Group has been made it is time to add some members to it. This example uses two services - tcp-80 and tcp-443 that have already been created.</p> 
+        <clr-code-snippet [clrCode]="nsxSecServiceGroupAddMember"></clr-code-snippet>  
+
+        <h3 id="servicegroupmemberget">Retrieving Service Group members</h3>
+        <p>What about retreiving services included in a specific Service Group?  The PoSH pipeline has you covered. Just get the Service Group with Get-NsxServiceGroup and pipe it to Get-NsxServiceGroupMembers.</p>
+        <clr-code-snippet [clrCode]="nsxSecServiceGroupMember"></clr-code-snippet>
+        
+    <h2 id="security">Security Objects</h2>
+    <p>Any NSX Edge can be provide Load Balancing functionality. Discover how to automate and create this below with PowerNSX</p>
+    
+        <h3 id="lbconfigure">Enabling NSX Edge Load Balancing</h3>
+        <p>The following command will retrieve the NSX Edge named PowerNSX, Get and subsequently enable the load balancer. This will also turn on logging. Logging will use the existing NSX Edges defined Syslog settings.</p>
+
+        <p>With the Load Balancer service now running on the Edge PowerNSX it is time now to create all the other desired elements such as Pools, Service Monitors, Application Profiles, and Virtual Servers.</p>
+        
+        <h3 id="lbpool">oad Balancer Pools and Members</h3>
+        <p>Defining Pool members is very much like NSX Edge interfaces. They are defined seperately and then referenced in pool creation. Below defines three members for a Web Pool then creates a round-robined Pool with a http monitor applied.</p>
+       
+        <p>The result is a Pool with 3 Members, a configured algorithm, and a monitor.</p>
+       
+        <h3 id="lbapp">Load Balancer App Profiles</h3>
+        <p>Creating an Application Profile determines what traffic type is interesting for the Load Balancer to listen to on the Virtual Server.</p>
+        
+        <p>If NAT is being used and the original IP is required in header then then -insertXForwardedFor can be used.</p>
+        <h3 id="lbvip">Load Balancer Virtual Servers</h3>
+        <p>Creating a Virtual Server requires a pre-defined Application Profile and an optional Pool. It is recommended a pool be attached at creation.</p>
+
+        <p>The above code has created a Virtual Server listening on 192.168.100.40 (vNic_0 Uplink). The assigned Application profile enables listening on HTTP for traffic. The defined port is on the Virtual Server.</p>
+
+        <h3 id="lbmon">Load Balancer Monitors</h3>
+        <p>Monitors can be created to support generic and specific application requirements. Here is a custom monitor created for vRealize Automation 7.1</p>
+
+        <p>This monitor performs a specifc URL check against /VMPSProvision on the vRealize Automation Manager service.</p>
+        <h3 id="lbrecipes">Load Balancer recipes</h3>
+        <p>Check back for LB reciples created with PowerNSX for common applications</p>
         
 
 
@@ -517,16 +576,23 @@
             <label class="bump-down"><a class="nav-link" routerLink="." fragment="dfw">Distributed Firewall</a></label>
                 <ul class="nav-list"> 
                         <li><a class="nav-link" routerLink="." fragment="dfwsection">Working with DFW Sections</a></li>
-                        <li><a class="nav-link" routerLink="." fragment="dfwrule">Working with DFW Rules</a></li>
+                        <li><a class="nav-link" routerLink="." fragment="dfwruleget">Retrieving DFW Rules</a></li>
+                        <li><a class="nav-link" routerLink="." fragment="dfwrulecreate">Creating DFW Rules</a></li>
                         <li><a class="nav-link" routerLink="." fragment="dfwappliedto">Using DFW Applied To</a></li>
                         <li><a class="nav-link" routerLink="." fragment="dfwexclusion">Creating DFW Exclusions</a></li>                        
                         
                 </ul>
             <label class="bump-down"><a class="nav-link" routerLink="." fragment="security">Security Objects</a></label>
                 <ul class="nav-list"> 
-                        <li><a class="nav-link" routerLink="." fragment="secgroup">Security Groups</a></li>
-                        <li><a class="nav-link" routerLink="." fragment="sectag">Security Tags</a></li>
+                        <li><a class="nav-link" routerLink="." fragment="sectagcreate">Creating Security Tags</a></li>
+                        <li><a class="nav-link" routerLink="." fragment="sectagget">Retrieving Security Tags</a></li>        
+                        <li><a class="nav-link" routerLink="." fragment="sectagapply">Attaching Security Tags</a></li> 
+                        <li><a class="nav-link" routerLink="." fragment="secgroupcreate">Creating Security Groups</a></li>
                         <li><a class="nav-link" routerLink="." fragment="secpol">Security Policies</a></li>                        
+                        <li><a class="nav-link" routerLink="." fragment="servicecreate">Creating Services</a></li>   
+                        <li><a class="nav-link" routerLink="." fragment="servicegroupcreate">Creating Service Groups</a></li>
+                        <li><a class="nav-link" routerLink="." fragment="servicegroupmemberadd">Adding Service Group members</a></li> 
+                        <li><a class="nav-link" routerLink="." fragment="servicegroupmemberget">Retrieving Service Group members</a></li>      
                 </ul>
             <label class="bump-down"><a class="nav-link" routerLink="." fragment="esg">NSX Edge Services Gateway</a></label>
                 <ul class="nav-list"> 
@@ -537,7 +603,10 @@
             <label class="bump-down"><a class="nav-link" routerLink="." fragment="lb">NSX Edge Load Balancer</a></label>
                 <ul class="nav-list"> 
                         <li><a class="nav-link" routerLink="." fragment="lbconfigure">Enabling Load Balancing</a></li>
-                        <li><a class="nav-link" routerLink="." fragment="lbcomponent">Load Balancer components</a></li>
+                        <li><a class="nav-link" routerLink="." fragment="lbpool">Load Balancer Pools and Members</a></li>
+                        <li><a class="nav-link" routerLink="." fragment="lbapp">Load Balancer App Profiles</a></li>
+                        <li><a class="nav-link" routerLink="." fragment="lbvip">Load Balancer Virtual Servers</a></li>
+                        <li><a class="nav-link" routerLink="." fragment="lbmon">Load Balancer Monitors</a></li>
                         <li><a class="nav-link" routerLink="." fragment="lbrecipes">Load Balancer recipes</a></li>                        
                 </ul>
             <label class="bump-down"><a class="nav-link" routerLink="." fragment="contributing">Contributing to PowerNSX</a></label>

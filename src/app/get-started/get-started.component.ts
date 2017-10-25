@@ -377,6 +377,26 @@ TEST securitygroup-58b55a56-e0ee-42f6-8ee8-437902429047 true
 `;
 
 const NSX_SEC_GROUP_CREATE = `
+PS /> $Tag = Get-NsxSecurityTag PowerNSX-Tag
+
+PS /> New-NsxSecurityGroup PowerNSX-SG -Description 'SG for PowerNSX-Tag VMs' -IncludeMember $tag
+
+
+objectId           : securitygroup-505
+objectTypeName     : SecurityGroup
+vsmUuid            : 42011E64-766E-616B-0401-5C68CF27B466
+nodeId             : 0509160a-0cfb-4cc2-811a-3193e8b45b95
+revision           : 2
+type               : type
+name               : PowerNSX-SG
+description        : SG for PowerNSX-Tag VMs
+scope              : scope
+clientHandle       :
+extendedAttributes :
+isUniversal        : false
+universalRevision  : 0
+inheritanceAllowed : false
+member             : member
 `;
 
 const NSX_SEC_GROUP_GET = `
@@ -623,6 +643,51 @@ PS /> Get-NsxFirewallExclusionListMember
 Name                 PowerState Num CPUs MemoryGB
 ----                 ---------- -------- --------
 web-02               PoweredOff 1        4.000
+`;
+
+const NSX_LB_MONITOR = `
+$ManMon = Get-NsxEdge PowerNSX | Get-NsxLoadBalancer | New-NsxLoadBalancerMonitor -Name MN-vRA-Manager -TypeHttps -interval 10 -timeout 10 -MaxRetries 3 -Method "GET"  -Url '/VMPSProvision' -receive 'ProvisionService'
+
+
+monitorId  : monitor-4
+type       : https
+interval   : 10
+timeout    : 10
+maxRetries : 3
+method     : GET
+url        : /VMPSprovision
+name       : MN-vRA-Manager
+receive    : ProvisionService
+edgeId     : edge-21
+`;
+
+const NSX_LB_VIRTUAL = `
+PowerCLI C:\> Get-NsxEdge PowerNSX | Get-NsxLoadBalancer | Add-NsxLoadBalancerVip -name Web-VIP -Description Web-VIP -ipaddress 192.168.100.140 -Protocol TCP -Port 80 -ApplicationProfile $AP -DefaultPool $WebPool -AccelerationEnabled
+
+
+version                : 11
+enabled                : true
+enableServiceInsertion : false
+accelerationEnabled    : false
+virtualServer          : virtualServer
+pool                   : pool
+applicationProfile     : applicationProfile
+monitor                : {default_tcp_monitor, default_http_monitor, default_https_monitor}
+logging                : logging
+edgeId                 : edge-21
+`;
+
+const NSX_LB_APP = `
+Get-NsxEdge PowerNSX | Get-NsxLoadBalancer | New-NsxLoadBalancerApplicationProfile -Name AP-Web  -Type HTTP
+
+
+applicationProfileId : applicationProfile-1
+name                 : AP-Web
+insertXForwardedFor  : false
+sslPassthrough       : false
+template             : HTTP
+serverSslEnabled     : false
+edgeId               : edge-21
 `;
 
 const NG_MODULE_EXAMPLE = `
