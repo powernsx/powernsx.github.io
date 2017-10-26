@@ -593,11 +593,18 @@
     <h2 id="xvc">Cross vCenter NSX</h2>
         <h3 id="xvcpromote">Promoting NSX Manager</h3>
         <p></p>
-        <clr-code-snippet [clrCode]="nsxLbMon"></clr-code-snippet>
+        <clr-code-snippet [clrCode]="nsxXvcPromMan"></clr-code-snippet>
         
-        <h3 id="xvcls">Universal Logical Switch</h3>
-        <p></p>
-        <clr-code-snippet [clrCode]="nsxLbMon"></clr-code-snippet>
+        
+        <h3 id ="xvcprereq">Preparing for Universal Objects</h3>
+        
+
+        <p>Next we need to create a Universal Transport Zone. This is created below:</p>
+        <clr-code-snippet [clrCode]="nsxXvcTzCreate"></clr-code-snippet>
+
+
+        <h3 id="xvcls">Working with the Universal Logical Switch</h3>
+        
 
         <h3 id="xvcudlr">Universal Logical Router</h3>
         <p></p>

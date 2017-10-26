@@ -844,6 +844,29 @@ Import-Module tests/TestCore.Psd1
 Start-Test
 `;
 
+const NSX_XVC_TZ_CREATE = `
+PS /> New-NsxTransportZone -Name UTZ -Universal -Cluster $cl -ControlPlaneMode UNICAST_MODE
+
+
+objectId           : universalvdnscope
+objectTypeName     : VdnScope
+vsmUuid            : 4201AC5A-6520-7054-AC84-355C8F41B87D
+nodeId             : 5dfd8b86-9dbe-4bae-93e7-f6f73105f403
+revision           : 0
+type               : type
+name               : UTZ
+clientHandle       :
+extendedAttributes :
+isUniversal        : true
+universalRevision  : 0
+id                 : universalvdnscope
+clusters           : clusters
+virtualWireCount   : 0
+controlPlaneMode   : UNICAST_MODE
+cdoModeEnabled     : false
+`;
+
+
 const NG_MODULE_EXAMPLE = `
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
@@ -979,4 +1002,5 @@ export class GetStartedComponent {
     public nsxEsgOspfInterface = NSX_ESG_OSPF_INTERFACE;
     public nsxContributeTest = NSX_CONTRIBUTE_TEST;
     public nsxContributeTestCore = NSX_CONTRIBUTE_TEST_CORE;
+    public nsxXvcTzCreate = NSX_XVC_TZ_CREATE;
 }
