@@ -590,7 +590,22 @@
         <p>Check back for LB reciples created with PowerNSX for common applications</p>
         
 
-    
+    <h2 id="xvc">Cross vCenter NSX</h2>
+        <h3 id="xvcpromote">Promoting NSX Manager</h3>
+        <p></p>
+        <clr-code-snippet [clrCode]="nsxLbMon"></clr-code-snippet>
+        
+        <h3 id="xvcls">Universal Logical Switch</h3>
+        <p></p>
+        <clr-code-snippet [clrCode]="nsxLbMon"></clr-code-snippet>
+
+        <h3 id="xvcudlr">Universal Logical Router</h3>
+        <p></p>
+        <clr-code-snippet [clrCode]="nsxLbMon"></clr-code-snippet>
+
+        <h3 id="xvcusec">Universal Security Objects</h3>
+        <p></p>
+        <clr-code-snippet [clrCode]="nsxLbMon"></clr-code-snippet>
 
 
     <h2 id="contributing">Contributing to PowerNSX</h2>
@@ -599,7 +614,8 @@
             <li>For bugs and issues, please use the <a href="https://github.com/vmware/powernsx/issues">Issues</a> register with details of the problem.</li>
             <li>For Feature Requests, please use the <a href="https://github.com/vmware/powernsx/issues">Issues</a>  register with details of what's required.</li>
             <li>To contribute code, create a fork, make your changes in a feature branch and submit a pull request.</li>
-        </ul>     
+        </ul> 
+            
         <h3 id="contest">Testing PowerNSX</h3>
         <p>
             As of now, PowerNSX has a (still incomplete) formal test suite.  In order to develop additional features, contribution of corresponding tests is requested.
@@ -615,7 +631,7 @@
         <p>
             All tests require a 'sacrifical' NSX environment.  Internally we use labs running nested vSphere/NSX environments, but any functional NSX environment will be suitable.
             
-            *Do not execute tests agains a production or important NSX environment.  Duh!*
+            Do not execute tests agains a production or important NSX environment.  This probably goes without saying!
             
             Existing tests do not indescriminantly delete/modify existing configuration, but care should be taken, and isolated and disposable NSX environments are recommended for this purpose!
             
@@ -630,28 +646,25 @@
         <p>These are the required modules for the tests</p>
         <ul>
                 <li><a href="https://github.com/pester/Pester">Pester</a></li>
-                <li><a href="https://www.powershellgallery.com/"></a>PowerShellGet</li>
+                <li><a href="https://www.powershellgallery.com/">PowerShellGet</a></li>
         </ul>
 
         <p>The Test Module is the same for both Core and Full versions of PowerNSX, but the manifest is dfferent to deal with different module prerequisites.  The TestCore.Psd1 manifest references Test.Psm1 module.
-                
-                You must import the Test manifest (psd1), not the module itself (psm1)</p>
+        You must import the Test manifest (psd1), not the module itself (psm1)</p>
+        
         <h3 id="conexec">Executing Tests</h3>
         <p>Assuming you have git cloned the powernsx repository, cd into the repository, launch powershell, import the test module and initiate the tests using the Start-Test function.  Running Start-Test without any arguments will execute most PowerNSX tests (in future some tests will be excluded from default runs for a variety of reasons).
                 
         Example (Desktop/Full version of PowerShell on Windows), Current working directory is the root folder of the powernsx repository :</p>
 
-        <clr-code-snipper [clrCode]="nsxContributeTestCore"></clr-code-snipper>
+        <clr-code-snippet [clrCode]="nsxContributeTestCore"></clr-code-snippet>
 
         <h3 id="conindtest">Executing Individual Tests</h3>
         <p>Tests are broken up according to functional area.  If you are working on NAT functionality for instance, its possible to just run NAT related tests.  The name of the functional area is defined within the 'Describing' block within the test file.  You can pass this string as the only argument to the Start-Test function to execute those tests in isolation.
-                
+        
         Example:</p>
 
-        <clr-code-snippet
-        [clrCode]="'Start-Test "Edge NAT"'"
-        [clrDisablePrism]="true">
-        </clr-code-snippet>        
+        <clr-code-snippet [clrCode]="'Start-Test Edge NAT'" [clrDisablePrism]="true"></clr-code-snippet>        
 
         <p>The first time tests are executed, default connection details are prompted for and optionally saved to disk.  These can be overridden by deleting the Test.cxn file in the tests directory if it becomes necessary to reconfigure them.  Currently these credentials are stored in CLEAR TEXT.  See Known Issues for details.</p>
         
@@ -674,15 +687,15 @@
         <section class="nav-group" [scrollspy]="scrollable">
             <label><a class="nav-link active" routerLink="." fragment="installpowernsx">Getting Started </a></label>
             <label class="bump-down"><a class="nav-link" routerLink="." fragment="masterInstall">Installing PowerNSX</a></label>
-            <ul class="nav-list">
-                <li><a class="nav-link" routerLink="." fragment="psgal">Powershell Gallery Installer - Windows</a></li>
-                <li><a class="nav-link" routerLink="." fragment="nsxinstallwindows">Auto Installer - Windows</a></li>
-                <li><a class="nav-link" routerLink="." fragment="manualInstallwindows">Manual Install - Windows</a></li>                
-                <li><a class="nav-link" routerLink="." fragment="nsxinstallmacoslinux">Auto Installer - macOS-Linux</a></li>
-                <li><a class="nav-link" routerLink="." fragment="manualInstallmacoslinux">Manual Install - macOS-Linux</a></li>     
-                <li><a class="nav-link" routerLink="." fragment="InstallDocker">Using Docker</a></li>     
-                <li><a class="nav-link" routerLink="." fragment="update">Updating PowerNSX</a></li>   
-            </ul>
+                <ul class="nav-list">
+                    <li><a class="nav-link" routerLink="." fragment="psgal">Powershell Gallery Installer - Windows</a></li>
+                    <li><a class="nav-link" routerLink="." fragment="nsxinstallwindows">Auto Installer - Windows</a></li>
+                    <li><a class="nav-link" routerLink="." fragment="manualInstallwindows">Manual Install - Windows</a></li>                
+                    <li><a class="nav-link" routerLink="." fragment="nsxinstallmacoslinux">Auto Installer - macOS-Linux</a></li>
+                    <li><a class="nav-link" routerLink="." fragment="manualInstallmacoslinux">Manual Install - macOS-Linux</a></li>     
+                    <li><a class="nav-link" routerLink="." fragment="InstallDocker">Using Docker</a></li>     
+                    <li><a class="nav-link" routerLink="." fragment="update">Updating PowerNSX</a></li>   
+                </ul>
             <label class="bump-down"><a class="nav-link" routerLink="." fragment="help">Finding Help</a></label>
                 <ul class="nav-list">
                     <li><a class="nav-link" routerLink="." fragment="gethelp">Using Get-Help</a></li>
@@ -690,11 +703,11 @@
                 </ul>
             <label class="bump-down"><a class="nav-link" routerLink="." fragment="UsageExample">Using PowerNSX</a></label>
             <label class="bump-down"><a class="nav-link" routerLink="." fragment="connect">Connecting to NSX</a></label>
-            <ul class="nav-list">
+                <ul class="nav-list">
                     <li><a class="nav-link" routerLink="." fragment="connectsso">Connect with SSO accounts</a></li>
                     <li><a class="nav-link" routerLink="." fragment="connectlocal">Connect with local account</a></li>
                     <li><a class="nav-link" routerLink="." fragment="disconnectnsx">Disconnect from NSX</a></li>
-            </ul>
+                </ul>
             <label class="bump-down"><a class="nav-link" routerLink="." fragment="ls">Logical Switching</a></label>
                 <ul class="nav-list">
                     <li><a class="nav-link" routerLink="." fragment="getls">Retrieving a Logical Switch</a></li>                        
@@ -702,11 +715,10 @@
                     <li><a class="nav-link" routerLink="." fragment="lspg">Determine backing Port Group</a></li>                        
                     <li><a class="nav-link" routerLink="." fragment="attachvm">Attaching a VM</a></li>                        
                     <li><a class="nav-link" routerLink="." fragment="removels">Removing a Logical Switch</a></li>
-            </ul>
-           
+                </ul>
             
             <label class="bump-down"><a class="nav-link" routerLink="." fragment="dlr">Logical Routing</a></label>
-            <ul class="nav-list">
+                <ul class="nav-list">
                     <li><a class="nav-link" routerLink="." fragment="dlrint">Defining an interface spec</a></li>
                     <li><a class="nav-link" routerLink="." fragment="dlrcreate">Creating a new DLR</a></li>
                     <li><a class="nav-link" routerLink="." fragment="dlrlifappend">Appending another interface</a></li>
@@ -719,7 +731,7 @@
                     <li><a class="nav-link" routerLink="." fragment="dlrospfarea">OSPF Areas on DLR</a></li>
                     <li><a class="nav-link" routerLink="." fragment="dlrospfinterface">OSPF particpation on DLR</a></li>
                     <li><a class="nav-link" routerLink="." fragment="dlrospfredist">Route Redistribution in OSPF</a></li>
-            </ul>
+                </ul>
             <label class="bump-down"><a class="nav-link" routerLink="." fragment="dfw">Distributed Firewall</a></label>
                 <ul class="nav-list"> 
                         <li><a class="nav-link" routerLink="." fragment="dfwsection">Working with DFW Sections</a></li>
@@ -763,14 +775,21 @@
                         <li><a class="nav-link" routerLink="." fragment="lbmon">Load Balancer Monitors</a></li>
                         <li><a class="nav-link" routerLink="." fragment="lbrecipes">Load Balancer recipes</a></li>                        
                 </ul>
+            <label class="bump-down"><a class="nav-link" routerLink="." fragment="xvc">Cross vCenter NSX</a></label>
+                <ul class="nav-list"> 
+                        <li><a class="nav-link" routerLink="." fragment="xvcpromote">Promoting NSX Manager</a></li>
+                        <li><a class="nav-link" routerLink="." fragment="xvcls">Universal Logical Switch</a></li>
+                        <li><a class="nav-link" routerLink="." fragment="xvcudlr">Universal Logical Router</a></li>
+                        <li><a class="nav-link" routerLink="." fragment="xvcusec">Universal Security Objects</a></li>
+                </ul>
             <label class="bump-down"><a class="nav-link" routerLink="." fragment="contributing">Contributing to PowerNSX</a></label>
-            <ul class="nav-list"> 
-                    <li><a class="nav-link" routerLink="." fragment="contest">Contributing to PowerNSX</a></li>
-                    <li><a class="nav-link" routerLink="." fragment="conprereq">Pre-Requisites</a></li>
-                    <li><a class="nav-link" routerLink="." fragment="conexec">Executing Tests</a></li>
-                    <li><a class="nav-link" routerLink="." fragment="conindtest">Executing Individual Tests</a></li>
-                    <li><a class="nav-link" routerLink="." fragment="known">Known Issues</a></li>
-            </ul>
+                <ul class="nav-list"> 
+                        <li><a class="nav-link" routerLink="." fragment="contest">Contributing to PowerNSX</a></li>
+                        <li><a class="nav-link" routerLink="." fragment="conprereq">Pre-Requisites</a></li>
+                        <li><a class="nav-link" routerLink="." fragment="conexec">Executing Tests</a></li>
+                        <li><a class="nav-link" routerLink="." fragment="conindtest">Executing Individual Tests</a></li>
+                        <li><a class="nav-link" routerLink="." fragment="known">Known Issues</a></li>
+                </ul>
             <label class="bump-down"><a class="nav-link" routerLink="." fragment="issue">Reporting an Issue</a></label>
         </section>
     </section>
