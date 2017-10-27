@@ -12,7 +12,7 @@
     "build-gh-pages:prod": "ng build --aot --sourcemaps=false --environment=prod && npm run generate-404",
     "generate-release-notes": "node generate-template.js",
     "generate-404": "cat dist/index.html > dist/404.html",
-    "deploy": "npm run build-gh-pages:prod && gulp deploy"
+    "deploy": "npm run l:prod && gulp deploy"
   },
   "private": true,
   "dependencies": {
