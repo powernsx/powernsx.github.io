@@ -866,6 +866,132 @@ controlPlaneMode   : UNICAST_MODE
 cdoModeEnabled     : false
 `;
 
+const NSX_XVC_SEGMENT_CREATE = `
+PS /> New-NsxSegmentIdRange -Universal -Begin 10000 -End 20000 -Name Universal
+
+
+id                : 3
+name              : Universal
+begin             : 10000
+end               : 20000
+isUniversal       : true
+universalRevision : 0
+`;
+
+const NSX_XVC_LOGICAL_SWITCH = `
+PS /> Get-NsxTransportZone UTZ | New-NsxLogicalSwitch -name ULS_BAL_4213561_App
+
+
+objectId              : universalwire-1
+objectTypeName        : VirtualWire
+vsmUuid               : 4201AC5A-6520-7054-AC84-355C8F41B87D
+nodeId                : 5dfd8b86-9dbe-4bae-93e7-f6f73105f403
+revision              : 3
+type                  : type
+name                  : ULS_BAL_4213561_App
+description           :
+clientHandle          :
+extendedAttributes    :
+isUniversal           : true
+universalRevision     : 3
+tenantId              :
+vdnScopeId            : universalvdnscope
+vdsContextWithBacking : {vdsContextWithBacking, vdsContextWithBacking}
+vdnId                 : 10000
+guestVlanAllowed      : false
+controlPlaneMode      : UNICAST_MODE
+ctrlLsUuid            : 9102bf16-f803-43c6-a5f7-07274a3d6c4b
+macLearningEnabled    : false
+`;
+
+const NSX_XVC_LOGICAL_ROUTER = `
+PS /> New-NsxLogicalRouter -name UDLR -Interface $uplink -Datastore $ds -Cluster $cl -ManagementPortGroup $intpg -Universal
+
+
+id                 : edge-5230f5c7-d7e7-41ba-a78f-d1c43cae6969
+version            : 2
+status             : deployed
+tenant             : default
+name               : UDLR
+fqdn               : NSX-edge-5230f5c7-d7e7-41ba-a78f-d1c43cae6969
+enableAesni        : true
+enableFips         : false
+vseLogLevel        : info
+appliances         : appliances
+cliSettings        : cliSettings
+features           : features
+autoConfiguration  : autoConfiguration
+type               : distributedRouter
+isUniversal        : true
+universalVersion   : 0
+mgmtInterface      : mgmtInterface
+interfaces         : interfaces
+edgeAssistId       : 10000
+lrouterUuid        : adcaef30-1b8a-4c1a-8700-d2ffb91796d1
+queryDaemon        : queryDaemon
+localEgressEnabled : false
+edgeSummary        : edgeSummary
+`;
+
+const NSX_XVC_IP_SET = `
+PS /> new-nsxipset -Name IPset-Universal -Universal -IPAddress 10.1.1.0/24
+
+
+objectId           : ipset-dad9613f-46b5-480c-b916-de295f83f82c
+objectTypeName     : IPSet
+vsmUuid            : 4201AC5A-6520-7054-AC84-355C8F41B87D
+nodeId             : 5dfd8b86-9dbe-4bae-93e7-f6f73105f403
+revision           : 1
+type               : type
+name               : IPset-Universal
+description        :
+scope              : scope
+clientHandle       :
+extendedAttributes :
+isUniversal        : true
+universalRevision  : 0
+inheritanceAllowed : false
+value              : 10.1.1.0/24
+`;
+
+const NSX_XVC_SEC_GROUP = `
+PS /> New-NsxSecurityGroup -Name SecGroup-Universal -Universal
+
+
+objectId           : securitygroup-4fadaff7-6457-4a88-9730-f17f0a3deb1f
+objectTypeName     : SecurityGroup
+vsmUuid            : 4201AC5A-6520-7054-AC84-355C8F41B87D
+nodeId             : 5dfd8b86-9dbe-4bae-93e7-f6f73105f403
+revision           : 1
+type               : type
+name               : SecGroup-Universal
+description        :
+scope              : scope
+clientHandle       :
+extendedAttributes :
+isUniversal        : true
+universalRevision  : 0
+inheritanceAllowed : false
+`
+
+const NSX_XVC_SEC_TAG = `
+PS /> New-NsxSecurityTag -name SecTag-Universal -Universal
+
+
+objectId           : securitytag-b8fe7151-61ff-48bb-9acf-a2cc788f205d
+objectTypeName     : SecurityTag
+vsmUuid            : 4201AC5A-6520-7054-AC84-355C8F41B87D
+nodeId             : 5dfd8b86-9dbe-4bae-93e7-f6f73105f403
+revision           : 0
+type               : type
+name               : SecTag-Universal
+clientHandle       :
+extendedAttributes :
+isUniversal        : true
+universalRevision  : 0
+systemResource     : false
+vmCount            : 0
+`
 
 const NG_MODULE_EXAMPLE = `
 import { NgModule } from "@angular/core";
@@ -1003,4 +1129,10 @@ export class GetStartedComponent {
     public nsxContributeTest = NSX_CONTRIBUTE_TEST;
     public nsxContributeTestCore = NSX_CONTRIBUTE_TEST_CORE;
     public nsxXvcTzCreate = NSX_XVC_TZ_CREATE;
+    public nsxXvcSegmentCreate = NSX_XVC_SEGMENT_CREATE;
+    public nsxXvcLogicalSwitch = NSX_XVC_LOGICAL_SWITCH;
+    public nsxXvcLogicalRouter = NSX_XVC_LOGICAL_ROUTER;
+    public nsxXvcIpSetCreate = NSX_XVC_IP_SET;
+    public nsxXvcSecTag = NSX_XVC_SEC_GROUP;
+    public nsxXvcSecGroup = NSX_XVC_SEC_TAG;
 }

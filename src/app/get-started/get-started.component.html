@@ -591,28 +591,37 @@
         
 
     <h2 id="xvc">Cross vCenter NSX</h2>
+    <p>The design goal behind these cmdlets is that Universal functions, where approriate, utilise the existing cmdlet. Enabling universal functionality would be through a parameter such as -Universal or -isUniversal.</p>
         <h3 id="xvcpromote">Promoting NSX Manager</h3>
-        <p></p>
+        <p>First step to configuring any Universal object is promoting NSX Manager from a Stand Alone role into a Primary NSX Manager.</p>
         <clr-code-snippet [clrCode]="nsxXvcPromMan"></clr-code-snippet>
         
         
-        <h3 id ="xvcprereq">Preparing for Universal Objects</h3>
-        
-
-        <p>Next we need to create a Universal Transport Zone. This is created below:</p>
+        <h3 id ="xvcprereq">Preparing for Cross vCenter NSX</h3>
+        <p>Next we need to create a Universal Transport Zone. These are created below:</p>
         <clr-code-snippet [clrCode]="nsxXvcTzCreate"></clr-code-snippet>
 
-
-        <h3 id="xvcls">Working with the Universal Logical Switch</h3>
+        <p>After the univseral Segment IDs need to be made. These are defined below:</p>
+        <clr-code-snippet [clrCode]="nsxXvcSegmentCreate"></clr-code-snippet>
         
 
+        <h3 id="xvcls">Working with the Universal Logical Switch</h3>
+        <p>With the pre-requisites for Cross vCenter made you can make Universal Logical Switches. No parameter required here. The backing Transport Zone dicates the type of Logical Switch.</p>
+        <clr-code-snippet [clrCode]="nsxXvcLogicalSwitch"></clr-code-snippet>
+        <p></p>
+                    
         <h3 id="xvcudlr">Universal Logical Router</h3>
-        <p></p>
-        <clr-code-snippet [clrCode]="nsxLbMon"></clr-code-snippet>
+        <p>The Logical Router is created the same as a local DLR. The only difference here is the -Universal parameter.</p>
+        <clr-code-snippet [clrCode]="nsxXvcLogicalRouter"></clr-code-snippet>
+        <p>Now the UDLR is provisioned.</p>
 
-        <h3 id="xvcusec">Universal Security Objects</h3>
-        <p></p>
-        <clr-code-snippet [clrCode]="nsxLbMon"></clr-code-snippet>
+        <h3 id="xvcusec">Using Universal Security Objects</h3>
+        <p>Below is an example of a Universal Security Tag</p>
+        <clr-code-snippet [clrCode]="nsxXvcSecTag"></clr-code-snippet>
+        <p>Below is an example of a Universal Ip Set</p>
+        <clr-code-snippet [clrCode]="nsxXvcIpSetCreate"></clr-code-snippet>
+        <p>Below is an example of a Universal Security Group</p>
+        <clr-code-snippet [clrCode]="nsxXvcSecGroup"></clr-code-snippet>
 
 
     <h2 id="contributing">Contributing to PowerNSX</h2>
@@ -785,7 +794,7 @@
             <label class="bump-down"><a class="nav-link" routerLink="." fragment="xvc">Cross vCenter NSX</a></label>
                 <ul class="nav-list"> 
                         <li><a class="nav-link" routerLink="." fragment="xvcpromote">Promoting NSX Manager</a></li>
-                        <li><a class="nav-link" routerLink="." fragment="xvcls">Universal Logical Switch</a></li>
+                        <li><a class="nav-link" routerLink="." fragment="xvcprereq">Preparing for Cross vCenter NSX</a></li>                        <li><a class="nav-link" routerLink="." fragment="xvcls">Universal Logical Switch</a></li>
                         <li><a class="nav-link" routerLink="." fragment="xvcudlr">Universal Logical Router</a></li>
                         <li><a class="nav-link" routerLink="." fragment="xvcusec">Universal Security Objects</a></li>
                 </ul>
