@@ -4,6 +4,9 @@ const path = require("path");
 const shell = require("gulp-shell");
 const watch = require("gulp-watch");
 
+var options = { 
+    branch: "master"};
+
 gulp.task("deploy", function () {
     ghpages.publish(path.join(__dirname, "dist"), function (err) {
         if (err) {
