@@ -16,7 +16,7 @@
     }, {
         "name": "Anthony Burke",
         "role": "Contributor/Documentation/Marketing",
-        "blurb": "Anthony is a Solution Architect with the Networking & Security Business Unit at VMware. Antho helps customers transform their networks to support modern network architectures with network virtualization using technologies such as VMware NSX®. His previous experience with emergency services gives him a unique perspective of the network requirements of mission critical environments. Anthony has contributed to and evangelized PowerNSX since its inception. This allows customers to adopt and consume automation of VMware NSX for vSphere® in a familiar and friendly fashion.",
+        "blurb": "Anthony is a Solution Architect with the Networking & Security Business Unit at VMware. Anthony helps customers transform their networks to support modern network architectures with network virtualization using technologies such as VMware NSX®. His previous experience with emergency services gives him a unique perspective of the network requirements of mission critical environments. Anthony has contributed to and evangelized PowerNSX since its inception. This allows customers to adopt and consume automation of VMware NSX for vSphere® in a familiar and friendly fashion.",
         "twitter": "pandom_",
         "img": "burkey.png",
         "workstreams": ["UI", "NG"]
