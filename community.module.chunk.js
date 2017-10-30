@@ -300,7 +300,7 @@ var CommunityModule = (function () {
 /***/ "../../../../../src/community/contributors.json":
 /***/ (function(module, exports) {
 
-module.exports = {"contributors":["Virtualizestuff","Tony Sangha","Yuki Tsuboi","Alexis la Goutte","Dimitri Desmidt","Dale Coghlan","Stephen Sauer","malfuntioningeddie","davehocking","richardlock","rhancock8","lamw","srobroek"]}
+module.exports = {"contributors":["Virtualizestuff","Tony Sangha","Yuki Tsuboi","Alexis la Goutte","Dimitri Desmidt","Stephen Sauer","malfuntioningeddie","davehocking","richardlock","rhancock8","lamw","srobroek"]}
 
 /***/ }),
 
