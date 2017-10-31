@@ -14,11 +14,8 @@ const appRoutes: Routes = [
         loadChildren: "app/documentation/documentation.module#DocumentationModule",
     },
     {
-        path: "icons",
-        loadChildren: "app/icons/icons.module#IconsModule",
-        data: {
-            bodyClass: "layout-icons"
-        }
+        path: "blog",
+        loadChildren: "app/blog/blog.module#BlogModule",
     },
     {
         path: "community",

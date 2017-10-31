@@ -1,0 +1,158 @@
+<main id="content-area" class="content-area" hash-listener #scrollable>
+    <h1 id="blog">PowerNSX Blog</h1>
+    <p> Below contains the PowerNSX blog maintined by the team. Use the scroll bar on the left to jump to a specific entry. Enjoy!</p>
+
+        <h2 id="blog021216">An early Christmas present</h2>
+        <p>I'm breaking a long standing tradition of not blogging, because for once I feel like I truly have something interesting to talk about! :)</p>
+        <p> Earlier in the year my friend and fellow minion, Anthony Burke, pulled me into a meeting with Alan Renouf and William Lam to discuss what was at the time a hush hush project by Microsoft, to bring PowerShell to *nix systems, and (as if that wasn't enough!), that the PowerCLI team were busy making hay and were planning to bring PowerCLI support out in conjunction with the PowerShell Core release - just in time for US VMworld 2016. Freakin' awesome!</p>
+        <p>At the time, I was flat out trying to get everything together for the 2.0 release of PowerNSX - one that nearly doubled the size of PowerNSX, all with a development team of 1 (gratefully received contributions from minions and a supportive community aside!).</p>        
+        <p> I did take a quick look at PoSH Core at the time, and liked what I saw, but the lack of support for dealing easily with unsigned certificates brought me unstuck very early on in attempts to get PowerNSX going on Core and I waited patiently (more than some ;) ) for things to improve a little and for enough free time to present itself to work on porting PowerNSX.</p>        
+        <p>So VMworld happened, with Anthony and myself presenting a very successful session on PowerNSX and PyNSXv at Vegas, and then a month's leave, Barcelona, vForum, another trip to HQ... but finally, I found a few weeks of reasonably consecutive time in December to get down to brass tacks...</p>
+        <br>
+        <b>PowerNSX support for PowerShell Core</b>
+        <p>Yes - if you haven't figured it out yet - we have *experimental* support for PowerShell Core in PowerNSX as of now.</p>
+        <br>
+        <b>TLDR</b>
+        <p> The link to PowerNSX Core</p>
+        <a href="https://powernsx.github.io/powernsxcore/">PowerNSX Core</a>
+        <br>
+        <b>The Journey</b>
+        <p>For those that are interested in the innards of PowerNSX and what was involved in porting PowerNSX to PowerShell Core, I'll share some ramblings.  I wont judge if you stop reading here.
+        </p>
+        <p>In the process I learned a lot about PowerShell, dotNet Core, git, some (most!) of which is inane, can be found elsewhere on the web, or is just plain uninteresting.  I will try to restrict myself to just the useful bits that hopefully help some other weary googler on their way...
+        </p>
+        <br>
+        <b>One Module to Rule Them All</b>
+        <p>When I first started testing PowerNSX on PowerShell Core, I had no idea how easy or hard the process of porting it would be. Simple test - does the module load?  No?  Why?  Fix?  Move On.  Can I connect to NSX server?  No?  Why?  Fix?  Move on... you get the idea.
+        </p>
+        <p>After a few days of work though it became apparent that not only would it be possible to port it, but, it should be possible (and definitely desirable) for the one module to load on either platform.  Sure, there were areas where I had to detect what platform the module was running on in order to deal with some specifics, but these were for the most part limited to two key areas - both of which I've been able to refactor to allow the cmdlets to remain mostly untouched.  XML XPath handling, and use of Invoke-WebRequest.  I'll cover both of them separately below.
+        </p>
+        <p>So - the initial release, has just that.  One module that will load on PowerShell Full on Windows, or PowerShell Core (alpha-14 and above).
+        </p>
+        <br>
+        <b>PowerShell Full -match PowerShell Core</b>
+        <p>I have been really impressed so far at just how well PowerShell Core behaves compared to its mature cousin on Windows, but there are some rough edges, and for PowerNSX - a module that relies not only on PowerShell, but also dotNet directly - the rough edges took some getting over.
+        </p>
+        <p>Firstly, there are some UI issues that I'm sure will be resolved relatively soon.  Things like progress dialogs overwriting output (PowerNSX uses progress dialogs for most long running tasks), and like the console feeling sluggish (it appears to redraw every key press, which makes pasting large amounts of text to a PoSH Core session painful and/or scary).
+        </p>
+        <p>In PowerNSX, I chose to disable progress dialogs when the module loads on Core to deal with one of these problems.  I introduced $PowerNSXConfiguration.ProgressReporting = $false to deal with this.  You can toggle this if you want them back, though you will probably turn it off again pretty quickly (at least with the way that alpha-14 behaves).  Note that $PowerNSXConfiguration is not persistent (yet - though I plan to make it so and expand on it in future commits).
+        </p>
+        <b>Invoke-RestMethod and Invoke-WebRequest Round One</b>
+
+        <br>
+        <b>dotNet Core -ne dotNet full</b>
+        
+        <br>
+        <b>Invoke-RestMethod and Invoke-WebRequest Round Two</b>
+        
+        <br>
+        <b>The Case of the Missing WebResponse</b>
+
+        <p>On PowerNSX full, when I do this:</p>
+        <clr-code-snippet [clrCode]="Blog021216WebReponse"></clr-code-snippet>
+        
+        <p>The exception that I get back includes the server response which has useful information that I then rethrow to the user, like:  I need a controller running in order to create a logical switch.On Core however, using iwr, if the server response is non 2xx, like it is in this case, the exception that is thrown *does not contain the response*.  This means that the best I can send back to the user is basically 'Sorry.  That didnt work.'.  Yuk :( </p>
+            
+        <p>After some investigation, it was clear that it's just a limitation of the PowerShell port, and not some intrinsic limitation of dotNet Core.  (As a side note, it's awesome that PowerShell Core is *opensource* as I can actually check to see where limitations like this lie.  That was about to take me down another rabbit hole.)
+            
+        So, this is annoying, but I was for the most part prepared to accept it and move on in the hope that it would be resolved in time. (And it probably will.).  But hold that thought...</p>
+
+        <br>
+        <b>My Two Characters of Greatness</b>
+        
+        <p>The other new issue that I'd now hit, was that at times, I would get nullref exceptions from iwr and irm when the API returned no content.  What transpired was a spirit journey of sorts, a very simple change to PowerShell to resolve this issue resulted in me (a dotNet hack) being schooled by the friendly PowerShell guys into reducing my fix down to two characters.  And they were both the same character. :). <a href="https://github.com/PowerShell/PowerShell/pull/2666">Messing with things I don't understand</a>.  Regardless, I learnt a lot about how to build, contribute to and test PowerShell Core.</p>
+        
+        <br>
+        <b>Testing</b>
+
+        <p>While we are on the topic of testing: As I progressed with the porting effort and fixed the main classes of problems that I hit, I quickly came to the realisation that without actual tests to perform on the module, it was impossible to know if the changes I was making were breaking anything.  One of my users had also shared a lot of useful insight (thanks @devblackops !) to how he felt tests should be improved in PowerNSX, and based on his recommendations and some more late nights, the PowerNSX Test framework was born. (Check out /tests/ in the current master branch, and <a href="https://powernsx.github.io/contrib/">Contributing</a>> for more information).
+        </p>
+        <p>
+        So, after a week or so's work on converting the very dodgy test scripts I had previously, to Pester tests - while incomplete - I now had an easily executed, easy to expand upon, test framework that I could use to be increasingly confident that I hadn't broken too much (or rather, to identify what I had broken and what needed to be fixed! :) ).</p>
+
+        <br>
+        <b>Naughty Header Handling</b>
+
+        <p>So it should have been plain sailing from here.  Except for one group of tests.  DFW.  None of the cmdlets dealing with DFW rule creation were working, and there's something special in them in the NSX API, they use a common approach among REST APIs of leveraging the 'If-Match' header to ensure that any POST that the API receives is using the latest version of the object by requiring the caller to specify the object 'E-Tag' (Entity Tag) as the If-Match value.  Think of it as version control.  Problem was, Invoke-WebRequest was rejecting the addition of the If-Match Header PowerNSX was building as not compliant.</p>
+
+        <p>
+        A short amount of research later and I realised that, actually, the NSX API is being a little 'naughty' here, and that the value of an If-Match header should actually be enclosed in quotes to comply with the relevant standards.  PowerNSX use on PowerShell Full generates a header with no quotes which Invoke-WebRequest happily accepts, but when I tried quoting it on PowerShell Core, although the header was now accepted by Invoke-WebRequest as valid, it was rejected by the NSX API. :(  See <a href="https://github.com/PowerShell/PowerShell/issues/2895">My Lonely Issue</a> for details.
+        </p>
+
+        <br>
+        <b>Invoke-RestMethod and Invoke-WebRequest Round Three.  And Certificates.  Again.</b>
+
+        <p>Figuring I was so close, and wanting to merge the goodness I'd been sitting on for months now, I started to look for alternatives.</p>
+            
+        <p>With what I'd learned from this journey, I was slowly coming to the realisation that I could probably solve all of the 'lack of response data in exceptions', 'if-match header handling' 'content-type header missing exceptions' and even the dang 'skip certificate validation' problems just by writing my own simplified version of 'Invoke-WebRequest', leveraging the dotNet Core System.Net.Http.HttpClient class directly (the same class that Invoke-WebRequest uses under the hood).</p>
+            
+        <p>What was born of this process was Invoke-InternalWebRequest, an internal-only function that implements a similar interface to Invoke-WebRequest and is only leveraged when run on PowerShell Core.  It allowed me to address all of the above issues as well as improve the exception handling on both PowerShell Full and Core, and lay the groundwork for even more improvements in this space in the future.  So.  Full error responses from the NSX API when a non 2xx response is received, 'Improper' header handling via the Header.TryAddWithoutValidation() method that resolved the DFW test failures, no content-type nullref exceptions when zero content responses are received, and to cap it all off, ability to selectively disable certificate validation.</p>
+            
+        <p>Given that someone may one day look for how to disable certificate validation in PowerShell when using the HTTPClient classes on PowerShell Core, the following may be useful.  This took me a late night to nut out, as it requires the definition of a custom 'type' based on a C# Class that derives from the HTTPClient class, as specifying a callback function for a dotNet class in PowerShell seems nigh on impossible to this mere mortal.</p>
+
+        <clr-code-snippet [clrCode]="Blog021216Invoke"></clr-code-snippet>
+        
+        <p>It's somewhat ironic that the final hurdle I overcame would actually have resolved the issue that prevented me from really beginning the port for several months in the first place... Aint hindsight wonderful?</p>
+        <br>
+        <b>What Now?  Call to Arms</b>
+
+        <p>So, as of now, the changes to support Core, including potentially breaking changes to the Full version of PowerNSX have been merged to master.  *master is the PowerNSX development branch.* While I try to avoid breaking things here, it's not guaranteed, and you may encounter issues on both platforms. (I almost guarantee there are PowerNSX Core issues waiting to be found, but it's possible I've killed something on normal PowerNSX too.)
+            
+        <p>If you are a PowerNSX user, I encourage you to get the latest from master and test it.  Use it.  Use it on Core.  Report issues on the github site.  But.  Please don't expect it to be bug free and tread with caution if you are using this on production/critical NSX environments.</p>
+        
+        <p>With the introduction of a test framework, I'm also very interested in getting people to contribute tests!  It's well documented, with a template test that you can duplicate to start a new 'Area of tests', or alternatively, you can add tests to existing areas.  Tests are based on pester, a tool with lots of readily googleable information available out there.  If you want to contribute here and hit issues, please reach out on the issues page.
+            
+        So, with that, Merry Christmas NSX'ers.  Hopefully PowerNSX is of use to you, and that Core support will help lay the groundwork for encouraging a whole new class of users to be able to leverage the awesome CLI and automation framework that is PowerShell on their Macbooks and Linux workstations.  In the coming months, I hope to leverage this work to release an appliance format of PowerNSX, and get PowerNSX included in the PowerCLI docker image.  Watch this space...</p>
+        
+        <p>Nick</p>
+        <h2 id="blog070517">Recent updates in PowerNSX</h2>
+        <h2 id="blog141116">NSXv Full Stack deployment</h2>
+        <h2 id="blog031116">Copy NSX Edge</h2>
+            <p>There are a lot of times where people have asked it would be great to have an ability to clone an edge. Take all the configuration and duplicate it easily. Well now you can. The Copy-NsxEdge function takes an already deployed Edge and allow it to be reproduced.  When thinking about the command on the surface it does seem quite simple. Take an edge, pass it along the pipeline, and copy it. In reality there is a lot to consider, especially when you want to avoid conflicts.</p>
+            <p>This large cmdlet checks in at over 1000 lines of code. Don't let that put you off though. The cmdlet can be easily used with get-nsxedge edge01 | copy-nsxedge. So what does it support out of the box? Let us have a look-see.</p>
+            <p>It accomodates the following edge features:</p>
+            <ul>
+                <li>Interface IPs</li>
+                <li>Secondary Addresses</li>
+                <li>Load Balancer VIPs</li>
+                <li>Self Signed certificate regeneration</li>
+                <li>SSL VPN configurations</li>
+                <li>IPSEC configurations</li>
+                <li>NAT and DFW elements</li>
+                <li>Local objects</li>
+            </ul>
+            <br>
+            <b>An example</b>
+            <p>The edge ecmp-edge1 is part of a 6 node ECMP cluster. There are some bandwidth considerations that have caused the team to quickly need to deploy an additional edge. Using ecmp-edge1 as the source the following command,  get-nsxedge edge-ecmp1 | copy-nsxedge</p>
+            <clr-code-snippet [clrCode]="Blog031116Copy"></clr-code-snippet>
+            <p>Note that the command will look at areas of configuration duplication and seek to modify them. By updating the IP address 172.16.10.11 and 172.16.20.11 to 172.16.10.17 and 172.16.20.17 both the interfaces are changed and the router-id used for BGP configuration is changed. Given that the north and south peers in this topology are the same this edge is ready to participate in BGP.</p>
+            <p>Some fields must be changed and that is mandatory. There are a list of other fields that can be modified too. This allows an edge to have a slightly different configuration than the source.
+                
+            This cmdlet is in the master branch currently and not in v2. You will have to venture into the development train - beware, there be dragons!</p>
+            <p>Happy copying! Remember - if in doubt, use Get-Help!</p>
+
+        <h2 id="blog201016">NSX Visio Diagramming Tool</h2>
+            
+        <h2 id="blog090816">Searching DFW rules for logging status</h2>
+        
+        <div style="visibility: hidden; height: 80vh;">This is a spacer to force sidenav highlighting on scroll</div>
+</main>
+
+
+
+<nav class="sidenav" [clr-nav-level]="2">
+    <section class="sidenav-content">
+        <section class="nav-group" [scrollspy]="scrollable">
+            <label class="bump-down"><a class="nav-link" routerLink="." fragment="blog">PowerNSX Blog</a></label>
+                <ul class="nav-list">
+                    <li><a class="nav-link" routerLink="." fragment="blog021216">An early Christmas present</a></li>
+                    <li><a class="nav-link" routerLink="." fragment="blog070517">Recent updates in PowerNSX</a></li>
+                    <li><a class="nav-link" routerLink="." fragment="blog021215">NSXv Full Stack deployment</a></li>
+                    <li><a class="nav-link" routerLink="." fragment="blog031116">Copy NSX Edge</a></li>
+                    <li><a class="nav-link" routerLink="." fragment="blog201016">NSX Visio Diagramming Tool</a></li>
+                    <li><a class="nav-link" routerLink="." fragment="blog090816">earching DFW rules for logging status</a></li>
+                    
+                </ul>
+        </section>
+    </section>
+    </nav>

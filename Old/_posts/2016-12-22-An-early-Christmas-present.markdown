@@ -31,9 +31,7 @@ In the process I learned a lot about PowerShell, dotNet Core, git, some (most!) 
 
 ## One Module to Rule Them All
 
-When I first started testing PowerNSX on PowerShell Core, I had no idea how easy or hard the process of porting it would be.
-
-Simple test - does the module load?  No?  Why?  Fix?  Move On.  Can I connect to NSX server?  No?  Why?  Fix?  Move on... you get the idea.
+When I first started testing PowerNSX on PowerShell Core, I had no idea how easy or hard the process of porting it would be. Simple test - does the module load?  No?  Why?  Fix?  Move On.  Can I connect to NSX server?  No?  Why?  Fix?  Move on... you get the idea.
 
 After a few days of work though it became apparent that not only would it be possible to port it, but, it should be possible (and definitely desirable) for the one module to load on either platform.  Sure, there were areas where I had to detect what platform the module was running on in order to deal with some specifics, but these were for the most part limited to two key areas - both of which I've been able to refactor to allow the cmdlets to remain mostly untouched.  XML XPath handling, and use of Invoke-WebRequest.  I'll cover both of them separately below.
 
