@@ -64,6 +64,51 @@ queryDaemon       : queryDaemon
 edgeSummary       : edgeSummary
 `;
 
+const BLOG_080916_RULES = `
+PS /> Get-NsxFirewallSection | Get-NsxFirewallRule | Where-object { $_.logged -ne 'true' }
+
+id            : 1148
+disabled      : false
+logged        : false
+name          : DNS Consumer to Provider
+action        : allow
+appliedToList : appliedToList
+sectionId     : 1115
+sources       : sources
+destinations  : destinations
+services      : services
+direction     : inout
+packetType    : any
+tag           : DnsCtP
+
+id            : 1147
+disabled      : false
+logged        : false
+name          : DNS Provider to Consumer
+action        : allow
+appliedToList : appliedToList
+sectionId     : 1115
+sources       : sources
+destinations  : destinations
+services      : services
+direction     : inout
+packetType    : any
+tag           : DnsPtC
+`;
+
+const BLOG_080916_RULES_DISABLED = `
+PS /> Get-NsxFirewallSection | Get-NsxFirewallRule | Where-object { $_.logged -ne 'true' } | Select id, name
+
+id   name
+--   ----
+1148 DNS Consumer to Provider
+1147 DNS Provider to Consumer
+`;
+
+const BLOG_080916_RULES_EXPORT = `
+PS C:\> Get-NsxFirewallSection | Get-NsxFirewallRule | Where-object { $_.logged -ne 'true' } | Select id, name | export-csv c:\temp\nonloggedrules.csv
+`;
+
 @Component({
     selector: "blog",
     templateUrl: "./blog.component.html",
@@ -79,6 +124,11 @@ export class BlogComponent {
 
     public Blog021216WebReponse = BLOG_021216_WEBRESPONSE;
     public Blog021216Invoke = BLOG_021216_INVOKE;
+    
     public Blog031116Copy = BLOG_031116_COPY;
+
+    public Blog080916RulesExport = BLOG_080916_RULES_EXPORT;
+    public Blog080916Rules= BLOG_080916_RULES;
+    public Blog080916RulesDisabled = BLOG_080916_RULES_DISABLED;
 
 }

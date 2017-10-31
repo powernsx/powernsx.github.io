@@ -38,13 +38,23 @@
         <p>In PowerNSX, I chose to disable progress dialogs when the module loads on Core to deal with one of these problems.  I introduced $PowerNSXConfiguration.ProgressReporting = $false to deal with this.  You can toggle this if you want them back, though you will probably turn it off again pretty quickly (at least with the way that alpha-14 behaves).  Note that $PowerNSXConfiguration is not persistent (yet - though I plan to make it so and expand on it in future commits).
         </p>
         <b>Invoke-RestMethod and Invoke-WebRequest Round One</b>
-
+        <p>Initially, I didn't start work on the port until Invoke-RestMethod and Invoke-WebRequest (aka irm and iwr) supported the -SkipCertificateCheck flag.  The reason for this was the normal method of avoiding certificate validation on PowerShell Full (something that PowerNSX relies on, as virtually no-one actually has a valid certificate on their NSX Manager) was to create an in-memory class derived from ICertificatePolicy that overrides the CheckValidationResult method, and then assign an instance of this class to [System.Net.ServicePointManager]::CertificatePolicy, and this method was not applicable to PowerShell Core, as the underlying dotNet classes used to back irm and iwr were completely different (HTTPClient) to that on Full (WebRequest) and hence used different mechanisms for certificate validation.
+        </p>
+        <p>So - along came a much smarter person than me, and <a href="https://github.com/PowerShell/PowerShell/issues/1945">this</a> was raised, and resolved in alpha-13 with -skipcertificatechecks, and I thought I was <a href="http://www.slang-dictionary.org/australian-slang/Home_and_hosed">home and hosed</a>...Fool!</p>
+        <p>Oh - and if you do care about certificate validation - you can use the -ValidateCertificate switch on Connect-NsxServer to enable it.</p>
         <br>
         <b>dotNet Core -ne dotNet full</b>
-        
+        <p>Unlike Powershell, dotNet Core is a very different beast to its Windows relative - dotNet full; so much so that it is an absolute credit to the PowerShell team and PowerShell's architecture in general that the experience on Core is so familiar and for the most part, that the purely PowerShell parts of a 20K line module of PowerShell hackery (PowerNSX) will run unmodified on it.</p>
+    
+        <p>Unfortunately, PowerNSX relies heavily on several dotNet classes directly - most significantly, the native dotNet classes for XML handling.  Because the NSX API is XML based, PowerNSX does a lot of internal operations directly on the XML using a query language called XPath.  The problem is, although XPath exists on dotNet Core, it is supported by a different dotNet namespace, and there are over 400 individual uses of XPath in PowerNSX.
+        </p>
+        <p>So this one - dotNet problem number one - was relatively easy to solve.  Thankfully, although the class that provides XPath support on Core is different, the two methods I used over and again - SelectNodes() and SelectSingleNode() - had similar interfaces and returned types that behaved similarly enough on both platforms.  So - Invoke-XpathQuery was born.
+        </p>
+        <p>Now, instead of calling $xml.SelectSingleNode("child:mychild"), PowerNSX cmdlets would have to call Invoke-XpathQuery("SelectSingleNode", $xml, $queryString).  Now, with 438 uses of XPath, I wasn't about to change all these by hand.  Suffice to say, I spent a lot of time on that regex ;), but the refactoring was relatively straightforward and things appear to work consistently on both platforms.  Note though, that this change touched a lot of PowerNSX, and affects its use on Windows, as well as Core, so I really was nervous about releasing it.  So much so that I've sat on it for several months now before merging to the PowerNSX github repo.
+        </p>
         <br>
         <b>Invoke-RestMethod and Invoke-WebRequest Round Two</b>
-        
+        <p>Freshly armed with working certificate validation avoidance mechanisms and refactored XPath queries, I marched forward into the breach once again.  Vast swathes of cmdlets fell to my tests.  For the most part these two things resolved the majority of issues with the port in one fell swoop.  But... the light at the end of the tunnel actually turned out to be a train heading straight for me...</p>
         <br>
         <b>The Case of the Missing WebResponse</b>
 
@@ -106,7 +116,81 @@
         
         <p>Nick</p>
         <h2 id="blog070517">Recent updates in PowerNSX</h2>
+            <p></p>
+            <p></p>
+            <ul>
+                <li>SSO User Accounts <a href="https://github.com/vmware/powernsx/pull/175">#175</a></li>
+                <li>Leverage SSO user accounts with PowerNSX</li>
+                <li>No longer require 'admin' access to NSX</li>
+                <li>Changes in Connect-NsxServer cmdle</li>
+            </ul> 
+            <ul>
+                <li>Universal Logical Routers <a href="https://github.com/vmware/powernsx/commit/509c1566310b2bddf756cd076ebdda6773823a7f">#218</a></li>
+                <li>Create Universal Logical Routers as part of a xVC deployment</li>
+                <li>Configure local egress on deployment</li>
+            </ul>
+            <ul>
+                <li>Universal Logical Switch</li>
+                <li>Create Universal Logical Switches with the -Universal switch</li>
+            </ul>
+            <ul>
+                    <li>Universal Service Group & Inheritance <a href="https://github.com/vmware/powernsx/commit/6d9868067e358e86537fa32cfc097752accccefd">#219</a></li>
+                    <li>Create Service Groups that can be universal</li>
+                    <li>Create Service Groups that can be inherited</li>
+                    <li>Uses existing cmdlet and adds a -universal parameter</li>
+           
+            </ul>
+            <ul>
+                    <li>Universal Segment Range <a href="https://github.com/vmware/powernsx/commit/6d9868067e358e86537fa32cfc097752accccefd">#217</a></li>
+                    <li>Define a Universal Segement range for Universal Logical Switches</li>
+                    <li>Uses existing cmdlet and adds a -universal parameter</li>
+            </ul>  
+            <p>One from our community was from Sjors Robroek</p>
+            <ul>
+                <li>Universal Objects<a href="https://github.com/vmware/powernsx/pull/214">#214</a></li>
+                <li>Now it is possible to create Universal Security Tags for use with xVC NSX</li>
+                <li>Create / Attach / Remove / Delete operations</li>
+                <li>Uses existing cmdlet and adds a -universal parameter</li>
+            </ul>
+            <p>Check out the master branch where all the goodies are currently hiding. Do note that the Master branch is considered developmental.</p>
+            
         <h2 id="blog141116">NSXv Full Stack deployment</h2>
+            <p>In our line of work we are often deploying NSX environments in the lab. One of our labs allows us to deploy a multi-cluster vSphere environment and configure it with storage, clusters, vCenter elements, and DVS with PowerCLI very quickly. This allows our team to quickly deploy a topology and validate a customer environment, squash a bug, or configure a new integration.</p>
+            <br>
+            <b>Automate all the things</b>
+            <p>With all these new environments it is pretty painful and slow to deploy NSX again and again. So here is the script we use to deploy NSX from nothing and deploy it all the way through to a working 3 Tier App.</p>
+            <br>
+            <b>Why now?</b>
+            <p>To be frank, we've been sitting on something like this since January and just assume it was useful to use. Time to dust it off and share with the wide world.</p>
+            <br>
+            <b>Running the script</b>
+            <p>There are a heap of parameters that you will need to adjust for your environment. Storage and Cluster names are the ones that are most likely to be different. IP addresses too. The idea of this script is that you can take the code you need and create something of your own.</p>
+            
+            <p>By running `./NSXBuildFromScratch.ps1` the following will occur:</p>
+            <ul>
+                <li>Validate and collect Virtual Infrastructure</li>
+                <li>Deploy NSX Manager</li>
+                <li>Register NSX Manager</li>
+                <li>Deploy NSX Controller</li>
+                <li>Prepare vSphere clusters for DFW/VXLAN</li>
+                <li>Configure VNI and Transport Zone</li>
+            </ul>
+            <p>Whilst the infrastructure is deploying there are checks to ensure if timeouts occur they are handled. This pertains mostly to the Host preparation steps.</p>
+            <p>Once completed the 3 Tier Application is deployed.</p>
+            <ul>
+                <li>Logical Switches</li>
+                <li>Logical Router</li>
+                <li>Edge</li>
+                <li>Edge Load Balancer</li>
+                <li>Edge and DLR routing</li>
+                <li>DFW</li>
+                <li>Deploy vApp</li>
+            </ul>
+            <p>So what are you waiting for? Grab the script, download the 3 Tier App OVA and get your groove on!</p>
+            <p><a href="https://github.com/vmware/powernsx/blob/master/Examples/NSXBuildFromScratch.ps1">Download the script</a></p>
+            <p><a href="http://goo.gl/oBAFgq">Download the Bookstore 3 Tier App here</a></p>
+        
+      
         <h2 id="blog031116">Copy NSX Edge</h2>
             <p>There are a lot of times where people have asked it would be great to have an ability to clone an edge. Take all the configuration and duplicate it easily. Well now you can. The Copy-NsxEdge function takes an already deployed Edge and allow it to be reproduced.  When thinking about the command on the surface it does seem quite simple. Take an edge, pass it along the pipeline, and copy it. In reality there is a lot to consider, especially when you want to avoid conflicts.</p>
             <p>This large cmdlet checks in at over 1000 lines of code. Don't let that put you off though. The cmdlet can be easily used with get-nsxedge edge01 | copy-nsxedge. So what does it support out of the box? Let us have a look-see.</p>
@@ -132,9 +216,47 @@
             <p>Happy copying! Remember - if in doubt, use Get-Help!</p>
 
         <h2 id="blog201016">NSX Visio Diagramming Tool</h2>
+            <p>At VMworld US and Europe this year, Nick Bradford and I presented on PowerNSX. PowerNSX provides a PowerShell module featuring a substantial number of cmdlets that cover the NSX API. Working in concert with PowerCLI it becomes possible to interact via a command line or programmatically with the NSX for vSphere API.</p>
+            <p>One section Nick provided a bit of an ad-lib to the session with regards to PowerNSX. He showed off the Visio Diagramming tool. When asked if this was something “needed” - all hands were up and people were out of their seats. Claps and Cheers went up! Well - now here it is - ready for anyone to use.</p>
+            <p>The <a href="https://github.com/vmware/powernsx/tree/master/tools/DiagramNSX">NSX Visio Diagramming tool</a> provides everyone the chance to diagram their network programmatically. This removes the human time and error elements from documentation. Run the tool and within a minute (if not seconds) you have the data you need to visualise your environments current state.</p>
+            <br>
+            <b>The Tool</b>
+            <p>The tool is broken into two parts - a bundle capture script and a digram script. The Bundle script allows the PowerNSX diagramming tool will automatically go off and gather the logical topology and components from NSX and vCenter to determine what a logical topology looks like. This includes but is not limited to NSX Edges, Attached Logical Switches, Distributed Logical Routers, Distributed Port Groups, Virtual Switches and the Virtual Machines that are attached to these networks. It also supports the documentation of multi-vNIC Virtual Machines. It will collect all these, store the contents in respect</p>
+            <p>The Diagram script will take a defined bundle and the data contained with the aforementioned bundle and build the topology. By using PowerShell to read and interpret the bundle it will use Visio’s API’s via PowerShell to build out the topology. Using “pretty and shiny” icons the tool will place down the respective devices and topology captured in the bundle. It will then make auto-distance objects to ensure it is readable.</p>
+            <p>The reason the capture and diagram functions were split out was usability. It allows capture to take place on a machine ‘in production’ through a scheduled task or administrator running it. These machines may or may not have Vision installed. This could be due to the box not having a Visio license or the device (such as an admin desktop) does not have access to production. The bundles can be accessed via a share or central repo and the diagram tool can be run from the administrators laptop.</p>
+            <p>By time stamping the .ZIP bundle this allows for a point in time capture of the environment. Performed weekly, daily, or hourly, this provides a repository of “as is” topology maps that can be used for diagrams, troubleshooting, charts, or aiding GSS when ticket issues arise.</p>
+            <br>
+            <b>Using the Tool</b>
+            <p>First step is to run the NsxObjectCapture.ps1 script. This script requires an existing connection to NSX Manager and vCenter. (Connect-NsxServer and Connect-ViServer)</p>
+            <p><img src="http://networkinferno.net/wp-content/uploads/2016/10/Screenshot-2016-10-20-13.03.32.png" /></p>
+            <p>This will go off and collection all NSX Objects related to the logical topology and store it in a bundle.</p>
+            <p><img src="http://networkinferno.net/wp-content/uploads/2016/10/Screenshot-2016-10-20-16.07.09.png"/></p>
+
+            <p>Running the NsxObjectDiagram.ps1 script with the defined -CaptureBundle it will Launch Visio and turn the content of the bundle into a logical diagram. It will step through each component and stack it on the canvas. Based on the data inside the bundle it will process what an object is, select the right icon, and apply its connected members to it.</p>
+            
+            <p>And below is the result of a basic 3 Tier application being drawn by the tool. It will auto-format the layout as the last step it does.</p>
+            <p><img src="http://networkinferno.net/wp-content/uploads/2016/10/Screenshot-2016-10-20-16.07.47.png"/></p>
+            
+            <br>
+            <b>Bonus</b>
+            <ul>
+                <li> Within the shape data itself there the XML that represents the object. For example if you select an NSX Edge it has the relevant XML for the given edge. A Logical Switch includes the API output of that is the Edge</li>
+                <li>Multi-vNIC VM’s are supported</li>
+                <li>Use your own icons by modifying the contents of nsxdiagram.vssx</li>
+            </ul>
+            <p>From one switch to hundreds. A logical router to dozens of edges. Ten VMs to ten thousand. This tool can handle this! Diagram with ease thanks to NSX Visio Diagramming tool! Get it today and as always, open an Issue if you want to see a feature added. Another creation from the Wizard that is Nick Bradford!</p>
+            
+            
             
         <h2 id="blog090816">Searching DFW rules for logging status</h2>
-        
+            <p>A colleague reached out to the PowerNSX team recently. The request was on behalf of a customer who had inconsistent logging status for their DFW rules. This can be done with PowerNSX.</p>
+            <p>The first example will retrieve all sections, retrieve all DFW rules within the sections and search the property logged. If it is not equal to true it will return the matches.</p>
+            <clr-code-snippet [clrCode]="Blog080916Rules"></clr-code-snippet>
+            <p>The second example will output the rules that do not have syslog enabled. The properties in the output are defined by those after select. The output will be id and name.</p>
+            <clr-code-snippet [clrCode]="Blog080916RulesDisabled"></clr-code-snippet>
+            <p>The third example will take these values and export it to a csv file for use in Excel or another application.</p>
+            <clr-code-snippet [clrCode]="Blog080916RulesExport"></clr-code-snippet>
+            <p>Happy days! Operations made easy with PowerNSX.</p>
         <div style="visibility: hidden; height: 80vh;">This is a spacer to force sidenav highlighting on scroll</div>
 </main>
 
@@ -147,7 +269,7 @@
                 <ul class="nav-list">
                     <li><a class="nav-link" routerLink="." fragment="blog021216">An early Christmas present</a></li>
                     <li><a class="nav-link" routerLink="." fragment="blog070517">Recent updates in PowerNSX</a></li>
-                    <li><a class="nav-link" routerLink="." fragment="blog021215">NSXv Full Stack deployment</a></li>
+                    <li><a class="nav-link" routerLink="." fragment="blog141116">NSXv Full Stack deployment</a></li>
                     <li><a class="nav-link" routerLink="." fragment="blog031116">Copy NSX Edge</a></li>
                     <li><a class="nav-link" routerLink="." fragment="blog201016">NSX Visio Diagramming Tool</a></li>
                     <li><a class="nav-link" routerLink="." fragment="blog090816">Searching DFW rules for logging status</a></li>
