@@ -1,6 +1,25 @@
 <main id="content-area" class="content-area" hash-listener #scrollable>
-    <h1 id="blog">PowerNSX Blog</h1>
-    <p> Below contains the PowerNSX blog maintined by the team. Use the scroll bar on the left to jump to a specific entry. Enjoy!</p>
+        <h2 id="blog">PowerNSX Blog</h2>
+        <p> Below contains the PowerNSX blog maintined by the team. Use the scroll bar on the left to jump to a specific entry. Enjoy!</p>
+
+        <h3 id="blog021117">Release Project Magpie</h3>
+        <br>
+        <b> Welcome to Magpie </b>
+        <p><img src="../assets/images/blog/magpie.png"/></p>
+        
+        <p>And now for somethig completely different from the team that brought you PowerNSX. Introducing Project Magpie. Project Magpie may be of interest to PowerNSX users as the Magpie appliance contains various tools to support operation and management of VMware NSX deployments. The Multi Acccess General Purpose Infrastructure Explorer is built to be a modular framework. This approach allows new tools to be integrated into Magpie in the future. Today's release is MVP (Minimum Viable Product) but the team is sitting on some great plugins to launch soon. Watch this space.</p>
+
+        <p>Release v0.1 Magpie contains:</p>
+        <ul>
+            <li>Multi-user - Create accounts for all users that require access to PowerNSX</li>
+            <li>PowerCLI/NSX Web Interface - Deploy the appliance once and immediately access PowerNSX / PowerCLI from anywhere via a web browser</li>
+            <li>Dynamic Module documentation - The Magpie appliance puts that at your fingertips via its documentation tab where you can access searchable PowerNSX documentation.</li>
+        </ul>
+
+        <p>Magpie will be released as opensource as soon as we sort out some architectural challenges and direction. It is provided free of charge and without warranty of any kind.</p>
+        
+        <p>Get started with Magpie today over at <a href="https://github.com/nmbradford/magpie-release/releases">Github</a>.</p>
+        
 
         <h2 id="blog021216">An early Christmas present</h2>
         <p>I'm breaking a long standing tradition of not blogging, because for once I feel like I truly have something interesting to talk about! :)</p>
@@ -267,6 +286,7 @@
         <section class="nav-group" [scrollspy]="scrollable">
             <label class="bump-down"><a class="nav-link" routerLink="." fragment="blog">PowerNSX Blog</a></label>
                 <ul class="nav-list">
+                    <li><a class="nav-link" routerLink="." fragment="blog021117">Release - Project Magpie</a></li>
                     <li><a class="nav-link" routerLink="." fragment="blog021216">An early Christmas present</a></li>
                     <li><a class="nav-link" routerLink="." fragment="blog070517">Recent updates in PowerNSX</a></li>
                     <li><a class="nav-link" routerLink="." fragment="blog141116">NSXv Full Stack deployment</a></li>
