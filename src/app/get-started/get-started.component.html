@@ -14,7 +14,7 @@
     <h2 id="masterInstall">Installing PowerNSX</h2>
     <p>PowerNSX can be installed through a number of methods. Getting started with PowerNSX is quick and efficient thanks to distribution via PowerShell Gallery. For macOS and Linux users this can be via the Install script or performed manually.
 
-    With the release of PowerNSX version 3, PowerNSX is now available via the PowerShell Gallery. Installation is as simple as the following:</p>
+    With the lastest release, PowerNSX is now available via the PowerShell Gallery. Installation is as simple as the following:</p>
             
     <clr-code-snippet
     [clrCode]="'Find-Module PowerNSX | Install-Module -scope CurrentUser'"
@@ -53,17 +53,14 @@
     <h3 id="nsxinstallwindows">Auto Installer - Windows</h3>
     <p>The Installer script remains functional and supported for installation of PowerNSX version 3.0
             
-    The following PowerShell oneliners will download and execute the PowerNSX installer and install the appropriate version. Allthough PowerShell 3 is required for PowerNSX, the installer script will run on PowerShell 2 and above, and will guide you through the process of installing all PowerNSX pre-requisites (including updating PowerShell.)
+    The following PowerShell oneliners will download and execute the PowerNSX installer and install the appropriate version. Although PowerShell 3 is required for PowerNSX, the installer script will run on PowerShell 2 and above, and will guide you through the process of installing all PowerNSX pre-requisites (including updating PowerShell.)
             
     Note: Internet access is required.</p>
     
-    <p>Installing the latest stable branch - v3:</p>
+    <p>Installing the lastest PowerNSX:</p>
 
     <clr-code-snippet [clrCode]="nsxAutoInstallWindowsMaster"></clr-code-snippet>
-    
-    Installing the master branch - active development branch:
-
-    <clr-code-snippet [clrCode]="nsxAutoInstallWindowsV3"></clr-code-snippet>   
+     
     
     <h3 id="manualInstallwindows">Manual Install - Windows</h3>
     <p>It is possible to install PowerNSX manually. The following pre-requisites must be met before the module will load successfully.</p>
@@ -159,13 +156,9 @@
             
     Note: Internet access is required</p>
 
-    <p>Installing the latest stable branch - v3:</p>
+    <p>Installing the latest version:</p>
     
     <clr-code-snippet [clrCode]="nsxAutoInstallMaclinMaster"></clr-code-snippet>
-        
-    Installing the master branch - active development branch:
-    
-    <clr-code-snippet [clrCode]="nsxAutoInstallMaclinV3"></clr-code-snippet> 
 
     <h3 id="manualInstallmacoslinux">Manual Install macOS-Linux</h3>
     <p>It is possible to install PowerNSX manually.</p>
